@@ -13,6 +13,8 @@ TagManager:
   - Dishwasher
   - Seat
   - LeavePt
+  - Sink
+  - BoxHolder
   - NPC
   layers:
   - Default
