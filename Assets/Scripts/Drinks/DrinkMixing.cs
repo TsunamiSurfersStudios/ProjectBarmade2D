@@ -9,6 +9,7 @@ public class DrinkMixing : MonoBehaviour, IPointerClickHandler
     public enum DrinkType { Alcohol, Soda }
     public GameObject[] AlcoholBottles;
     public GameObject[] SodaBottles;
+    [SerializeField] private GameObject drinkMixingStation;
 
     [Header("Ice Values")]
     [SerializeField] private GameObject iceTray;
@@ -25,6 +26,8 @@ public class DrinkMixing : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
+        limesVolume = GameObject.FindWithTag("DrinkStation").GetComponent<drinkMixingStation>().limesVolume;
+        
         //Spawn ice cubes in the tray based on the ice tray volume
         PopulateTray(iceTray.GetComponent<IceTray>().iceTrayVolume, iceTrayUI, iceSprite);
 
