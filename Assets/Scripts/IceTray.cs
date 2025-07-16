@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class IceTray : MonoBehaviour
 {
-    public float iceTrayVolume = 0f; // TODO: Instead of being public we should have a getter/setter. 
-    public float iceMachineVolume = 100f;
+    float trayVolume = 0f; 
+    float trayCapacity = 100f;
     [SerializeField] private Animator animator;
 
 
@@ -15,12 +15,17 @@ public class IceTray : MonoBehaviour
         {
             return;
         }
-        if (iceTrayVolume <= 100f && iceTrayVolume > 50f)
+        ShowAnimatorState();
+    }
+
+    void ShowAnimatorState()
+    {
+        if (trayVolume <= 100f && trayVolume > 50f)
         {
             animator.SetBool("isHalfEmpty", false); // TODO: This can definetley be optimized. Also this should be in a function not in the update function
             animator.SetBool("isFull", true);
         }
-        else if (iceTrayVolume <= 50f && iceTrayVolume > 0f)
+        else if (trayVolume <= 50f && trayVolume > 0f)
         {
             animator.SetBool("isFull", false);
             animator.SetBool("isHalfEmpty", true);
@@ -30,21 +35,43 @@ public class IceTray : MonoBehaviour
             animator.SetBool("isHalfEmpty", false);
             animator.SetBool("isFull", false);
         }
+    }
+    public float GetVolume()
+    { 
+        return trayVolume; 
+    }
 
-        // TODO: IceTray should inherit from interaction controller. Therefore we will also need private void increaseTrayVolume(amount) and decreaseTrayVolume(amount)
-        if (Input.GetKeyDown(KeyCode.E)){ //temp way to increase value
-            if (iceTrayVolume < 100f)
-            {
-                iceTrayVolume += 1f;
-            }
+    public void CheckForIce()
+    {
+        ItemHolder holder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        GameObject ice = holder.TakeObject();
+        if (ice && ice.name == "Ice" )
+        {
+            Destroy(ice);
+            RefillTray();
         }
+        else
+        {
+            holder.GiveObject(ice);
+        }
+           
+    }
+    public void RefillTray(float amount = 100) 
+    {
+        trayVolume += amount;
+        if (trayVolume > trayCapacity)
+        {
+            trayVolume = trayCapacity;
+        }
+        Debug.Log("Ice Tray Refilled");
+    }
 
-        if (Input.GetKeyDown(KeyCode.Q)){ //temp way to decrease value
-            if (iceTrayVolume > 0f)
-            {
-                iceTrayVolume -= 1f;
-            }
-        }    
-
+    public void EmptyTray(float amount = 100)
+    {
+        trayVolume -= amount;
+        if (trayVolume < 0)
+        {
+            trayVolume = 0;
+        }
     }
 }

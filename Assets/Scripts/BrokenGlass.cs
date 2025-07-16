@@ -37,11 +37,11 @@ public class BrokenGlass : MonoBehaviour
                     playerStats.changePickUp();
                     HandleCollisionWithNpc();
                 }
-                else if(playerMovement.collidingWithDishwasher == false)
+                /*else if(playerMovement.collidingWithDishwasher == false)
                 {
                     playerStats.changePickUp();
                     DropItem();
-                }
+                }*/
                 
             }
             else if(touchingDrink && playerStats.getPickingUp() == false)
