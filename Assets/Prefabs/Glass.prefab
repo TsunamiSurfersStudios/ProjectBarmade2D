@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8584633740644552620}
   - component: {fileID: 6359690763525623153}
   - component: {fileID: 860261437879038725}
-  - component: {fileID: 251200054273099909}
+  - component: {fileID: 9210036945962434738}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Glass
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dirtyGlass: 1
---- !u!114 &251200054273099909
+--- !u!114 &9210036945962434738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,14 +182,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7780151734705480573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c39c7d045c9e7d94ba107af11aefe34e, type: 3}
+  m_Script: {fileID: 11500000, guid: a960b71bb8272e843a2dee352137fd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdSpot: {fileID: 0}
-  pickUpMask:
-    serializedVersion: 2
-    m_Bits: 64
-  npcMask:
-    serializedVersion: 2
-    m_Bits: 128
-  touchingDrink: 0
+  OnBoxCollide:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBoxExit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemDisable:
+    m_PersistentCalls:
+      m_Calls: []
+  ItemInteractionChecks:
+    m_PersistentCalls:
+      m_Calls: []
+  KEYBIND: 101

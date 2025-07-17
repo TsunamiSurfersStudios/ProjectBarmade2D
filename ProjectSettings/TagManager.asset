@@ -13,10 +13,12 @@ TagManager:
   - Dishwasher
   - Seat
   - LeavePt
+  - TrashCan
   - Sink
   - BoxHolder
   - NPC
   - Enemy
+  - LeavePoint
   layers:
   - Default
   - TransparentFX
@@ -54,12 +56,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1886961135
+    locked: 0
+  - name: NPC
+    uniqueID: 3096702705
+    locked: 0
   - name: Player
     uniqueID: 613540361
     locked: 0
   - name: Object
     uniqueID: 1484465501
     locked: 0
-  - name: NPC
-    uniqueID: 3096702705
+  - name: UI
+    uniqueID: 2376884963
     locked: 0

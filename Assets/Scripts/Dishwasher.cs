@@ -6,34 +6,29 @@ public class Dishwasher : MonoBehaviour
 {
     public GameObject Itemholder;
 
-    private bool CollidingWithPlayer = false;
-    private int ItemsHeld = 0;
-    private bool washingDishes = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool CollidingWithPlayer = false; // TODO: We do not need this
+    private int ItemsHeld = 0; // TODO: We do not need this
+    private bool washingDishes = false; // TODO: Potential rename: dishwasherRunning or dishwasherActive? 
 
     // Update is called once per frame
     void Update()
     {
         //if player is colliding with dishwasher and presses E
-        if (Input.GetKeyDown(KeyCode.E) && CollidingWithPlayer)
+        if (Input.GetKeyDown(KeyCode.E) && CollidingWithPlayer) // TODO: Use InteractableController instead of testing for collision in here
         {
-            ItemsHeld = Itemholder.transform.childCount;
+            ItemsHeld = Itemholder.transform.childCount; // TODO: Turn ItemHolder into a class so we can call itemholder.isEmpty();
             if (ItemsHeld > 0)
             {
                 // check if glass is dirty
-                if (Itemholder.transform.GetChild(0).GetComponent<Glass>().dirtyGlass)
+                if (Itemholder.transform.GetChild(0).GetComponent<EmptyGlass>().IsDirty()) // TODO: This should be a function instead of having publicly exposed variable. 
                 {
                     washingDishes = true;
-                    Debug.Log("Glass is dirty");
+                    Debug.Log("Glass is dirty"); // TODO: Why do we have a Debug.Log at every step. Is this necessary? 
                     //use coroutine to simulate an actual dishwasher similar to threads
-                    StartCoroutine(WashDishes());
+                    StartCoroutine(WashDishes()); // TODO: Why are we doing this??? 
 
                     //clean glass
-                    Itemholder.transform.GetChild(0).GetComponent<Glass>().dirtyGlass = false;
+                    Itemholder.transform.GetChild(0).GetComponent<EmptyGlass>().SetDirty(false); // TODO: This needs a setter
                 }
                 else
                 {
@@ -67,8 +62,9 @@ public class Dishwasher : MonoBehaviour
         yield return new WaitForSeconds(5);//simialr to .Next(5000) which means 5 secs
         Debug.Log("Dishes are clean");
         washingDishes = false;
-    }
+    } // TODO: Why are we doing it this way? Can it be done better? 
 
+    // TODO: Everything below this should be replaced and substituted with InteractionController
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -85,3 +81,12 @@ public class Dishwasher : MonoBehaviour
         }
     }
 }
+
+/* TODO: 
+ * Remove functionality from Update function
+ * Use InteractionController instead of controlling interactions from dishwasher script
+ * Turn ItemHolder into a class so we can call itemholder.isEmpty();
+ * dirtyGlass should have a getter/setter instead of being publicly exposed
+ * We should create a HoldableObject class that 'Glass' can inherit from that has a function to 'hand object to player'
+ * Revisit "coroutine" and examine peak otimized way to acheive this
+ */

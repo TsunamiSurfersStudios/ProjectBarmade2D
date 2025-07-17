@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.4073972, y: -0.21232992, z: 0.011714712}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2629481, y: 0.26294813, z: 0.26294813}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7630707883102678500}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 2114568211560935622}
   - component: {fileID: 1244932114897313682}
   - component: {fileID: 4849299715863928521}
-  - component: {fileID: 4251725586050757529}
+  - component: {fileID: 6267302851711378910}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -107,9 +107,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1484465501
+  m_SortingLayer: 4
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 2cf3052720da1d64192dc75762c6bb43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -193,7 +193,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &4251725586050757529
+--- !u!114 &6267302851711378910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,11 +202,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6924471760643131833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47d9d30d409784944b12ea5553061fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KEYCODE: 101
-  isClone: 0
+  percentage: 0
+  drink: {fileID: 0}
 --- !u!1 &7501475986329201856
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   percentage: 0
   drink: {fileID: 6924471760643131833}
-  touchingDrink: 0
 --- !u!1 &7744168998812471581
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +299,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   percentage: 0
   drink: {fileID: 6924471760643131833}
-  touchingDrink: 0
 --- !u!1001 &4968910864071590090
 PrefabInstance:
   m_ObjectHideFlags: 0
