@@ -16,6 +16,7 @@ TagManager:
   - Sink
   - BoxHolder
   - NPC
+  - Enemy
   layers:
   - Default
   - TransparentFX
