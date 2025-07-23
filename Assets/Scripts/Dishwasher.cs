@@ -20,7 +20,7 @@ public class Dishwasher : MonoBehaviour
             if (ItemsHeld > 0)
             {
                 // check if glass is dirty
-                if (Itemholder.transform.GetChild(0).GetComponent<Glass>().dirtyGlass) // TODO: This should be a function instead of having publicly exposed variable. 
+                if (Itemholder.transform.GetChild(0).GetComponent<EmptyGlass>().IsDirty()) // TODO: This should be a function instead of having publicly exposed variable. 
                 {
                     washingDishes = true;
                     Debug.Log("Glass is dirty"); // TODO: Why do we have a Debug.Log at every step. Is this necessary? 
@@ -28,7 +28,7 @@ public class Dishwasher : MonoBehaviour
                     StartCoroutine(WashDishes()); // TODO: Why are we doing this??? 
 
                     //clean glass
-                    Itemholder.transform.GetChild(0).GetComponent<Glass>().dirtyGlass = false; // TODO: This needs a setter
+                    Itemholder.transform.GetChild(0).GetComponent<EmptyGlass>().SetDirty(false); // TODO: This needs a setter
                 }
                 else
                 {

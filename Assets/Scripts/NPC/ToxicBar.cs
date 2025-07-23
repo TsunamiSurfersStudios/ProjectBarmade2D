@@ -11,11 +11,6 @@ public class ToxicBar : MonoBehaviour
     public Gradient gradient;
     public Animator faceAnimator;
     public float maxDrunkness = 50f;
-    //public Image fill;
-
-
-    //ColorUtility.TryParseHtmlString(htmlValue, out newCol);
-    //HTML: 1st:  2nd:  3rd:  4th:  
 
     private void Start()
     {

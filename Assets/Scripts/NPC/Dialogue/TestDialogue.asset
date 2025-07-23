@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 610597f1bde4e0d45b2bf7752f43a474, type: 3}
-  m_Name: NPCWords
+  m_Name: TestDialogue
   m_EditorClassIdentifier: 
-  npcName: 'Bartolomew '
+  NPCName: Saka34
   dialogueNodes:
-  - npcText: Hello!
+  - NPCText: Hello, there
     playerChoices:
-    - Hi!
-    - Bye
-    nextNodeLeads: 01000000ffffffff
-  - npcText: Nice to Meet U
+    - choiceText: Hi
+      branchPath: 1
+    - choiceText: Bye, loser!
+      branchPath: -1
+  - NPCText: I'm hella thirsty
     playerChoices:
-    - Likewise
-    - Goodbye
-    nextNodeLeads: 02000000ffffffff
-  - npcText: Can i Please have....
+    - choiceText: Alright, I can get you something
+      branchPath: 2
+    - choiceText: That sucks for you!
+      branchPath: -1
+  - NPCText: What are you still standing around for? Go get me something
     playerChoices:
-    - Yeah Sure!
-    - Are you sure? how about we restart?
-    - no, sorry we ran out....
-    nextNodeLeads: 0300000001000000ffffffff
+    - choiceText: Okay, bye!
+      branchPath: -1
