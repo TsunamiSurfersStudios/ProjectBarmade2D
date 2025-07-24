@@ -26749,6 +26749,10 @@ PrefabInstance:
       propertyPath: OnBoxCollide.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1158260940155497044, guid: b233a052f9cb16049b4f528c830ef88e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4408856953706644411, guid: b233a052f9cb16049b4f528c830ef88e, type: 3}
       propertyPath: dialogueCanvas
       value: 
@@ -26799,7 +26803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8597878170031751825, guid: b233a052f9cb16049b4f528c830ef88e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

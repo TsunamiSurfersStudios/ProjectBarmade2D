@@ -20,6 +20,9 @@ public class DialogueNode
     [SerializeField] string NPCText;
     [SerializeField] PlayerNode[] playerChoices;
 
+    [SerializeField] bool isOrder;
+    [SerializeField] bool requiresRecipe;
+
     public string GetText() { return NPCText; }
     public PlayerNode[] getPlayerChoices() { return playerChoices; }
 

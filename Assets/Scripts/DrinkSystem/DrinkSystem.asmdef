@@ -1,0 +1,16 @@
+{
+    "name": "Drink",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ce2b47b625091bf49b1c89ae88c5f5fa"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
