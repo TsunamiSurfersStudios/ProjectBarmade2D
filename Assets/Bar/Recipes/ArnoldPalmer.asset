@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: ArnoldPalmer
   m_EditorClassIdentifier: 
   drinkName: Arnold Palmer
-  baseSpirit:
-    ingredient: {fileID: 0}
-    milliliters: 0
+  spirits: []
   mixers:
   - ingredient: {fileID: 11400000, guid: 76d40d1e23b841143b197901b5f8867f, type: 2}
     milliliters: 0
   - ingredient: {fileID: 11400000, guid: 0302ffd444651824d8a615f209721c3a, type: 2}
     milliliters: 0
   garnishes: []
+  glass: 0
   hasIce: 0
   isBlended: 0
   price: 5.99
+  isUnlocked: 1

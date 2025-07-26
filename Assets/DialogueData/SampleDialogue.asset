@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610597f1bde4e0d45b2bf7752f43a474, type: 3}
+  m_Name: SampleDialogue
+  m_EditorClassIdentifier: 
+  NPCName: Your Mom
+  dialogueNodes:
+  - NPCText: 'Hello. '
+    playerChoices:
+    - choiceText: Hello there.
+      branchPath: 1
+      beginsOrder: 0
+    - choiceText: What can I get for you?
+      branchPath: 2
+      beginsOrder: 1
+  - NPCText: Stop bothering me.
+    playerChoices:
+    - choiceText: Okay
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Cuba Libre, please.
+    playerChoices:
+    - choiceText: 
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Arnold Palmer, please.
+    playerChoices:
+    - choiceText: 
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Cuba Libre, please.
+    playerChoices:
+    - choiceText: 
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Cuba Libre, please.
+    playerChoices:
+    - choiceText: Okay.
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Cuba Libre, please.
+    playerChoices:
+    - choiceText: Okay.
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Arnold Palmer, please.
+    playerChoices:
+    - choiceText: Okay.
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Espresso Martini, please.
+    playerChoices:
+    - choiceText: Coming right up.
+      branchPath: -1
+      beginsOrder: 0
+  - NPCText: I'd like a Arnold Palmer, please.
+    playerChoices:
+    - choiceText: Coming right up.
+      branchPath: -1
+      beginsOrder: 0

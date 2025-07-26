@@ -8,34 +8,56 @@ public class PlayerNode
 {
     [SerializeField] string choiceText;
     [SerializeField] int branchPath;
+    [SerializeField] bool beginsOrder = false;
 
     public string GetChoiceText() { return choiceText; }
     public int GetBranchPath() { return branchPath; }
+    public bool BeginsOrder() { return beginsOrder; }
+    public PlayerNode(string text, int path)
+    {
+        choiceText = text;
+        branchPath = path;
+    }
+    public PlayerNode() { }
 }
 
 [System.Serializable]
 public class DialogueNode
 {
-    [TextArea] // TODO: It should be clear in script what this is doing
-    [SerializeField] string NPCText;
-    [SerializeField] PlayerNode[] playerChoices;
-
-    [SerializeField] bool isOrder;
-    [SerializeField] bool requiresRecipe;
+    [TextArea]
+    [SerializeField] protected string NPCText;
+    [SerializeField] protected PlayerNode[] playerChoices;
 
     public string GetText() { return NPCText; }
     public PlayerNode[] getPlayerChoices() { return playerChoices; }
+    public int GetChoiceLength() { return playerChoices.Length; }
+    public PlayerNode GetChoice(int index) { return playerChoices[index]; }
+    public bool ChoicesNotNull() { return playerChoices != null; }
 
 }
-//Allow this ScriptableObject as an asset in the editor
-[CreateAssetMenu(fileName = "NewDialogueData", menuName = "Dialogue/DialogueData")]  // TODO: We should steal this format for drink creation
 
+public class OrderNode : DialogueNode
+{  
+    public OrderNode(string name)
+    {
+        NPCText = "I'd like a " + name + ", please.";
+        playerChoices = new PlayerNode[] { new PlayerNode("Coming right .", -1)};
+    }
+}
+
+
+[CreateAssetMenu(fileName = "NewDialogueData", menuName = "Dialogue/DialogueData")]  
 [System.Serializable]
 public class DialogueData : ScriptableObject
 {
     [SerializeField] string NPCName;
-    [SerializeField] DialogueNode[] dialogueNodes;
+    [SerializeField] List<DialogueNode> dialogueNodes;
+
+    bool hasOrdered;
 
     public string GetName() { return NPCName; }
-    public DialogueNode[] getDialogueNodes() {  return dialogueNodes; }
+    public void AddNode(DialogueNode node) { dialogueNodes.Add(node); }
+    
+    public int GetNodeAmount() { return dialogueNodes.Count - 1; }
+    public DialogueNode GetNode(int index) { return dialogueNodes[index]; }
 }

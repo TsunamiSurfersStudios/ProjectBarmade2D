@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: EspressoMartini
   m_EditorClassIdentifier: 
   drinkName: Espresso Martini
-  baseSpirit:
-    ingredient: {fileID: 11400000, guid: 442ef6a8f98e7ae48953c43b5ce07426, type: 2}
-    milliliters: 50
+  spirits: []
   mixers:
   - ingredient: {fileID: 11400000, guid: a03edbb6ebba66b45a80adbb07eab39e, type: 2}
     milliliters: 30
@@ -24,6 +22,8 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: eedc8cc2744f3ff42982c0a9c78622c8, type: 2}
     milliliters: 30
   garnishes: []
+  glass: 0
   hasIce: 0
   isBlended: 0
   price: 9.99
+  isUnlocked: 1

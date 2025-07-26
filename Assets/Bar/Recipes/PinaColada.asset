@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: PinaColada
   m_EditorClassIdentifier: 
   drinkName: Pina Colada
-  baseSpirit:
-    ingredient: {fileID: 11400000, guid: afe37e77966fa144d86f2e9cbc4e10c6, type: 2}
-    milliliters: 50
+  spirits: []
   mixers:
   - ingredient: {fileID: 11400000, guid: 931e920303145f54ca98e08bf3d9b2e3, type: 2}
     milliliters: 30
@@ -24,6 +22,8 @@ MonoBehaviour:
   garnishes:
   - {fileID: 11400000, guid: b833044fb8f4aa7458cb76b4de718e0a, type: 2}
   - {fileID: 11400000, guid: 7e05657a47a19e34d8d622e85cdc1b7e, type: 2}
+  glass: 0
   hasIce: 0
   isBlended: 1
   price: 10.99
+  isUnlocked: 1
