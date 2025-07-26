@@ -1,10 +1,16 @@
 name: Actions
 
-on: [push, pull_request]
+on: [pull_request]
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  pull-requests: write
 
 jobs:
   test:
-    name: Test my project
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       # Checkout
@@ -22,7 +28,7 @@ jobs:
             Library-
 
       # Test
-      - name: Run tests
+      - name: Run Tests
         uses: game-ci/unity-test-runner@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -32,7 +38,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Output
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Test Results
           path: artifacts
