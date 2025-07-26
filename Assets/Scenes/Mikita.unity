@@ -122,11 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &92364618 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2433533996530165629, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
-  m_PrefabInstance: {fileID: 5258010732968086446}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &186306401
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +382,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &294660491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8874677668587187265, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
+  m_PrefabInstance: {fileID: 5258010732968086446}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &306225759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,11 +2955,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1467308287 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 661619910027528730, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
-  m_PrefabInstance: {fileID: 5258010732968086446}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1485388511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4560,14 +4555,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5025362655431036334}
     m_Modifications:
-    - target: {fileID: 511667746181826055, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
-      propertyPath: drinkTitle
-      value: 
-      objectReference: {fileID: 92364618}
-    - target: {fileID: 511667746181826055, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
-      propertyPath: drinkDescription
-      value: 
-      objectReference: {fileID: 1467308287}
     - target: {fileID: 1727632162228153702, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4652,6 +4639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrinkMakingStation
       objectReference: {fileID: 0}
+    - target: {fileID: 7085692919154233021, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
+      propertyPath: drinkTitle
+      value: 
+      objectReference: {fileID: 294660491}
     - target: {fileID: 8940249064526368336, guid: d8ce75201287cde4eb0c82b2f7e6cf51, type: 3}
       propertyPath: iceTray
       value: 

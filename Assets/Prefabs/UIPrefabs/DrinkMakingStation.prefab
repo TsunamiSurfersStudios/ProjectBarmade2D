@@ -2486,7 +2486,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   uiManager: {fileID: 4225478134901613201}
   recipeContainer: {fileID: 3703310559717055584}
-  drinkTitle: {fileID: 0}
+  drinkTitle: {fileID: 8874677668587187265}
   drinkDescription: {fileID: 7182042390020753909}
 --- !u!50 &1795221439860975736
 Rigidbody2D:
