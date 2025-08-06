@@ -4,38 +4,35 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BrokenGlass : MonoBehaviour
+public class TrashBag : MonoBehaviour
 {
     private ItemHolder itemHolder;
-    private TrashCan trashCan;
     private PlayerStats playerStats;
-    [SerializeField] GameObject glass;
-    bool touchingBrokenGlass;
-    bool touchingTrashCan;
+    [SerializeField] GameObject bag; // This contains the trash bag sprite
+    bool touchingBag;
+    bool touchingDumpster;
 
     void Start()
     {
         itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
-        trashCan = GameObject.FindWithTag("TrashCan").GetComponent<TrashCan>();
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && touchingBrokenGlass && playerStats.getHolding() == false)
+        if(Input.GetKeyDown(KeyCode.E) && touchingBag && playerStats.getHolding() == false)
         {
-            GiveGlass();
+            GiveBag();
             playerStats.changeHolding();
         }
-        else if(Input.GetKeyDown(KeyCode.E) && touchingTrashCan && trashCan.fullness < 100 && playerStats.getHolding())
+        else if(Input.GetKeyDown(KeyCode.E) && touchingDumpster && playerStats.getHolding())
         {
-            DestroyGlass();
-            trashCan.addFullness(10);
+            DestroyBag();
             playerStats.changeHolding();
-        }   
+        }        
         else if(Input.GetKeyDown(KeyCode.F) && playerStats.getHolding())
         {
-            DropGlass();
+            DropBag();
             playerStats.changeHolding();
         }
     }
@@ -44,38 +41,38 @@ public class BrokenGlass : MonoBehaviour
     {
         if(col.gameObject.CompareTag("Player"))
         {
-            touchingBrokenGlass = true;
+            touchingBag = true;
         }
-        if(col.gameObject.CompareTag("TrashCan"))
+        if (col.gameObject.CompareTag("Dumpster"))
         {
-            touchingTrashCan = true;
+            touchingDumpster = true;
         }
     }
 
     void OnCollisionExit2D(Collision2D col)
     {
-        touchingBrokenGlass = false;
-        touchingTrashCan = false;
+        touchingBag = false;
+        touchingDumpster = false;
     }
     
-    public void GiveGlass()
+    public void GiveBag()
     {
-        itemHolder.GiveObject(gameObject);
+        itemHolder.GiveObject(gameObject); // This assume script is attatched to current bag
     }
 
-    public void DropGlass()
+    public void DropBag()
     {
         itemHolder.DropItem();
     }
 
-    public void SpawnBrokenGlass()
+    public void SpawnBag()
     {
-        GameObject clone = GameObject.Instantiate(glass);
+        GameObject clone = GameObject.Instantiate(bag);
         itemHolder.GiveObject(clone);
         clone.SetActive(true);
     }
 
-    public void DestroyGlass()
+    public void DestroyBag()
     {
         itemHolder.DestroyObject();
     }

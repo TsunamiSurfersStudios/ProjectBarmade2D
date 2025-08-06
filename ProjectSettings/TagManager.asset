@@ -18,6 +18,8 @@ TagManager:
   - BoxHolder
   - NPC
   - LeavePoint
+  - Dumpster
+  - TrashBag
   layers:
   - Default
   - TransparentFX

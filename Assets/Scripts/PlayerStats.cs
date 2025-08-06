@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public bool isPickingUp;
+    public bool holding;
 
    
     void Start()
@@ -18,11 +18,11 @@ public class PlayerStats : MonoBehaviour
         
     }
 
-    public bool getPickingUp(){
-        return isPickingUp;
+    public bool getHolding(){
+        return holding;
     }
 
-    public void changePickUp(){
-        isPickingUp = !isPickingUp;
+    public void changeHolding(){
+        holding = !holding;
     }
 }
