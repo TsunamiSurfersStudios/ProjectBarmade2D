@@ -29,9 +29,9 @@ public class NPCDialogue : MonoBehaviour
 
     void ShowCurrentNode()
     {
-        if (currentNodeIndex < dialogueData.getDialogueNodes().Length)
+        if (currentNodeIndex <= dialogueData.GetNodeAmount())
         {
-            DialogueNode node = dialogueData.getDialogueNodes()[currentNodeIndex];
+            DialogueNode node = dialogueData.GetNode(currentNodeIndex);
             ShowDialogue(node.GetText());
             ShowChoices(node.getPlayerChoices());
         }
@@ -47,25 +47,41 @@ public class NPCDialogue : MonoBehaviour
         NPCTextDisplay.text = NPCText;
     }
 
-    void HideDialogue() // TODO: We should not be handling this here
+    void HideDialogue() 
     {
         dialogueCanvas.SetActive(false);  // Hides the whole dialogue panel
         choicesPanel.SetActive(false);   // Hides the choices if they’re visible
     }
-    void ShowChoices(PlayerNode[] choices) // TODO: We should not be handling this here
+    void ShowChoices(PlayerNode[] choices)
     {
         choicesPanel.SetActive(true);
+        NPCOrdering ordering = gameObject.GetComponent<NPCOrdering>();
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {
             if (i < choices.Length)
             {
-                choiceButtons[i].gameObject.SetActive(true);
-                choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = choices[i].GetChoiceText();
-                choiceButtons[i].onClick.RemoveAllListeners();
-                
-                int index = i;
-                choiceButtons[i].onClick.AddListener(() => OnPlayerChoice(index));
+                Button currButton = choiceButtons[i];
+                PlayerNode currChoice = choices[i];
+
+                if (currChoice.BeginsOrder() && ordering.OrderActive())
+                {
+                    currButton.gameObject.SetActive(false);
+                }
+                else
+                {
+                    ColorBlock colors = currButton.colors;
+                    colors.normalColor = currChoice.BeginsOrder() ? Color.yellow : Color.white;
+                    currButton.colors = colors;
+
+                    currButton.gameObject.SetActive(true);
+                    currButton.GetComponentInChildren<TextMeshProUGUI>().text = currChoice.GetChoiceText();
+                    currButton.onClick.RemoveAllListeners();
+
+
+                    int index = i;
+                    choiceButtons[i].onClick.AddListener(() => OnPlayerChoice(index));
+                }
             }
             else
             {
@@ -74,28 +90,47 @@ public class NPCDialogue : MonoBehaviour
         }
     }
 
-    void OnPlayerChoice(int index)
+    void OnPlayerChoice(int nextIndex)
     {
         choicesPanel.SetActive(false);
-        DialogueNode currentNode = dialogueData.getDialogueNodes()[currentNodeIndex];
+        DialogueNode currentNode = dialogueData.GetNode(currentNodeIndex) ;
 
-        if (currentNode.getPlayerChoices() != null && index < currentNode.getPlayerChoices().Length)
+        if (currentNode.ChoicesNotNull() && nextIndex < currentNode.GetChoiceLength())
         {
-            PlayerNode nextNode = currentNode.getPlayerChoices()[index];
-            int branchPath = nextNode.GetBranchPath();
-            if (branchPath >= 0 && branchPath < dialogueData.getDialogueNodes().Length)
-            {
-                currentNodeIndex = branchPath;
-                ShowCurrentNode();
-            }
-            else
-            {
-                HideDialogue();
-            }
+            
+            PlayerNode playerChoice = currentNode.GetChoice(nextIndex);
+                if (playerChoice.BeginsOrder())
+                {
+                    CreateOrder();
+                }
+                else
+                {
+                    int branchPath = playerChoice.GetBranchPath();
+                    if (branchPath >= 0 && branchPath <= dialogueData.GetNodeAmount())
+                    {
+                        currentNodeIndex = branchPath;
+                        ShowCurrentNode();
+                    }
+                    else
+                    {
+                        HideDialogue();
+                    }
+                }
         }
         else
         {
             HideDialogue();
         }
+    }
+
+    void CreateOrder()
+    {
+        NPCOrdering orderingSystem = gameObject.GetComponent<NPCOrdering>();
+        orderingSystem.CreateOrder();
+        Recipe recipe = orderingSystem.GetOrder();
+        OrderNode orderNode = new OrderNode(recipe.GetDrinkName());
+        dialogueData.AddNode(orderNode);
+        currentNodeIndex = dialogueData.GetNodeAmount();
+        ShowCurrentNode();
     }
 }

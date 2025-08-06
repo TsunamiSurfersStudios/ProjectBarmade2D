@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5310948717773621023}
   - component: {fileID: 1026002528809701242}
   - component: {fileID: 4408856953706644411}
+  - component: {fileID: -7720580156059048838}
   m_Layer: 7
   m_Name: NPC 1
   m_TagString: Untagged
@@ -260,6 +261,19 @@ MonoBehaviour:
   choicesPanel: {fileID: 947700704711378225}
   NPCNameDisplay: {fileID: 3813210175930834048}
   NPCTextDisplay: {fileID: 6424632634424668776}
+--- !u!114 &-7720580156059048838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8597878170031751825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3912d3d356c213a4799c5504ab02e429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1001 &2752754684386355754
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b2f9549830e714fbbdf0c153e51f64, type: 3}
+  m_Name: PinaColada
+  m_EditorClassIdentifier: 
+  drinkName: Pina Colada
+  spirits: []
+  mixers:
+  - ingredient: {fileID: 11400000, guid: 931e920303145f54ca98e08bf3d9b2e3, type: 2}
+    milliliters: 30
+  - ingredient: {fileID: 11400000, guid: ddf4fb31f90a2ba4c9b84ba15597c6cd, type: 2}
+    milliliters: 50
+  garnishes:
+  - {fileID: 11400000, guid: b833044fb8f4aa7458cb76b4de718e0a, type: 2}
+  - {fileID: 11400000, guid: 7e05657a47a19e34d8d622e85cdc1b7e, type: 2}
+  glass: 0
+  hasIce: 0
+  isBlended: 1
+  price: 10.99
+  isUnlocked: 1
