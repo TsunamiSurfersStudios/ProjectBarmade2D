@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "NPC",
         "Drink",
-        "Player"
+        "Player",
+        "Objects"
     ],
     "includePlatforms": [
         "Editor"
