@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class PlayerMelee : MonoBehaviour
 {
-    public float attackRange = 1.5f;
+    public float attackRange = 0.8f;
     public int damage = 25;
+    public float attackCooldown = 0.35f;
     public LayerMask enemyLayer;
+
+    [Header("Refs")]
+    public Transform attackPoint;      // assign your AttackPoint child here
+    public GameObject slashFXPrefab;   // assign your SlashFX prefab here
+
+    float lastAttackTime;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left click
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown) // Left click
         {
             MeleeAttack();
         }
@@ -18,22 +25,44 @@ public class PlayerMelee : MonoBehaviour
 
     void MeleeAttack()
     {
+        lastAttackTime = Time.time;
+
+        // Instantiate slash effect at the attack point
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 attackDirection = (mouseWorldPos - transform.position).normalized;
+        mouseWorldPos.z = 0f; // Ensure the z-coordinate is zero for 2D
+        Vector2 dir = (mouseWorldPos - transform.position).normalized;
 
-        // Detect enemies in a small arc/cone or point
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, attackDirection, attackRange, enemyLayer);
+        // place AttackPoint a bit in front of player toward the mouse
+        attackPoint.position = transform.position + (Vector3)(dir * (attackRange * 0.9f));
 
-        if (hit.collider != null)
+        // Hit detection (small circle at AttackPoint)
+        var hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+
+        Debug.Log($"Melee attack at {attackPoint.position} with direction {dir}");
+
+        foreach (var hit in hits)
         {
-            EnemyHealth enemy = hit.collider.GetComponent<EnemyHealth>();
+            var enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
                 Debug.Log("Hit enemy with melee!");
+                // (Optional) simple knockback
+                var rb = hit.attachedRigidbody;
+                if (rb != null) rb.AddForce(dir * 120f, ForceMode2D.Impulse);
             }
         }
 
-        Debug.DrawRay(transform.position, attackDirection * attackRange, Color.red, 0.5f); // Debug line
+        // Temporary visual slash
+        if (slashFXPrefab != null)
+        {
+            var fx = Instantiate(slashFXPrefab, attackPoint.position, Quaternion.identity);
+            // rotate visual to face mouse for clarity
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            fx.transform.rotation = Quaternion.Euler(0, 0, angle);
+            Destroy(fx, 0.15f); // quick flash
+        }
+
+        //Debug.DrawRay(transform.position, attackDirection * attackRange, Color.red, 0.5f); // Debug line
     }
 }
