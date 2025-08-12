@@ -47,9 +47,23 @@ public class PlayerMelee : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
                 Debug.Log("Hit enemy with melee!");
-                // (Optional) simple knockback
-                var rb = hit.attachedRigidbody;
-                if (rb != null) rb.AddForce(dir * 120f, ForceMode2D.Impulse);
+
+                //simple knockback
+                Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    Vector2 knockbackDir = (hit.transform.position - transform.position).normalized;
+                    rb.AddForce(knockbackDir * 2f, ForceMode2D.Impulse);
+                }
+            }
+
+            var recoil = hit.GetComponent<EnemyRecoil>();
+            if (recoil != null)
+            {
+                // Apply recoil effect
+                Vector2 fromPlayerDir = (hit.transform.position - transform.position).normalized;
+                recoil.ApplyRecoil(dir);
+                Debug.Log("Applied recoil to enemy!");
             }
         }
 
@@ -62,7 +76,5 @@ public class PlayerMelee : MonoBehaviour
             fx.transform.rotation = Quaternion.Euler(0, 0, angle);
             Destroy(fx, 0.15f); // quick flash
         }
-
-        //Debug.DrawRay(transform.position, attackDirection * attackRange, Color.red, 0.5f); // Debug line
     }
 }
