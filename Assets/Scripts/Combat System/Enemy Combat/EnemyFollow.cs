@@ -20,11 +20,22 @@ public class EnemyFollow : MonoBehaviour
     public float externalDecay = 0.1f; // Decay rate for external forces
     private Vector2 externalForce; // Accumulated external force
 
+    public float speed = 2f; // Speed of the enemy when chasing the player
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         recoil = GetComponent<EnemyRecoil>();
 
+    }
+
+    private void FixedUpdate()
+    {
+        if (!player) return;
+        if (recoil != null && recoil.isRecoiling) return; // pause during jump back
+
+        Vector2 dir = (player.position - transform.position).normalized;
+        rb.MovePosition(rb.position + dir * speed * Time.fixedDeltaTime);
     }
 
     // Start is called before the first frame update
