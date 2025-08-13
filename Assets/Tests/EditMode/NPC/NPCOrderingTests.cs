@@ -260,6 +260,5 @@ public class NPCOrderingTests
         Assert.AreEqual(1f, accuracy, 0.01f);
     }
 
-    // TODO: Implement tests for glass types
     //TODO: Implement tests to check for duplicate ingredients
 }

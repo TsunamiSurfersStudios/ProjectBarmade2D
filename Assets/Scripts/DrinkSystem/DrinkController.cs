@@ -4,10 +4,9 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DrinkController : MonoBehaviour
+public class DrinkController : HoldableObject
 {
     public GameObject drink;
-    private ItemHolder itemHolder;
 
     // Drink creation
     private List<DrinkComponent> spirits = new List<DrinkComponent>();
@@ -19,7 +18,7 @@ public class DrinkController : MonoBehaviour
 
     void Start()
     {
-        itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        item = drink;
         if (alcoholPercentage > 1)
         {
             Debug.Log(name + " alcohol percentage exceeds 100%. Scripts may not work as intended.");
@@ -28,13 +27,11 @@ public class DrinkController : MonoBehaviour
 
     public void GiveDrink()
     {
-        itemHolder.GiveObject(gameObject);
+        Give();
     }
     public void SpawnDrink()
     {
-        GameObject clone = GameObject.Instantiate(drink);
-        itemHolder.GiveObject(clone);
-        clone.SetActive(true);
+        Spawn();
     }
 
     public float GetAlcoholPercentage()
