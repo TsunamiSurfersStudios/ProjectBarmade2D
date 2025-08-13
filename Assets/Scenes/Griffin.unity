@@ -122,6 +122,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &66807104 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2517165572418356126, guid: e04199e1ed205d543bf64400145e8536, type: 3}
+  m_PrefabInstance: {fileID: 395331623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &66807111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66807104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1dabc5b0431cf4ab7e636e90de26db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holding: 0
 --- !u!1001 &191595354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -376,7 +394,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2517165572418356126, guid: e04199e1ed205d543bf64400145e8536, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 66807111}
   m_SourcePrefab: {fileID: 100100000, guid: e04199e1ed205d543bf64400145e8536, type: 3}
 --- !u!1 &479467345 stripped
 GameObject:
@@ -652,6 +673,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2acd89361b3ffa646bff9e9936488957, type: 3}
+--- !u!1 &902569951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3781479709430243274, guid: 2acd89361b3ffa646bff9e9936488957, type: 3}
+  m_PrefabInstance: {fileID: 881220513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &912842809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6647174067106041413, guid: 4ed63b69678d5564da510001e54d14da, type: 3}
@@ -1388,6 +1414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullness: 90
   animator: {fileID: 2100388566}
+  trashBag: {fileID: 902569951}
 --- !u!1001 &551285950347684856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1579,6 +1606,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1045120404221373230, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: trashBag
+      value: 
+      objectReference: {fileID: 3781479709430243274, guid: 2acd89361b3ffa646bff9e9936488957, type: 3}
     - target: {fileID: 1177569459700871942, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: m_Name
       value: trash-can

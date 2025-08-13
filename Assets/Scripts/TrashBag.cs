@@ -39,10 +39,6 @@ public class TrashBag : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.CompareTag("Player"))
-        {
-            touchingBag = true;
-        }
         if (col.gameObject.CompareTag("Dumpster"))
         {
             touchingDumpster = true;

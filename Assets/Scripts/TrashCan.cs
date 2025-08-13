@@ -7,12 +7,14 @@ public class TrashCan : MonoBehaviour
     public float fullness;
     [SerializeField] private Animator animator;
     private GameObject trashCan;
-    private GameObject trashBag;
+    [SerializeField] private GameObject trashBag;
     private bool touchingTrashCan;
     
     void Start()
     {
-        trashBag = GameObject.FindWithTag("TrashBag");
+        if(trashBag == null){
+            Debug.Log("Trash Bag is null for some stupid reason");
+        }
         trashCan = GameObject.FindWithTag("TrashCan");
     }
 
@@ -61,4 +63,3 @@ public class TrashCan : MonoBehaviour
         }
     }
 }
-//future me: make boolean for if there is collision, when collision is true and key is pressed trash bag is generated :D
