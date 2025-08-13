@@ -21,7 +21,6 @@ public class PlayerMovementRuntimeTests
     }
 
     [Test]
-    [LoadScene("Assets/Scenes/PlayTests.unity")]
     public void VerifyApplicationPlaying()
     {
         Assert.That(Application.isPlaying, Is.True);
@@ -82,26 +81,5 @@ public class PlayerMovementRuntimeTests
         yield return new WaitForFixedUpdate();
 
         Assert.Greater(player.transform.position.x, initialPosition.x);
-    }
-}
-
-public class LoadSceneAttribute : NUnitAttribute, IOuterUnityTestAction
-{
-    string scene;
-
-    public LoadSceneAttribute(string scene)
-    {
-        this.scene = scene;
-    }
-
-    public IEnumerator BeforeTest(ITest test)
-    {
-        Debug.Assert(scene.EndsWith(".unity"), "Scene name must end with .unity");
-        yield return EditorSceneManager.LoadSceneInPlayMode(scene, new LoadSceneParameters(LoadSceneMode.Single));
-    }
-
-    public IEnumerator AfterTest(ITest test)
-    {
-        yield return null;
     }
 }
