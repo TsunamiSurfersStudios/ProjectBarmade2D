@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    [SerializeField] private bool movementEnabled;
 
-    Rigidbody2D rb; 
+    Rigidbody2D rb;
     private Vector2 movement;
-    private Animator mAnimator; 
+    private Animator mAnimator;
+    private bool inTestMode;
 
     void Start()
     {
@@ -17,16 +17,17 @@ public class PlayerMovement : MonoBehaviour
         mAnimator = GetComponent<Animator>();
     }
 
-    void Update()
+    void SetMovement()
     {
-        HandleMovemnt();
-        HandleAnimations();
+        if (!inTestMode)
+        {
+            SetMovement(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
     }
-
-    void HandleMovemnt()
+    public void SetMovement(float x, float y)
     {
-        movement.x = Input.GetAxisRaw("Horizontal"); 
-        movement.y = Input.GetAxisRaw("Vertical");
+        movement.x = x;
+        movement.y = y;
         movement = movement.normalized;// Normalize movement to prevent faster diagonal movement
     }
 
@@ -43,9 +44,14 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(movementEnabled) {
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        }
+        SetMovement();
+        HandleAnimations();
+
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+    public void StartTesting()
+    {
+        inTestMode = true;
     }
 }
 
