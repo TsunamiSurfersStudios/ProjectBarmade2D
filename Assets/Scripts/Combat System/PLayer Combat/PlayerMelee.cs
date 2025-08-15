@@ -62,7 +62,7 @@ public class PlayerMelee : MonoBehaviour
             {
                 // Apply recoil effect
                 Vector2 fromPlayerDir = (hit.transform.position - transform.position).normalized;
-                recoil.ApplyRecoil(dir);
+                recoil.ApplyRecoil(fromPlayerDir);
                 Debug.Log("Applied recoil to enemy!");
             }
         }

@@ -23,7 +23,6 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= damage;
 
-        Debug.Log("Player took " + damage + " damage. Current health: " + currentHealth);
         if (currentHealth <= 0)
         {
             Die();

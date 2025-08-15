@@ -7,8 +7,10 @@ public class EnemyRecoil : MonoBehaviour
     [Header("Enemy Settings")]
     public float recoilDistance = 0.5f; // How far the enemy is pushed back
     public float recoilDuration = 0.2f; // How long the recoil lasts    
-    public bool isRecoiling { get; private set; } 
+    public float hitCooldown = 0.15f; // Minimum time between hits
+    public bool isRecoiling { get; private set; }
 
+    float nextHitTime;
     Rigidbody2D rb;
 
     void Awake()
@@ -18,10 +20,12 @@ public class EnemyRecoil : MonoBehaviour
 
     public void ApplyRecoil(Vector2 direction)
     {
+        if (Time.time < nextHitTime) return;
         if (!isRecoiling) StartCoroutine(RecoilCoroutine(direction));
+        nextHitTime = Time.time + hitCooldown;
     }
 
-    private IEnumerator RecoilCoroutine(Vector2 direction)
+    System.Collections.IEnumerator RecoilCoroutine(Vector2 direction)
     {
         isRecoiling = true;
 
