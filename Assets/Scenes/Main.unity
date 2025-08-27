@@ -36538,10 +36538,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 132098902779551344, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 132098902779551344, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
@@ -36558,16 +36554,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.89
+      value: -9.67
       objectReference: {fileID: 0}
     - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.8009982
+      value: -4.4
       objectReference: {fileID: 0}
     - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -36619,10 +36611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3381566088719809452}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
 --- !u!1 &1147212262
@@ -46292,11 +46281,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1431726564 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-  m_PrefabInstance: {fileID: 1146364276}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1431851811
 GameObject:
   m_ObjectHideFlags: 0
@@ -50139,9 +50123,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5886516896920566922, guid: 3f9378a72bff95d4190f07d7d928e8eb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1674904309}
-    - targetCorrespondingSourceObject: {fileID: 5886516896920566922, guid: 3f9378a72bff95d4190f07d7d928e8eb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1674904308}
   m_SourcePrefab: {fileID: 100100000, guid: 3f9378a72bff95d4190f07d7d928e8eb, type: 3}
 --- !u!1 &1557060493
 GameObject:
@@ -54837,43 +54818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b852a842c0a4d9b4c9c0a28242c3486f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1674904308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1674904302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a960b71bb8272e843a2dee352137fd39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnBoxCollide:
-    m_PersistentCalls:
-      m_Calls: []
-  OnBoxExit:
-    m_PersistentCalls:
-      m_Calls: []
-  OnItemInteraction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1674904304}
-        m_TargetAssemblyTypeName: IceTray, Assembly-CSharp
-        m_MethodName: EmptyTray
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 100
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnItemDisable:
-    m_PersistentCalls:
-      m_Calls: []
-  KEYBIND: 113
 --- !u!114 &1674904309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54904,6 +54848,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1674904304}
+        m_TargetAssemblyTypeName: IceTray, Drink
+        m_MethodName: EmptyTray
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 50
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -68180,75 +68136,9 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: c596bafa9b5eb9d419d8d6d0e0da8b7d, type: 3}
 --- !u!1 &3126480558376364719 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 617908137335971439, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-  m_PrefabInstance: {fileID: 3405945554484937810}
+  m_CorrespondingSourceObject: {fileID: 2862089132393778325, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
+  m_PrefabInstance: {fileID: 1146364276}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3381566088719809452 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-  m_PrefabInstance: {fileID: 3405945554484937810}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3405945554484937810
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1431726564}
-    m_Modifications:
-    - target: {fileID: 617908137335971439, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_Name
-      value: Drink
-      objectReference: {fileID: 0}
-    - target: {fileID: 617908137335971439, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.88099813
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99841565
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.05034615
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.025097482
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.0012655667
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 5.766
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 2.895
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393275931790144007, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.291
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7a4a87b23df0df843969d3963c54332e, type: 3}
 --- !u!114 &4408856952649598047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3496767700219160323, guid: ce2510dbeb31e7149b0caafe480bc749, type: 3}
