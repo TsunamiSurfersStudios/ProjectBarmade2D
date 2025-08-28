@@ -6,7 +6,7 @@ public class NPCController : MonoBehaviour
 {
     // Movement variables
     bool moveHorizontally, moveVertically;
-    [SerializeField] float movementSpeed = 0.01f;
+    [SerializeField] private float movementSpeed = 0.01f;
     GameObject[] chairs;
     GameObject leavePoint;
     Vector2 destination, position;

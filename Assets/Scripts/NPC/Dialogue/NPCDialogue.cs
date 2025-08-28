@@ -50,7 +50,7 @@ public class NPCDialogue : MonoBehaviour
     void HideDialogue() 
     {
         dialogueCanvas.SetActive(false);  // Hides the whole dialogue panel
-        choicesPanel.SetActive(false);   // Hides the choices if they’re visible
+        choicesPanel.SetActive(false);   // Hides the choices if theyï¿½re visible
     }
     void ShowChoices(PlayerNode[] choices)
     {
@@ -101,6 +101,7 @@ public class NPCDialogue : MonoBehaviour
             PlayerNode playerChoice = currentNode.GetChoice(nextIndex);
                 if (playerChoice.BeginsOrder())
                 {
+                    Debug.Log("Player took NPC order");
                     CreateOrder();
                 }
                 else
