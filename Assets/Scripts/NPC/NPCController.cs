@@ -17,25 +17,27 @@ public class NPCController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     // Interaction variables
-    [SerializeField] private float sobering = 1f;
+    [SerializeField] private float sobering = 0.01f;
     [SerializeField] private float NPCTolerance = 0f;
-    [SerializeField] private float soberSeconds = 10f; // Time in seconds to sober up
+    [SerializeField] private float soberSeconds = 50f; // Time in seconds to sober up
     private float soberTimer = 0f;
-    private float currentDrunkness = 0f;
+    [SerializeField] private float currentDrunkness = 0f;
     [SerializeField] private float maxDrunk = 100f;
     private GameObject drunkMeter;
     private ToxicBar toxicBar;
     private NPCDialogue dialogue;
+    private NPCOrdering ordering;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        leavePoint = GameObject.Find("LeavePoint"); 
+        leavePoint = GameObject.Find("LeavePoint");
         spriteRenderer = GetComponent<SpriteRenderer>();
-        drunkMeter = gameObject.transform.Find("DrunkMeter").gameObject; 
+        drunkMeter = gameObject.transform.Find("DrunkMeter").gameObject;
         toxicBar = drunkMeter.transform.Find("ToxicBar").GetComponent<ToxicBar>();
-        dialogue = gameObject.GetComponent<NPCDialogue>(); 
+        dialogue = gameObject.GetComponent<NPCDialogue>();
+        ordering = GetComponent<NPCOrdering>(); 
     }
     
     void OnCollisionEnter2D(Collision2D collision)
@@ -171,6 +173,8 @@ public class NPCController : MonoBehaviour
         }
         else
         {
+            Debug.Log("Received Drink");
+            Debug.Log(ordering.GetRecipeAccuracy(ordering.GetOrder(), holder.GetComponentInChildren<DrinkController>()));
             GiveDrink(holder.TakeObject());
         }
     }
@@ -196,7 +200,7 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    public void SetDrunkMeter(GameObject meter)
+    public void SetDrunkMeter(GameObject meter)//Pretty sure this is an unused function, can be removed ? 
     {
         drunkMeter = meter;
         meter.transform.parent = gameObject.transform; 

@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84b2f9549830e714fbbdf0c153e51f64, type: 3}
-  m_Name: WhiteRussian
+  m_Name: Budweiser
   m_EditorClassIdentifier: 
-  drinkName: WhiteRussian
-  spirits: []
+  drinkName: Budweiser
+  spirits:
+  - ingredient: {fileID: 11400000, guid: 7a719f2577983594d976b2e00ec7e9e6, type: 2}
+    milliliters: 355
   mixers: []
   garnishes: []
-  glass: 8
-  hasIce: 1
+  glass: 6
+  hasIce: 0
   isBlended: 0
-  price: 0
-  isUnlocked: 0
+  price: 6.99
+  isUnlocked: 1

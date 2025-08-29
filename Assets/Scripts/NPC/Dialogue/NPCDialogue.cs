@@ -12,19 +12,22 @@ public class NPCDialogue : MonoBehaviour
     [SerializeField] GameObject choicesPanel;
     [SerializeField] TextMeshProUGUI NPCNameDisplay;
     [SerializeField] TextMeshProUGUI NPCTextDisplay;
+
+    private NPCOrdering ordering;
    
     private Button[] choiceButtons;
     private int currentNodeIndex = 0; // Current node in the dialogue tree
 
     private void Start()
     {
-       choiceButtons = choicesPanel.GetComponentsInChildren<Button>();
+        choiceButtons = choicesPanel.GetComponentsInChildren<Button>();
+        ordering = gameObject.GetComponent<NPCOrdering>();
     }
     public void StartConversation()
     {
         currentNodeIndex = 0;
         dialogueCanvas.SetActive(true);
-        ShowCurrentNode();
+        ShowCurrentNode(); 
     }
 
     void ShowCurrentNode()
@@ -47,15 +50,15 @@ public class NPCDialogue : MonoBehaviour
         NPCTextDisplay.text = NPCText;
     }
 
-    void HideDialogue() 
+    void HideDialogue()
     {
         dialogueCanvas.SetActive(false);  // Hides the whole dialogue panel
         choicesPanel.SetActive(false);   // Hides the choices if they�re visible
+        //TODO: Need to make player's movement be properly enabled again after they are done talking
     }
     void ShowChoices(PlayerNode[] choices)
     {
         choicesPanel.SetActive(true);
-        NPCOrdering ordering = gameObject.GetComponent<NPCOrdering>();
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {

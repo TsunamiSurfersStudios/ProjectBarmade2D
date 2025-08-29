@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ItemHolder : MonoBehaviour
 {
-    private GameObject heldObject;
+    [SerializeField] private GameObject heldObject;
 
-    public void GiveObject(GameObject obj)
+    public void GiveObject(GameObject obj) 
     {
-        if (heldObject == null && obj != null)
+        if (heldObject == null && obj != null)// WTF is this method ? Who are we giving a drink to ? Another player ? Why is it checking if the heldObject is null ?
         {
             heldObject = obj;
 
@@ -42,7 +42,7 @@ public class ItemHolder : MonoBehaviour
     public GameObject TakeObject()
     {
         GameObject obj = heldObject;
-        heldObject = null;
+        DestroyObject();
         return obj;
     }
 

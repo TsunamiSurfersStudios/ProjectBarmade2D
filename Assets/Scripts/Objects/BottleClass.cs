@@ -19,8 +19,8 @@ public class BottleClass : MonoBehaviour, IPointerClickHandler // TODO: Rename
 
     private DrinkType previousDrinkType = (DrinkType)(-1);
     public float alcoholVolume = 0f;
-
-    private bool holdingDrink;
+    public int test = 0;
+    [SerializeField] public bool holdingDrink;
 
     Camera currCamera; // TODO: Nees to be renamed
 

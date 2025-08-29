@@ -7,14 +7,13 @@ using UnityEngine;
 public class DrinkController : HoldableObject
 {
     public GameObject drink;
-
     // Drink creation
-    private List<DrinkComponent> spirits = new List<DrinkComponent>();
-    private List<DrinkComponent> mixers = new List<DrinkComponent>();
-    private List<Ingredient> garnishes = new List<Ingredient>();
-    private Glass glass;
-    private float alcoholPercentage = 0f; // max: 1
-    private bool hasIce = false;
+    [SerializeField] private List<DrinkComponent> spirits = new List<DrinkComponent>();
+    [SerializeField] private List<DrinkComponent> mixers = new List<DrinkComponent>();
+    [SerializeField] private List<Ingredient> garnishes = new List<Ingredient>();
+    [SerializeField] private Glass glass;
+    [SerializeField] private float alcoholPercentage = 0f; // max: 1
+    [SerializeField] private bool hasIce = false;
 
     void Start()
     {
@@ -29,9 +28,46 @@ public class DrinkController : HoldableObject
     {
         Give();
     }
-    public void SpawnDrink()
+    public void SpawnDrink(Recipe recipe = null)
     {
-        Spawn();
+        Spawn(clone => {
+            DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
+            if (cloneDrinkController != null && recipe != null)
+            {
+                cloneDrinkController.InitializeFromRecipe(recipe);
+            }
+        });
+    }
+
+    private void InitializeFromRecipe(Recipe recipe)
+    {
+        spirits.Clear();
+        mixers.Clear();
+        garnishes.Clear();
+        
+        // Add spirits from recipe
+        foreach (DrinkComponent spirit in recipe.GetSpirits())
+        {
+            AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
+        }
+        
+        // Add mixers from recipe
+        foreach (DrinkComponent mixer in recipe.GetMixers())
+        {
+            AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
+        }
+        
+        // Add garnishes from recipe
+        foreach (Ingredient garnish in recipe.GetGarnishes())
+        {
+            AddGarnish(garnish);
+        }
+        
+        SetGlass(recipe.GetGlass());
+        if (recipe.HasIce())
+        {
+            AddIce();
+        }
     }
 
     public float GetAlcoholPercentage()
@@ -89,6 +125,7 @@ public class DrinkController : HoldableObject
     }
 
     public List<DrinkComponent> GetSpirits() { return spirits; }
+    public void SetSpirits(List<DrinkComponent> spirits) { this.spirits = spirits; }
     public List<DrinkComponent> GetMixers() { return mixers; }
     public List<Ingredient> GetGarnishes() { return garnishes; }
     public Glass GetGlass() { return glass; }

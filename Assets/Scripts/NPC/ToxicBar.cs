@@ -10,7 +10,7 @@ public class ToxicBar : MonoBehaviour
     public Image fill;
     public Gradient gradient;
     public Animator faceAnimator;
-    public float maxDrunkness = 50f;
+    public float maxDrunkness = 100f;
 
     private void Start()
     {

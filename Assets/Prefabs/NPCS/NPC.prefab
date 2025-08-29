@@ -203,8 +203,8 @@ MonoBehaviour:
   OnItemInteraction:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: NPCController, Assembly-CSharp
+      - m_Target: {fileID: 7655391263410662640}
+        m_TargetAssemblyTypeName: NPCController, NPC
         m_MethodName: Interact
         m_Mode: 1
         m_Arguments:
@@ -227,9 +227,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnItemDisable:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   KEYBIND: 101
 --- !u!114 &3496767700219160323
 MonoBehaviour:
@@ -243,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a7fac863d644c49bff6b68dc7f3459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueData: {fileID: 11400000, guid: c0c9bb6abf7063947a4689118d01dec0, type: 2}
+  dialogueData: {fileID: 11400000, guid: 66d49c73f3f7468459b0ac4401f5d3ed, type: 2}
   dialogueCanvas: {fileID: 5341638891388617583}
   choicesPanel: {fileID: 6274992780892269578}
   NPCNameDisplay: {fileID: 7987298894588409275}
@@ -272,7 +296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da6dbf81b664c249ae8d345fa28ff56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 0.005
   animator: {fileID: 8146966839435232178}
+  sobering: 0.1
+  NPCTolerance: 0
+  soberSeconds: 50
+  currentDrunkness: 1
+  maxDrunk: 100
 --- !u!1001 &1912993001524625823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,7 +313,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3624234549382438276, guid: 29d6414a0ab585243ac145ef8b6c528b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3770011754276245016, guid: 29d6414a0ab585243ac145ef8b6c528b, type: 3}
       propertyPath: m_Name
@@ -413,9 +443,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.119
       objectReference: {fileID: 0}
+    - target: {fileID: 7144523450150356814, guid: 29d6414a0ab585243ac145ef8b6c528b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7144523450150356814, guid: 29d6414a0ab585243ac145ef8b6c528b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1918082333
+      objectReference: {fileID: 0}
     - target: {fileID: 7755464806732939076, guid: 29d6414a0ab585243ac145ef8b6c528b, type: 3}
       propertyPath: m_SortingLayerID
       value: -1918082333
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654044520559140350, guid: 29d6414a0ab585243ac145ef8b6c528b, type: 3}
+      propertyPath: maxDrunkness
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8990585374694716009, guid: 29d6414a0ab585243ac145ef8b6c528b, type: 3}
       propertyPath: m_Layer
