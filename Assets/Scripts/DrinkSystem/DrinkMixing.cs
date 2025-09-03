@@ -4,12 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DrinkMixing : MonoBehaviour, IPointerClickHandler
+public class DrinkMixing : MonoBehaviour
 {
-    public enum DrinkType { Alcohol, Soda }
-    public GameObject[] AlcoholBottles;
-    public GameObject[] SodaBottles;
-
     [Header("Ice Values")]
     [SerializeField] private GameObject iceTray;
     [SerializeField] private GameObject iceSprite;
@@ -22,6 +18,9 @@ public class DrinkMixing : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject limeSprite;
     [SerializeField] private Transform limeTrayUI;
 
+    [SerializeField] private DrinkComponent selectedDrink;
+    [SerializeField] private Ingredient selectedGarnish;
+    [SerializeField] private bool iceSelected;
 
     // Start is called before the first frame update
     void Start()
@@ -40,10 +39,12 @@ public class DrinkMixing : MonoBehaviour, IPointerClickHandler
         
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("UI Image clicked: " + gameObject.name);
-    }
+    public void SetSelectedDrink(DrinkComponent drink) { selectedDrink = drink; }
+    public DrinkComponent GetSelectedDrink() { return selectedDrink; }
+    public void SetSelectedGarnish(Ingredient garnish) { selectedGarnish = garnish; }
+    public Ingredient GetSelectedGarnish() { return selectedGarnish; }
+    public bool GetIceSelected() { return iceSelected; }
+    public void SetIceSelected(bool ice) { iceSelected = ice; }
 
     public void drawSprites()
     {

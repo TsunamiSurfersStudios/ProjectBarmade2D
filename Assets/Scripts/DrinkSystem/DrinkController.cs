@@ -8,12 +8,12 @@ public class DrinkController : HoldableObject
 {
     public GameObject drink;
     // Drink creation
-    private List<DrinkComponent> spirits = new List<DrinkComponent>();
-    private List<DrinkComponent> mixers = new List<DrinkComponent>();
-    private List<Ingredient> garnishes = new List<Ingredient>();
-    private Glass glass;
-    private float alcoholPercentage = 0f; // max: 1
-    private bool hasIce = false;
+    [SerializeField] private List<DrinkComponent> spirits = new List<DrinkComponent>();
+    [SerializeField] private List<DrinkComponent> mixers = new List<DrinkComponent>();
+    [SerializeField] private List<Ingredient> garnishes = new List<Ingredient>();
+    [SerializeField] private Glass glass;
+    [SerializeField] private float alcoholPercentage = 0f; // max: 1
+    [SerializeField] private bool hasIce = false;//TODO: Rework this, ice shouldnt be a boolean it should be a float that keeps track of how much ice is in the drink. Some guests might ask for extra ice, some might ask for light ice
 
     void Start()
     {
@@ -119,7 +119,7 @@ public class DrinkController : HoldableObject
         AddIngredient(ingredient, 0);
     }
 
-    public void AddIce()
+    public void AddIce()//TODO: Rework to use float for keeping track of how much ice is in the drink
     {
         hasIce = true;
     }

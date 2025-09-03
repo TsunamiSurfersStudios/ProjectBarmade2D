@@ -14504,6 +14504,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &185781052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3632506136833079689, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &185781057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185781052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a10a00e75e21c47b72cb28d441f1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drinkType:
+    ingredient: {fileID: 11400000, guid: 130aeaba34768e44baf574afd01fd50e, type: 2}
+    milliliters: 60
 --- !u!1 &187529654
 GameObject:
   m_ObjectHideFlags: 0
@@ -16411,6 +16431,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &205082693 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3840214536656158887, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &205082698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205082693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a10a00e75e21c47b72cb28d441f1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drinkType:
+    ingredient: {fileID: 11400000, guid: 68ab2cd98b9ea974f8aba1d88461050f, type: 2}
+    milliliters: 20
 --- !u!1 &208146891
 GameObject:
   m_ObjectHideFlags: 0
@@ -26681,6 +26721,97 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &336527600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 336527601}
+  - component: {fileID: 336527604}
+  - component: {fileID: 336527603}
+  - component: {fileID: 336527602}
+  m_Layer: 5
+  m_Name: LimeJuice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &336527601
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336527600}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1293289984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 17.4, y: 0.8}
+  m_SizeDelta: {x: 20, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &336527602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336527600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a10a00e75e21c47b72cb28d441f1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drinkType:
+    ingredient: {fileID: 11400000, guid: 758647f218993534088ac2f3173b1963, type: 2}
+    milliliters: 10
+--- !u!114 &336527603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336527600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.18773365, g: 1, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &336527604
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336527600}
+  m_CullTransparentMesh: 1
 --- !u!1 &338490273
 GameObject:
   m_ObjectHideFlags: 0
@@ -37430,6 +37561,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &519522516 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2527146510012050336, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &519522518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519522516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f6da392a9df7843a2794ea833939a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &520266842
 GameObject:
   m_ObjectHideFlags: 0
@@ -41920,6 +42068,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &596856613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3974476212473548639, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &596856618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596856613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a10a00e75e21c47b72cb28d441f1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drinkType:
+    ingredient: {fileID: 11400000, guid: 7b05b65be630af14b867b9519361351b, type: 2}
+    milliliters: 60
 --- !u!1 &600135753
 GameObject:
   m_ObjectHideFlags: 0
@@ -42960,6 +43128,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &617526453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7772185200974971755, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &617526457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617526453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drink: {fileID: 0}
+  spirits: []
+  mixers: []
+  garnishes: []
+  glass: 8
+  alcoholPercentage: 0
+  hasIce: 0
+--- !u!114 &617526458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617526453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfef1c217476fb41a29e56d752823ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &622647282
 GameObject:
   m_ObjectHideFlags: 0
@@ -43220,6 +43424,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &624629745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8047007058397701305, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &624629747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624629745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962918103a7509d4daeb4ce4690dfcc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientType: {fileID: 11400000, guid: 3c64cb73d82709548bce79b58e5912df, type: 2}
 --- !u!1 &625233432
 GameObject:
   m_ObjectHideFlags: 0
@@ -89562,6 +89784,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!224 &1293289984 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1243074810682038133, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1294493395
 GameObject:
   m_ObjectHideFlags: 0
@@ -140911,6 +141138,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1983275600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5003143991024299530, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1983275605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983275600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a10a00e75e21c47b72cb28d441f1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drinkType:
+    ingredient: {fileID: 11400000, guid: 442ef6a8f98e7ae48953c43b5ce07426, type: 2}
+    milliliters: 60
 --- !u!1 &1983466121
 GameObject:
   m_ObjectHideFlags: 0
@@ -152803,6 +153050,10 @@ PrefabInstance:
       propertyPath: iceTray
       value: 
       objectReference: {fileID: 1674904302}
+    - target: {fileID: 1746324258371390520, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      propertyPath: limesVolume
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2372672641455395482, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -152867,6 +153118,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3840214536656158887, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      propertyPath: m_Name
+      value: ColaBottle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413575831241918986, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      propertyPath: m_TagString
+      value: DrinkStation
+      objectReference: {fileID: 0}
     - target: {fileID: 5665390618822176772, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: m_Name
       value: DrinkMakingStation
@@ -152875,10 +153134,45 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6312800170208052064, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -25.9
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6395740205108608795, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+    - {fileID: 9160694858025893845, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+    - {fileID: 7381227608136548964, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+    - {fileID: 2250214233718502013, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1243074810682038133, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 336527601}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7772185200974971755, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 617526457}
+    - targetCorrespondingSourceObject: {fileID: 7772185200974971755, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 617526458}
+    - targetCorrespondingSourceObject: {fileID: 3974476212473548639, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 596856618}
+    - targetCorrespondingSourceObject: {fileID: 5003143991024299530, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1983275605}
+    - targetCorrespondingSourceObject: {fileID: 3632506136833079689, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 185781057}
+    - targetCorrespondingSourceObject: {fileID: 3840214536656158887, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 205082698}
+    - targetCorrespondingSourceObject: {fileID: 2527146510012050336, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 519522518}
+    - targetCorrespondingSourceObject: {fileID: 8047007058397701305, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624629747}
   m_SourcePrefab: {fileID: 100100000, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
 --- !u!114 &7404612873553715779 stripped
 MonoBehaviour:

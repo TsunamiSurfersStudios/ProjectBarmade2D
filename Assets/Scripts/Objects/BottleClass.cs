@@ -6,19 +6,20 @@ using UnityEngine.EventSystems;
 
 
 // TODO: How is this being used
+//TODO: Delete this script if i forget to delete
 public class BottleClass : MonoBehaviour, IPointerClickHandler // TODO: Rename 
 {
     public enum DrinkType { Soda, Alcohol } // TODO: This seems like a weird way to store information. We should think about maybe making a DrinkType class? 
     public DrinkType drinkType;
 
-    public enum SodaType {Cola, Sprite, Gingerale }
-    public enum AlcoholType {Scotch, Rum, Gin, Moonshine, Vodka, Whiskey }
+    public enum SodaType { Cola, Sprite, Gingerale }
+    public enum AlcoholType { Scotch, Rum, Gin, Moonshine, Vodka, Whiskey }
 
     [HideInInspector] public SodaType sodaType;
     [HideInInspector] public AlcoholType alcoholType;
 
     private DrinkType previousDrinkType = (DrinkType)(-1);
-    private float alcoholVolume = 0f;
+    public float alcoholVolume = 0f;
     private bool holdingDrink;
 
     Camera currCamera; // TODO: Nees to be renamed
@@ -40,7 +41,7 @@ public class BottleClass : MonoBehaviour, IPointerClickHandler // TODO: Rename
             previousDrinkType = drinkType;
         }
     }
-    
+
     void Start()
     {
         Debug.Log(sodaType);
@@ -50,7 +51,8 @@ public class BottleClass : MonoBehaviour, IPointerClickHandler // TODO: Rename
 
     void Update()
     {
-        if(holdingDrink) 
+        Debug.Log("Test");
+        if (holdingDrink)
         {
             Vector3 cameraPos = currCamera.ScreenToWorldPoint(Input.mousePosition);
         }
