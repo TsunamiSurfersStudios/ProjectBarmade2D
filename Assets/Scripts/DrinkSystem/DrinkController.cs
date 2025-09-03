@@ -30,13 +30,30 @@ public class DrinkController : HoldableObject
     }
     public void SpawnDrink(Recipe recipe = null)
     {
-        Spawn(clone => {
+        Spawn(clone =>
+        {
             DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
             if (cloneDrinkController != null && recipe != null)
             {
                 cloneDrinkController.InitializeFromRecipe(recipe);
             }
+            Debug.Log(cloneDrinkController.HasIce());
         });
+    }
+
+    public void SpawnAnotherDrink()
+    {
+        Spawn(clone =>
+        {
+            DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
+            Recipe recipe = Recipe.Create("Custome drink", spirits, mixers, garnishes, glass, hasIce, false);
+            if (cloneDrinkController != null && recipe != null)
+            {
+                cloneDrinkController.InitializeFromRecipe(recipe);
+            }
+            Debug.Log(cloneDrinkController.HasIce());
+        });
+        
     }
 
     private void InitializeFromRecipe(Recipe recipe)
@@ -44,25 +61,25 @@ public class DrinkController : HoldableObject
         spirits.Clear();
         mixers.Clear();
         garnishes.Clear();
-        
+
         // Add spirits from recipe
         foreach (DrinkComponent spirit in recipe.GetSpirits())
         {
             AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
         }
-        
+
         // Add mixers from recipe
         foreach (DrinkComponent mixer in recipe.GetMixers())
         {
             AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
         }
-        
+
         // Add garnishes from recipe
         foreach (Ingredient garnish in recipe.GetGarnishes())
         {
             AddGarnish(garnish);
         }
-        
+
         SetGlass(recipe.GetGlass());
         if (recipe.HasIce())
         {
