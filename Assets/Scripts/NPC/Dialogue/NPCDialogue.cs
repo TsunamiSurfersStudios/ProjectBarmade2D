@@ -13,15 +13,12 @@ public class NPCDialogue : MonoBehaviour
     [SerializeField] TextMeshProUGUI NPCNameDisplay;
     [SerializeField] TextMeshProUGUI NPCTextDisplay;
 
-    private NPCOrdering ordering;
-   
-    private Button[] choiceButtons;
+    private NPCOrdering orderingSystem;
     private int currentNodeIndex = 0; // Current node in the dialogue tree
 
     private void Start()
     {
-        choiceButtons = choicesPanel.GetComponentsInChildren<Button>();
-        ordering = gameObject.GetComponent<NPCOrdering>();
+        orderingSystem = gameObject.GetComponent<NPCOrdering>();
     }
     public void StartConversation()
     {
@@ -58,6 +55,7 @@ public class NPCDialogue : MonoBehaviour
     }
     void ShowChoices(PlayerNode[] choices)
     {
+        Button[] choiceButtons = choicesPanel.GetComponentsInChildren<Button>();
         choicesPanel.SetActive(true);
 
         for (int i = 0; i < choiceButtons.Length; i++)
@@ -67,7 +65,7 @@ public class NPCDialogue : MonoBehaviour
                 Button currButton = choiceButtons[i];
                 PlayerNode currChoice = choices[i];
 
-                if (currChoice.BeginsOrder() && ordering.OrderActive())
+                if (currChoice.BeginsOrder() && orderingSystem.OrderActive())
                 {
                     currButton.gameObject.SetActive(false);
                 }
@@ -104,7 +102,6 @@ public class NPCDialogue : MonoBehaviour
             PlayerNode playerChoice = currentNode.GetChoice(nextIndex);
                 if (playerChoice.BeginsOrder())
                 {
-                    Debug.Log("Player took NPC order");
                     CreateOrder();
                 }
                 else
@@ -129,7 +126,6 @@ public class NPCDialogue : MonoBehaviour
 
     void CreateOrder()
     {
-        NPCOrdering orderingSystem = gameObject.GetComponent<NPCOrdering>();
         orderingSystem.CreateOrder();
         Recipe recipe = orderingSystem.GetOrder();
         OrderNode orderNode = new OrderNode(recipe.GetDrinkName());

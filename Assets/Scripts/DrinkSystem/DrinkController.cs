@@ -8,12 +8,12 @@ public class DrinkController : HoldableObject
 {
     public GameObject drink;
     // Drink creation
-    [SerializeField] private List<DrinkComponent> spirits = new List<DrinkComponent>();
-    [SerializeField] private List<DrinkComponent> mixers = new List<DrinkComponent>();
-    [SerializeField] private List<Ingredient> garnishes = new List<Ingredient>();
-    [SerializeField] private Glass glass;
-    [SerializeField] private float alcoholPercentage = 0f; // max: 1
-    [SerializeField] private bool hasIce = false;
+    private List<DrinkComponent> spirits = new List<DrinkComponent>();
+    private List<DrinkComponent> mixers = new List<DrinkComponent>();
+    private List<Ingredient> garnishes = new List<Ingredient>();
+    private Glass glass;
+    private float alcoholPercentage = 0f; // max: 1
+    private bool hasIce = false;
 
     void Start()
     {
@@ -125,7 +125,6 @@ public class DrinkController : HoldableObject
     }
 
     public List<DrinkComponent> GetSpirits() { return spirits; }
-    public void SetSpirits(List<DrinkComponent> spirits) { this.spirits = spirits; }
     public List<DrinkComponent> GetMixers() { return mixers; }
     public List<Ingredient> GetGarnishes() { return garnishes; }
     public Glass GetGlass() { return glass; }
