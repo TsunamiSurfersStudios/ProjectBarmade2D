@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class Ice : MonoBehaviour, IPointerClickHandler
+public class Ice : MonoBehaviour
 {   
-    public void OnPointerClick(PointerEventData eventData)
+    public void SelectIce()
     {
         DrinkMixing drinkMakingStation = FindObjectOfType<DrinkMixing>(true);
         IceTray iceTray= FindObjectOfType<IceTray>(true);
