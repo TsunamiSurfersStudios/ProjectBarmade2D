@@ -4,10 +4,11 @@ using UnityEngine;
 using System;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.Events; 
 
 public class InteractionController : MonoBehaviour
 {
+    [SerializeField] string TagToCheck = "Player";
     [SerializeField] UnityEvent OnBoxCollide;
     [SerializeField] UnityEvent OnBoxExit;
     [SerializeField] UnityEvent OnItemInteraction;
@@ -21,7 +22,7 @@ public class InteractionController : MonoBehaviour
     // Check for player collision
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag(TagToCheck))
         {
             isColliding = true;
             OnBoxCollide.Invoke();
@@ -32,7 +33,7 @@ public class InteractionController : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag(TagToCheck))
         {
             isColliding = false;
             OnBoxExit.Invoke();
