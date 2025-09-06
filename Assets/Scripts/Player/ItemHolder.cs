@@ -6,7 +6,7 @@ public class ItemHolder : MonoBehaviour
 {
     private GameObject heldObject;
 
-    public void GiveObject(GameObject obj)
+    public void GiveObject(GameObject obj) 
     {
         if (heldObject == null && obj != null)
         {

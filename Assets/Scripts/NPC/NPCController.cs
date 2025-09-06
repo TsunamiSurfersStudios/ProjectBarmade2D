@@ -6,6 +6,9 @@ public class NPCController : MonoBehaviour
 {
     // Movement variables
     bool moveHorizontally, moveVertically;
+    [SerializeField] private float movementSpeed = 0.01f;
+    GameObject[] chairs;
+    GameObject leavePoint;
     Vector2 destination, position;
 
     private GameObject seat;
@@ -13,12 +16,12 @@ public class NPCController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     // Interaction variables
-    private float sobering = 1f;
-    private float NPCTolerance = 0f;
-    private float soberSeconds = 10f; // Time in seconds to sober up
+    [SerializeField] private float sobering = 0.01f;
+    [SerializeField] private float NPCTolerance = 0f;
+    [SerializeField] private float soberSeconds = 50f; // Time in seconds to sober up
     private float soberTimer = 0f;
-    private float currentDrunkness = 0;
-    private float maxDrunk = 100;
+    [SerializeField] private float currentDrunkness = 0f;
+    [SerializeField] private float maxDrunk = 100f;
     private GameObject drunkMeter;
     private ToxicBar toxicBar;
 
@@ -70,35 +73,39 @@ public class NPCController : MonoBehaviour
             animator.SetBool("isUp", false);
             if (position.x > destination.x)
             {
-                position.x = position.x - 0.01f;
+                position.x -= movementSpeed;
                 spriteRenderer.flipX = false;
-                animator.SetBool("isHorizontal", true);
+                animator.SetBool("isLeft", true);
+                animator.SetBool("isRight", false);
             }
             else
             {
-                position.x = position.x + 0.01f;
+                position.x += movementSpeed;
                 spriteRenderer.flipX = true;
-                animator.SetBool("isHorizontal", true);
+                animator.SetBool("isRight", true);
+                animator.SetBool("isLeft", false);
             }
         }
         else if (moveVertically)
         {
-            animator.SetBool("isHorizontal", false);
+            animator.SetBool("isLeft", false);
+            animator.SetBool("isRight", false);
             if (position.y > destination.y)
             {
-                position.y = position.y - 0.01f;
+                position.y -= movementSpeed;
                 animator.SetBool("isDown", true);
             }
             else
             {
-                position.y = position.y + 0.01f;
+                position.y += movementSpeed;
                 animator.SetBool("isUp", true);
             }
         }
 
         if (Mathf.Round(position.x) == Mathf.Round(destination.x) && Mathf.Round(destination.y) == Mathf.Round(position.y))
         {
-            animator.SetBool("isHorizontal", false);
+            animator.SetBool("isLeft", false);
+            animator.SetBool("isRight", false);
             animator.SetBool("isDown", false);
             animator.SetBool("isUp", false);
         }
@@ -184,7 +191,7 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    public void SetDrunkMeter(GameObject meter)
+    public void SetDrunkMeter(GameObject meter)//Pretty sure this is an unused function, can be removed ? 
     {
         drunkMeter = meter;
         meter.transform.parent = gameObject.transform; 

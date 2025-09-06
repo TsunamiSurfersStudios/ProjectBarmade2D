@@ -7,7 +7,6 @@ using UnityEngine;
 public class DrinkController : HoldableObject
 {
     public GameObject drink;
-
     // Drink creation
     private List<DrinkComponent> spirits = new List<DrinkComponent>();
     private List<DrinkComponent> mixers = new List<DrinkComponent>();
@@ -29,9 +28,46 @@ public class DrinkController : HoldableObject
     {
         Give();
     }
-    public void SpawnDrink()
+    public void SpawnDrink(Recipe recipe = null)
     {
-        Spawn();
+        Spawn(clone => {
+            DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
+            if (cloneDrinkController != null && recipe != null)
+            {
+                cloneDrinkController.InitializeFromRecipe(recipe);
+            }
+        });
+    }
+
+    private void InitializeFromRecipe(Recipe recipe)
+    {
+        spirits.Clear();
+        mixers.Clear();
+        garnishes.Clear();
+        
+        // Add spirits from recipe
+        foreach (DrinkComponent spirit in recipe.GetSpirits())
+        {
+            AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
+        }
+        
+        // Add mixers from recipe
+        foreach (DrinkComponent mixer in recipe.GetMixers())
+        {
+            AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
+        }
+        
+        // Add garnishes from recipe
+        foreach (Ingredient garnish in recipe.GetGarnishes())
+        {
+            AddGarnish(garnish);
+        }
+        
+        SetGlass(recipe.GetGlass());
+        if (recipe.HasIce())
+        {
+            AddIce();
+        }
     }
 
     public float GetAlcoholPercentage()
