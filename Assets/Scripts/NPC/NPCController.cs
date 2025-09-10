@@ -26,7 +26,6 @@ public class NPCController : MonoBehaviour
     private GameObject drunkMeter;
     private ToxicBar toxicBar;
     private NPCDialogue dialogue;
-    private NPCOrdering ordering;
 
 
     // Start is called before the first frame update
@@ -37,7 +36,6 @@ public class NPCController : MonoBehaviour
         drunkMeter = gameObject.transform.Find("DrunkMeter").gameObject;
         toxicBar = drunkMeter.transform.Find("ToxicBar").GetComponent<ToxicBar>();
         dialogue = gameObject.GetComponent<NPCDialogue>();
-        ordering = GetComponent<NPCOrdering>(); 
     }
     
     void OnCollisionEnter2D(Collision2D collision)

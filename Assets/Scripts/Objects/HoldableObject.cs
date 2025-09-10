@@ -5,35 +5,25 @@ public class HoldableObject : MonoBehaviour
     protected ItemHolder itemHolder;
     protected GameObject item;
 
-    protected void Give()
-    {
-        FindItemHolder();
-        itemHolder.GiveObject(gameObject);
-    }
-
-    protected void Spawn()
-    {
-        FindItemHolder();
-        GameObject clone = GameObject.Instantiate(item);
-        itemHolder.GiveObject(clone);
-        clone.SetActive(true);
-    }
-
-    // Overload with the setupAction parameter
-    protected void Spawn(System.Action<GameObject> setupAction)
-    {
-        FindItemHolder();
-        GameObject clone = GameObject.Instantiate(item);
-        setupAction?.Invoke(clone);
-        itemHolder.GiveObject(clone);
-        clone.SetActive(true);
-    }
-
-    private void FindItemHolder()
+    protected void Start()
     {
         if (itemHolder == null)
         {
             itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
         }
+    }
+
+    protected void Give()
+    {  
+        itemHolder.GiveObject(gameObject);
+    }
+
+    // Overload with the setupAction parameter
+    protected void Spawn(System.Action<GameObject> drinkData)
+    {
+        GameObject clone = GameObject.Instantiate(item);
+        drinkData?.Invoke(clone);
+        itemHolder.GiveObject(clone);
+        clone.SetActive(true);
     }
 }

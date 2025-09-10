@@ -17,6 +17,7 @@ public class DrinkController : HoldableObject
 
     void Start()
     {
+        base.Start(); //Assign itemHolder
         item = drink;
         if (alcoholPercentage > 1)
         {
