@@ -102759,7 +102759,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.72
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -154274,7 +154274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655391263410662640, guid: ce2510dbeb31e7149b0caafe480bc749, type: 3}
       propertyPath: movementSpeed
-      value: 0.05
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 7655391263410662640, guid: ce2510dbeb31e7149b0caafe480bc749, type: 3}
       propertyPath: currentDrunkness
