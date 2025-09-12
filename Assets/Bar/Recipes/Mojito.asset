@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Mojito
   m_EditorClassIdentifier: 
   drinkName: Mojito
-  baseSpirit:
-    ingredient: {fileID: 11400000, guid: afe37e77966fa144d86f2e9cbc4e10c6, type: 2}
-    milliliters: 45
+  spirits: []
   mixers:
   - ingredient: {fileID: 11400000, guid: 758647f218993534088ac2f3173b1963, type: 2}
     milliliters: 20
