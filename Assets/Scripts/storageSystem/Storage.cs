@@ -1,42 +1,55 @@
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 
-public class StorageSystem : MonoBehaviour
+public class StorageSystem : ScriptableObject
 {
     [System.Serializable]
+
+    // holds Ingredients and the amount of ingredients
     public class DrinkSlot
     {
-        public Drink drink;
+        public Ingredient drink;
         public float quantity;
-    }
 
-    public List<DrinkSlot> inventory = new List<DrinkSlot>();
-
-    public void AddDrink(Drink drink, float amount)
-    {
-        foreach (var slot in inventory)
+        public DrinkSlot(Ingredient drink, float quantity)
         {
-            if (slot.drink == drink)
-            {
-                slot.quantity += amount;
-                return;
-            }
+            this.drink = drink;
+            this.quantity = quantity;
         }
-        inventory.Add(new DrinkSlot { drink = drink, quantity = amount });
     }
 
-    public bool TransferDrink(StorageSystem target, Drink drink, float amount)
+    public List<DrinkSlot> storage = new List<DrinkSlot>();
+
+    public void AddDrink(Ingredient drink, int amount)
     {
-        foreach (var slot in inventory)
+        // checks to see if the item already exist in List storage
+        var existingItem = storage.Find(i => i.drink == drink);
+
+        // if the item does exist then add to the amount
+        if (existingItem != null)
         {
-            if (slot.drink == drink && slot.quantity >= amount)
-            {
-                slot.quantity -= amount;
-                target.AddDrink(drink, amount);
-                return true;
-            }
+            existingItem.quantity += amount;
         }
-        return false;
+        else //adds a new item in the storage by creating a new DrinkSlot object
+        {
+            storage.Add(new DrinkSlot(drink, amount));
+        }
+        
     }
+
+    public void RemoveDrink(Ingredient drink, int amount) 
+    { 
+        var existingItem = storage.Find(i => i.drink == drink);
+
+        if (existingItem != null)
+        {
+            existingItem.quantity -= amount;
+        }
+    }
+
+    // need to make a function that adds to back room then that adds to the bar storage
 }
+
+
 
