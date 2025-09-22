@@ -25,8 +25,6 @@ public class NPCController : MonoBehaviour
     private GameObject drunkMeter;
     private ToxicBar toxicBar;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         

@@ -9,8 +9,6 @@ public class StartGame : MonoBehaviour
     [SerializeField] Service[] Services;
     [SerializeField] GameObject LoadingScreenUI;
 
-
-
     void Start()
     {
         Load();
