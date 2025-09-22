@@ -11,12 +11,10 @@ public class NPCOrdering : MonoBehaviour
     private Recipe GetRandomRecipe()
     {
         // Get unlocked recipes
+        Recipe[] allRecipes = Resources.FindObjectsOfTypeAll<Recipe>();
         List<Recipe> unlockedRecipes = new List<Recipe>();
-        string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(Recipe)));
-        for (int i = 0; i < guids.Length; i++)
+        foreach (Recipe recipe in allRecipes)
         {
-            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-            Recipe recipe = AssetDatabase.LoadAssetAtPath<Recipe>(assetPath);
             if (recipe != null && recipe.getUnlocked())
             {
                 unlockedRecipes.Add(recipe);
