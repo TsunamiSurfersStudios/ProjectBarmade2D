@@ -8,7 +8,6 @@ public class TrashCan : MonoBehaviour
     [SerializeField] private Animator animator;
     private GameObject trashCan;
     [SerializeField] private GameObject trashBag;
-    private bool touchingTrashCan;
     
     void Start()
     {
@@ -29,11 +28,6 @@ public class TrashCan : MonoBehaviour
         {
             animator.SetBool("isFull", false);
         }
-
-        if (Input.GetKeyDown(KeyCode.E) && touchingTrashCan && fullness == 100f)
-        {
-            addTrashBag();
-        }
     }
 
     public void addFullness(int num){
@@ -45,21 +39,5 @@ public class TrashCan : MonoBehaviour
         Vector2 spawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y - 1f);
         fullness = 0f;
         Instantiate(trashBag, spawnPosition, Quaternion.identity);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            touchingTrashCan = true;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            touchingTrashCan = false;
-        }
     }
 }

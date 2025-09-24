@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 4985680917058086872}
   - component: {fileID: 1744036134829069020}
   - component: {fileID: 1408950979457200893}
-  - component: {fileID: 6092385247017799717}
+  - component: {fileID: 7004342582599350566}
+  - component: {fileID: 7416447960072882356}
+  - component: {fileID: 6606277579865792862}
   m_Layer: 6
   m_Name: TrashBag
   m_TagString: TrashBag
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3781479709430243274}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 3.5, z: 0}
+  m_LocalPosition: {x: 5.68, y: 1.54, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,7 +133,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
---- !u!114 &6092385247017799717
+--- !u!114 &7004342582599350566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +142,91 @@ MonoBehaviour:
   m_GameObject: {fileID: 3781479709430243274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3466d22fa554b5f46a8f4af78c122a5e, type: 3}
+  m_Script: {fileID: 11500000, guid: a960b71bb8272e843a2dee352137fd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bag: {fileID: 3781479709430243274}
+  OnBoxCollide:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3781479709430243274}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnBoxExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3781479709430243274}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnItemInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6606277579865792862}
+        m_TargetAssemblyTypeName: TrashBag, Objects
+        m_MethodName: GiveBag
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnItemDisable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6606277579865792862}
+        m_TargetAssemblyTypeName: TrashBag, Objects
+        m_MethodName: DropBag
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  KEYBIND: 101
+--- !u!114 &7416447960072882356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781479709430243274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1058a2596e1d2d948850f26938e6b61b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6606277579865792862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781479709430243274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936f54a213eeb3943aba6bc374350f2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

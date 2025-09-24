@@ -15,6 +15,8 @@ public class InteractionController : MonoBehaviour
 
     [SerializeField] KeyCode KEYBIND = KeyCode.E;
 
+    [SerializeField] bool requiresCollision;
+
     private bool isColliding = false;
     private bool isInteracting = false;
 
@@ -34,7 +36,7 @@ public class InteractionController : MonoBehaviour
     // Check for end of player collision
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(TagToCheck))
+        if (collision.gameObject.CompareTag("Player"))
         {
             isColliding = false;
             OnBoxExit.Invoke();

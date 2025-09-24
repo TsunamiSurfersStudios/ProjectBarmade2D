@@ -14,7 +14,7 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] Keybind[] interactions;
     KeyCode disabledKeybind; // TODO: Only one for now, but future implementation could allow more -- dtroupe
 
-    void Update()
+    void Update()   
     {
         foreach (Keybind interaction in interactions)
         {
