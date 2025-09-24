@@ -14,7 +14,7 @@ public class HoldableObject : MonoBehaviour
     {
         itemHolder.GiveObject(gameObject);
     }
-
+    
     protected void Spawn()
     {
         GameObject clone = GameObject.Instantiate(item);
