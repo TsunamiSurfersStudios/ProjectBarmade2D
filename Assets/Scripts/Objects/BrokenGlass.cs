@@ -11,7 +11,7 @@ public class BrokenGlass : MonoBehaviour
     public LayerMask npcMask;
     public Vector3 Direction { get; set; }
     private GameObject itemHolding;
-    bool touchingDrink = false;
+    //bool touchingDrink = false; TODO: Remove line
     private GameObject Player;
     private PlayerMovement playerMovement;
     private GameObject trashCan;
