@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class DrinkController : HoldableObject
 {
-    public GameObject drink;
     // Drink creation
     private List<DrinkComponent> spirits = new List<DrinkComponent>();
     private List<DrinkComponent> mixers = new List<DrinkComponent>();
@@ -17,7 +16,7 @@ public class DrinkController : HoldableObject
 
     void Start()
     {
-        item = drink;
+        base.Start(); //Assign itemHolder
         if (alcoholPercentage > 1)
         {
             Debug.Log(name + " alcohol percentage exceeds 100%. Scripts may not work as intended.");
@@ -28,18 +27,12 @@ public class DrinkController : HoldableObject
     {
         Give();
     }
-    public void SpawnDrink(Recipe recipe = null)
+    public void SpawnDrink()
     {
-        Spawn(clone => {
-            DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
-            if (cloneDrinkController != null && recipe != null)
-            {
-                cloneDrinkController.InitializeFromRecipe(recipe);
-            }
-        });
+        Spawn();
     }
 
-    private void InitializeFromRecipe(Recipe recipe)
+    private void InitializeFromRecipe(Recipe recipe) // TODO: Deprecate this. DO NOT USE 
     {
         spirits.Clear();
         mixers.Clear();
@@ -81,9 +74,9 @@ public class DrinkController : HoldableObject
         IngredientType type = newIngredient.GetIngredientType();
         if (type == IngredientType.SPIRIT || type == IngredientType.MIXER)
         {
-            DrinkComponent drink = DrinkComponent.Create(newIngredient, milliliters);
-            if (type == IngredientType.SPIRIT) { spirits.Add(drink); }
-            else { mixers.Add(drink); }
+            DrinkComponent item = DrinkComponent.Create(newIngredient, milliliters);
+            if (type == IngredientType.SPIRIT) { spirits.Add(item); }
+            else { mixers.Add(item); }
 
             // Calculate percentage
             int totalVolume = 0;

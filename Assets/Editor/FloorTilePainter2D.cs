@@ -16,7 +16,6 @@ public class FloorTilePainter2D : EditorWindow
     private float tileSize = 1f;
     private bool randomRotation = false;
     private string parentName = "Floor Tiles";
-    //private int sortingLayer = 0; TODO: REMOVE LINE
     private int orderInLayer = 0;
     
     // Used for tracking the last drawn position to avoid duplicates
