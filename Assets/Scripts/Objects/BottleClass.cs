@@ -18,7 +18,6 @@ public class BottleClass : MonoBehaviour, IPointerClickHandler // TODO: Rename
     [HideInInspector] public AlcoholType alcoholType;
 
     private DrinkType previousDrinkType = (DrinkType)(-1);
-    private float alcoholVolume = 0f;
     private bool holdingDrink;
 
     Camera currCamera; // TODO: Nees to be renamed
