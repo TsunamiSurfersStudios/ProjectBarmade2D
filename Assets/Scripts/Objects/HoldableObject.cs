@@ -3,7 +3,7 @@ using UnityEngine;
 public class HoldableObject : MonoBehaviour
 {
     protected ItemHolder itemHolder;
-    protected GameObject item;
+    public GameObject item;
 
     protected void Start()
     {
