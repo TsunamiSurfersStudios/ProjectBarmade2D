@@ -7,7 +7,6 @@ public class NPCController : MonoBehaviour
     // Movement variables
     bool moveHorizontally, moveVertically;
     [SerializeField] private float movementSpeed = 0.01f;
-    GameObject[] chairs;
     GameObject leavePoint;
     Vector2 destination, position;
 
@@ -181,7 +180,7 @@ public class NPCController : MonoBehaviour
         if (drinkController)
         {
             float alcoholPercentage = drinkController.GetAlcoholPercentage();
-            float initalIntoxication = Random.Range(5, alcoholPercentage);
+            float initalIntoxication = UnityEngine.Random.Range(5, alcoholPercentage);
             float reducedIntoxication = initalIntoxication * NPCTolerance; 
             float finalIntoxication = initalIntoxication - reducedIntoxication;
 
@@ -196,7 +195,7 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    public void SetDrunkMeter(GameObject meter)//Pretty sure this is an unused function, can be removed ? 
+    public void SetDrunkMeter(GameObject meter)
     {
         drunkMeter = meter;
         meter.transform.parent = gameObject.transform; 

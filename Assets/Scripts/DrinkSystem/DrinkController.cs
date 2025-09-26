@@ -29,18 +29,12 @@ public class DrinkController : HoldableObject
     {
         Give();
     }
-    public void SpawnDrink(Recipe recipe = null)
+    public void SpawnDrink()
     {
-        Spawn(clone => {
-            DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
-            if (cloneDrinkController != null && recipe != null)
-            {
-                cloneDrinkController.InitializeFromRecipe(recipe);
-            }
-        });
+        Spawn();
     }
 
-    private void InitializeFromRecipe(Recipe recipe)
+    private void InitializeFromRecipe(Recipe recipe) // TODO: Deprecate this. DO NOT USE 
     {
         spirits.Clear();
         mixers.Clear();
