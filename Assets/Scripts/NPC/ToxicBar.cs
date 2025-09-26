@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
+=======
+>>>>>>> main
 using UnityEngine;
 using UnityEngine.UI;
 
