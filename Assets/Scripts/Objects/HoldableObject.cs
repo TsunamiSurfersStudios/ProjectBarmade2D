@@ -3,11 +3,14 @@ using UnityEngine;
 public class HoldableObject : MonoBehaviour
 {
     protected ItemHolder itemHolder;
-    protected GameObject item;
+    public GameObject item;
 
-    void Start()
+    protected void Start()
     {
-        itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        if (itemHolder == null)
+        {
+            itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        }
     }
 
     protected void Give()

@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class DrinkController : HoldableObject
 {
-    public GameObject drink;
-
     // Drink creation
     private List<DrinkComponent> spirits = new List<DrinkComponent>();
     private List<DrinkComponent> mixers = new List<DrinkComponent>();
@@ -18,7 +16,7 @@ public class DrinkController : HoldableObject
 
     void Start()
     {
-        item = drink;
+        base.Start(); //Assign itemHolder
         if (alcoholPercentage > 1)
         {
             Debug.Log(name + " alcohol percentage exceeds 100%. Scripts may not work as intended.");
@@ -34,6 +32,37 @@ public class DrinkController : HoldableObject
         Spawn();
     }
 
+    private void InitializeFromRecipe(Recipe recipe) // TODO: Deprecate this. DO NOT USE 
+    {
+        spirits.Clear();
+        mixers.Clear();
+        garnishes.Clear();
+        
+        // Add spirits from recipe
+        foreach (DrinkComponent spirit in recipe.GetSpirits())
+        {
+            AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
+        }
+        
+        // Add mixers from recipe
+        foreach (DrinkComponent mixer in recipe.GetMixers())
+        {
+            AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
+        }
+        
+        // Add garnishes from recipe
+        foreach (Ingredient garnish in recipe.GetGarnishes())
+        {
+            AddGarnish(garnish);
+        }
+        
+        SetGlass(recipe.GetGlass());
+        if (recipe.HasIce())
+        {
+            AddIce();
+        }
+    }
+
     public float GetAlcoholPercentage()
     {
         return alcoholPercentage;
@@ -45,9 +74,9 @@ public class DrinkController : HoldableObject
         IngredientType type = newIngredient.GetIngredientType();
         if (type == IngredientType.SPIRIT || type == IngredientType.MIXER)
         {
-            DrinkComponent drink = DrinkComponent.Create(newIngredient, milliliters);
-            if (type == IngredientType.SPIRIT) { spirits.Add(drink); }
-            else { mixers.Add(drink); }
+            DrinkComponent item = DrinkComponent.Create(newIngredient, milliliters);
+            if (type == IngredientType.SPIRIT) { spirits.Add(item); }
+            else { mixers.Add(item); }
 
             // Calculate percentage
             int totalVolume = 0;

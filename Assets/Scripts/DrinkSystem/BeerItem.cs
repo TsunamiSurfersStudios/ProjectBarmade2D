@@ -8,4 +8,9 @@ public class BeerItem : DrinkController
     {
         Debug.Log(gameObject.name);
     }
+    
+    public void SpawnBeer()
+    {
+        SpawnDrink();
+    }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NPCOrdering : MonoBehaviour
 {
-    Recipe order;
+    private Recipe order;
     bool orderActive = false;
     private Recipe GetRandomRecipe()
     {
@@ -32,8 +32,6 @@ public class NPCOrdering : MonoBehaviour
         orderActive = true;
     }
 
-    public Recipe GetOrder() { return order; }
-
     public float GetRecipeAccuracy(Recipe recipe, DrinkController drink)
     {
         float accuracy = 0f;
@@ -46,11 +44,11 @@ public class NPCOrdering : MonoBehaviour
 
         int totalLiquidsExpected = recipeSpirits.Count + recipeMixers.Count;
         int ingredientsFound = 0;
-        
+
         // Check spirits and mixers
         foreach (DrinkComponent spirit in recipeSpirits) // This O^N^2 solution needs to be refactored :(
         {
-            foreach(DrinkComponent spirit2 in drinkSpirits) 
+            foreach (DrinkComponent spirit2 in drinkSpirits)
             {
                 if (spirit.GetIngredientName() == spirit2.GetIngredientName())
                 {
@@ -58,7 +56,7 @@ public class NPCOrdering : MonoBehaviour
                     if (spirit.GetMilliliters() == spirit2.GetMilliliters()) { accuracy += 0.3f / totalLiquidsExpected; }
                     ingredientsFound++;
                     continue;
-                } 
+                }
             }
         }
         foreach (DrinkComponent mixer in recipeMixers) // This O^N^2 solution needs to be refactored :(
@@ -78,11 +76,11 @@ public class NPCOrdering : MonoBehaviour
         accuracy -= (drinkSpirits.Count + drinkMixers.Count - ingredientsFound) * 0.15f;
 
         // Garnishes
-        List < Ingredient > recipeGarnishes = recipe.GetGarnishes();
+        List<Ingredient> recipeGarnishes = recipe.GetGarnishes();
         List<Ingredient> drinkGarnishes = drink.GetGarnishes();
         int expectedGarnishes = recipeGarnishes.Count;
         int garnishesFound = 0;
-        foreach (Ingredient garnish in recipeGarnishes) 
+        foreach (Ingredient garnish in recipeGarnishes)
         {
             foreach (Ingredient garnish2 in drinkGarnishes)
             {
@@ -100,5 +98,6 @@ public class NPCOrdering : MonoBehaviour
         return accuracy;
     }
 
+    public Recipe GetOrder() { return order; }
     public bool OrderActive() { return orderActive; }
 }

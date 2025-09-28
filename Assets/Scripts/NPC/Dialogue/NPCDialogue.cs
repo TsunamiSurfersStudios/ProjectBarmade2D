@@ -12,19 +12,19 @@ public class NPCDialogue : MonoBehaviour
     [SerializeField] GameObject choicesPanel;
     [SerializeField] TextMeshProUGUI NPCNameDisplay;
     [SerializeField] TextMeshProUGUI NPCTextDisplay;
-   
-    private Button[] choiceButtons;
+
+    private NPCOrdering orderingSystem;
     private int currentNodeIndex = 0; // Current node in the dialogue tree
 
     private void Start()
     {
-       choiceButtons = choicesPanel.GetComponentsInChildren<Button>();
+        orderingSystem = gameObject.GetComponent<NPCOrdering>();
     }
     public void StartConversation()
     {
         currentNodeIndex = 0;
         dialogueCanvas.SetActive(true);
-        ShowCurrentNode();
+        ShowCurrentNode(); 
     }
 
     void ShowCurrentNode()
@@ -47,15 +47,16 @@ public class NPCDialogue : MonoBehaviour
         NPCTextDisplay.text = NPCText;
     }
 
-    void HideDialogue() 
+    void HideDialogue()
     {
         dialogueCanvas.SetActive(false);  // Hides the whole dialogue panel
-        choicesPanel.SetActive(false);   // Hides the choices if they’re visible
+        choicesPanel.SetActive(false);   // Hides the choices if theyï¿½re visible
+        //TODO: Need to make player's movement be properly enabled again after they are done talking
     }
     void ShowChoices(PlayerNode[] choices)
     {
+        Button[] choiceButtons = choicesPanel.GetComponentsInChildren<Button>();
         choicesPanel.SetActive(true);
-        NPCOrdering ordering = gameObject.GetComponent<NPCOrdering>();
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {
@@ -64,7 +65,7 @@ public class NPCDialogue : MonoBehaviour
                 Button currButton = choiceButtons[i];
                 PlayerNode currChoice = choices[i];
 
-                if (currChoice.BeginsOrder() && ordering.OrderActive())
+                if (currChoice.BeginsOrder() && orderingSystem.OrderActive())
                 {
                     currButton.gameObject.SetActive(false);
                 }
@@ -125,7 +126,6 @@ public class NPCDialogue : MonoBehaviour
 
     void CreateOrder()
     {
-        NPCOrdering orderingSystem = gameObject.GetComponent<NPCOrdering>();
         orderingSystem.CreateOrder();
         Recipe recipe = orderingSystem.GetOrder();
         OrderNode orderNode = new OrderNode(recipe.GetDrinkName());
