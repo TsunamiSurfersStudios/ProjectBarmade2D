@@ -11,15 +11,11 @@ public class BrokenGlass : MonoBehaviour
     public LayerMask npcMask;
     public Vector3 Direction { get; set; }
     private GameObject itemHolding;
-    //bool touchingDrink = false; TODO: Remove line
     private GameObject Player;
-    private PlayerMovement playerMovement;
-    private GameObject trashCan;
     
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
-        playerMovement = Player.GetComponent<PlayerMovement>();
         holdSpot = Player.transform.Find("boxHolder");
     }
 
