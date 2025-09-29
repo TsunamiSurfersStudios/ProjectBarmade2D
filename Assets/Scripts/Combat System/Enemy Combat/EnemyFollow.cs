@@ -10,7 +10,7 @@ public class EnemyFollow : MonoBehaviour
     public float stopDistance = 1.0f;
     public float attackRange = 1.2f;
     public int damage = 25;
-    public float attackCooldown = 1.5f;
+    public float attackCooldown = 3f;
 
     [Header("Refs")]
     Rigidbody2D rb;
@@ -45,7 +45,7 @@ public class EnemyFollow : MonoBehaviour
     {
         if (!player) return;
 
-        if (recoil != null && recoil.isRecoiling) return; // pause during jump back
+        //if (recoil != null && recoil.isRecoiling) return; // pause during jump back
 
         Vector2 pos = rb.position;
         Vector2 to = (Vector2)player.position - pos;
@@ -83,11 +83,6 @@ public class EnemyFollow : MonoBehaviour
         if (playerHealth != null )
         {
             playerHealth.TakeDamage(damage);
-            Debug.Log("Enemy attacked the player for " + damage + " damage.");
-        }
-        else
-        {
-            Debug.Log("Player has perished....");
         }
     }
 

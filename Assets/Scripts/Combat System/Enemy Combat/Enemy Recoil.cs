@@ -7,7 +7,7 @@ public class EnemyRecoil : MonoBehaviour
     [Header("Enemy Settings")]
     public float recoilDistance = 0.5f; // How far the enemy is pushed back
     public float recoilDuration = 0.2f; // How long the recoil lasts    
-    public float hitCooldown = 0.15f; // Minimum time between hits
+    public float hitCooldown = 2f; // Minimum time between hits
     public bool isRecoiling { get; private set; }
 
     float nextHitTime;

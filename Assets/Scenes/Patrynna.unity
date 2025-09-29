@@ -467,6 +467,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 595677875}
+    - target: {fileID: 4842466727183143993, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: attackCooldown
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4913991633478861359, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.77
@@ -505,6 +509,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4913991633478861359, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597255643782833301, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8646344845184202188, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
