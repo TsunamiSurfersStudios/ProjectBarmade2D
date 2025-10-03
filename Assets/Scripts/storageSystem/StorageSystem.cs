@@ -2,24 +2,28 @@ using System.Collections.Generic;
 using UnityEditor.Search;
 using UnityEngine;
 
-public class StorageSystem : ScriptableObject
+public class BackRoomStorage : Ingredient
+{
+    [SerializeField] private GameObject backRoomObject;
+}
+public class StorageSystem : MonoBehaviour
 {
     [System.Serializable]
 
     // holds Ingredients and the amount of ingredients
-    public class DrinkSlot
+    public class BarStorage
     {
         public Ingredient drink;
         public float quantity;
 
-        public DrinkSlot(Ingredient drink, float quantity)
+        public BarStorage(Ingredient drink, float quantity)
         {
             this.drink = drink;
             this.quantity = quantity;
         }
     }
 
-    public List<DrinkSlot> storage = new List<DrinkSlot>();
+    public List<BarStorage> storage = new List<BarStorage>();
 
     public void AddDrink(Ingredient drink, int amount)
     {
@@ -33,13 +37,13 @@ public class StorageSystem : ScriptableObject
         }
         else //adds a new item in the storage by creating a new DrinkSlot object
         {
-            storage.Add(new DrinkSlot(drink, amount));
+            storage.Add(new BarStorage(drink, amount));
         }
-        
+
     }
 
-    public void RemoveDrink(Ingredient drink, int amount) 
-    { 
+    public void RemoveDrink(Ingredient drink, int amount)
+    {
         var existingItem = storage.Find(i => i.drink == drink);
 
         if (existingItem != null)
@@ -50,6 +54,4 @@ public class StorageSystem : ScriptableObject
 
     // need to make a function that adds to back room then that adds to the bar storage
 }
-
-
 

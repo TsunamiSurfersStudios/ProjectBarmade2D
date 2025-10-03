@@ -33,7 +33,7 @@ public class Ingredient : ScriptableObject
     [Range(0f, 1f)] [SerializeField] float alcoholPercentage = 0f;
 
     // added a way to hold a GameObject - Megan
-    [SerializeField] GameObject backStorageObject;
+    //[SerializeField] GameObject backStorageObject;
     public static Ingredient Create(string name, IngredientType type, float percentage)
     {
         Ingredient ingredient = ScriptableObject.CreateInstance<Ingredient>();
