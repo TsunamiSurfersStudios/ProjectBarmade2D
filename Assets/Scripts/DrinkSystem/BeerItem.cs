@@ -13,6 +13,6 @@ public class BeerItem : DrinkController
     
     public void SpawnBeer()
     {
-        SpawnDrink(BeerRecipe);
+        SpawnBeerDrink(BeerRecipe);
     }
 }

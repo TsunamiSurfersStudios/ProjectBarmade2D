@@ -49,7 +49,6 @@ public class DrinkMixing : MonoBehaviour
     public void drawSprites()
     {
         iceTrayVolume = iceTray.GetComponent<IceTray>().GetVolume();
-        Debug.Log("Ice volume: " + iceTrayVolume);
         //Spawn ice cubes in the tray based on the ice tray volume
         populateTray(iceTrayVolume, iceTrayUI, iceSprite);
 

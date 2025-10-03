@@ -173,7 +173,6 @@ public class NPCController : MonoBehaviour
         }
         else
         {
-            Debug.Log(ordering.GetRecipeAccuracy(ordering.GetOrder(), holder.GetComponentInChildren<DrinkController>()));
             GiveDrink(holder.TakeObject());
         }
     }
