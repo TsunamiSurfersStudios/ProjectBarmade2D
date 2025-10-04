@@ -45,9 +45,13 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         SetMovement();
-        HandleAnimations();
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    void Update()
+    {
+        HandleAnimations();
     }
     public void StartTesting()
     {
