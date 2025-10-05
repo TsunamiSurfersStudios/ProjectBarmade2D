@@ -11,7 +11,7 @@ public class Recipe : ScriptableObject
     [SerializeField] List<Ingredient> garnishes;
     [SerializeField] Glass glass;
     [SerializeField] bool hasIce;
-    [SerializeField] bool isBlended;
+    [SerializeField] bool isBlended; // Don't delete field. To be implemented
     [Header("Sale Info")]
     [SerializeField] float price = 0f;
     [SerializeField] bool isUnlocked;
