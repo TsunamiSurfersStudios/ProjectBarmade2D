@@ -38,10 +38,14 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         SetMovement();
-        HandleAnimations();
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    void Update()
+    {
+        HandleAnimations();
     }
     public void StartTesting()
     {
