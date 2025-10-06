@@ -6,16 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
 
-    Rigidbody2D rb;
     private Vector2 movement;
-    private Animator mAnimator;
     private bool inTestMode;
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        mAnimator = GetComponent<Animator>();
-    }
 
     void SetMovement()
     {
@@ -33,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleAnimations()
     {
+        Animator mAnimator = GetComponent<Animator>();
         if (mAnimator) // TODO: Handle animations should be in a function
         {
             mAnimator.SetBool("isBack", Input.GetKey(KeyCode.W));
@@ -46,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         SetMovement();
 
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
