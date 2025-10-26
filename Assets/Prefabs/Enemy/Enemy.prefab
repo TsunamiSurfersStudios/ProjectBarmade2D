@@ -175,10 +175,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   moveSpeed: 2
+  stopDistance: 1
   attackRange: 1.2
   damage: 25
   attackCooldown: 1.5
   externalDecay: 0.1
+  speed: 2
 --- !u!114 &4554796626817718378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,5 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f9b54d462f745458d3d4b7832ab693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilDistance: 0.5
-  recoilDuration: 0.2
+  recoilDistance: 2
+  recoilDuration: 1.5
+  hitCooldown: 2
+  isRecoiling: 0

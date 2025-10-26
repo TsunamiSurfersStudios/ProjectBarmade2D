@@ -45,7 +45,7 @@ public class EnemyFollow : MonoBehaviour
     {
         if (!player) return;
 
-        //if (recoil != null && recoil.isRecoiling) return; // pause during jump back
+        if (recoil != null && recoil.isRecoiling) return; // pause during jump back
 
         Vector2 pos = rb.position;
         Vector2 to = (Vector2)player.position - pos;
