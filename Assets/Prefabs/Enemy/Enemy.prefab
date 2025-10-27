@@ -177,8 +177,9 @@ MonoBehaviour:
   moveSpeed: 2
   stopDistance: 1
   attackRange: 1.2
-  damage: 25
-  attackCooldown: 1.5
+  damage: 10
+  attackCooldown: 4
+  isAggro: 0
   externalDecay: 0.1
   speed: 2
 --- !u!114 &4554796626817718378

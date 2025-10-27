@@ -12,10 +12,11 @@ public class EnemyFollow : MonoBehaviour
     public int damage = 25;
     public float attackCooldown = 3f;
 
-    [Header("Refs")]
+    [Header("Attack Stuff")]
     Rigidbody2D rb;
     EnemyRecoil recoil;
     private float lastAttackTime;
+    public bool isAggro = false;
 
     [Header("External Forces")]
     public float externalDecay = 0.1f; // Decay rate for external forces
@@ -27,6 +28,7 @@ public class EnemyFollow : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         recoil = GetComponent<EnemyRecoil>();
+
 
     }
 
@@ -43,7 +45,7 @@ public class EnemyFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!player) return;
+        if (!player || !isAggro) return;
 
         if (recoil != null && recoil.isRecoiling) return; // pause during jump back
 
@@ -65,7 +67,7 @@ public class EnemyFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player) return;
+        if (!player || !isAggro) return;
 
         // Attack check outside movement so it still runs when standing in range
         float dist = Vector2.Distance(transform.position, player.position);

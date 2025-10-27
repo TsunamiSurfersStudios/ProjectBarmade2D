@@ -33,7 +33,6 @@ public class EnemyRecoil : MonoBehaviour
     {
         isRecoiling = true;
 
-        Debug.Log("Enemy recoiling!");
         Vector2 dir = direction.normalized; // move away from the hitter
         Vector2 start = rb.position;
         Vector2 end = start + dir * recoilDistance;
@@ -41,7 +40,6 @@ public class EnemyRecoil : MonoBehaviour
         float t = 0f;
         while (t < recoilDuration)
         {
-            Debug.Log("Recoil in progress...");
             t += Time.deltaTime;
             float u = Mathf.Clamp01(t / recoilDuration);
             // Ease-out (feels punchier): u = 1 - (1-u)^2

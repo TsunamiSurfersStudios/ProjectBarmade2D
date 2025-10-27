@@ -38,15 +38,12 @@ public class PlayerMelee : MonoBehaviour
         // Hit detection (small circle at AttackPoint)
         var hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
-        Debug.Log($"Melee attack at {attackPoint.position} with direction {dir}");
-
         foreach (var hit in hits)
         {
             var enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
-                Debug.Log("Hit enemy with melee!");
 
                 //simple knockback
                 Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
@@ -62,8 +59,6 @@ public class PlayerMelee : MonoBehaviour
             {
                 // Apply recoil effect
                 Vector2 fromPlayerDir = (hit.transform.position - transform.position).normalized;
-                recoil.ApplyRecoil(fromPlayerDir);
-                Debug.Log("Applied recoil to enemy!");
             }
         }
 
