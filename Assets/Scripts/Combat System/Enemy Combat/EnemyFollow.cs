@@ -41,7 +41,7 @@ public class EnemyFollow : MonoBehaviour
             var p = GameObject.FindGameObjectWithTag("Player");
             if (p) player = p.transform;
         }
-    }
+    } 
 
     void FixedUpdate()
     {
