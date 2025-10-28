@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyRecoil : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    public float recoilDistance = 5f; // How far the enemy is pushed back
+    public float recoilDistance = 0f; // How far the enemy is pushed back
     public float recoilDuration = 2.5f; // How long the recoil lasts    
     public float hitCooldown = 2f; // Minimum time between hits
     public bool isRecoiling = false;

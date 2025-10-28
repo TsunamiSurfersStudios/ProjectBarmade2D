@@ -16,7 +16,7 @@ public class EnemyFollow : MonoBehaviour
     Rigidbody2D rb;
     EnemyRecoil recoil;
     private float lastAttackTime;
-    public bool isAggro = false;
+    private bool isAggro = false;
 
     [Header("External Forces")]
     public float externalDecay = 0.1f; // Decay rate for external forces

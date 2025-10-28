@@ -17,15 +17,22 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage; // Reduce current health by damage amount
-        EnemyFollow enemyFollow = GetComponent<EnemyFollow>();
-        if (enemyFollow != null && !enemyFollow.isAggro)
+        EnemyController enemyFollow = GetComponent<EnemyController>();
+        if (enemyFollow != null)
         {
-            enemyFollow.isAggro = true; // Set isAggro to true when taking damage
+            enemyFollow.SetAggro(true); // Set isAggro to true when taking damage
         }
 
         if (currentHealth <= 0)
         {
-            Die(); // Call Die method if health is zero or below
+            if(enemyFollow != null)
+            {
+                enemyFollow.Die();
+            }
+            else
+            {
+                Die();
+            }
         }
     }
 
