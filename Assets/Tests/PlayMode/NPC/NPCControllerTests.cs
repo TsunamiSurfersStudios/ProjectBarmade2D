@@ -6,20 +6,30 @@ using UnityEngine.TestTools;
 
 public class NPCControllerTests
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void NPCControllerTestsSimplePasses()
+    GameObject npc;
+    NPCController controller;
+
+    /*
+    [SetUp]
+    public void SetUp()
     {
-        // Use the Assert class to test conditions
+        npc = GameObject.Find("NPC");
+        npcController = npc.GetComponent<NPCController>();
+    }
+    */
+
+    [Test]
+    [LoadScene("Assets/Scenes/PlayTests.unity")]
+    public void VerifyApplicationPlaying()
+    {
+        Assert.That(Application.isPlaying, Is.True);
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator NPCControllerTestsWithEnumeratorPasses()
+    [Test]
+    [LoadScene("Assets/Scenes/PlayTests.unity")]
+    public void VerifyNPCControllerComponent()
     {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        NPCController controller = GameObject.FindObjectOfType<NPCController>();
+        Assert.IsNotNull(controller, "NPC Controller component not found in the scene.");
     }
 }

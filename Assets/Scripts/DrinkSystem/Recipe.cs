@@ -43,4 +43,22 @@ public class Recipe : ScriptableObject
     public List<Ingredient> GetGarnishes() { return garnishes; }
     public Glass GetGlass() {  return glass; }
     public bool HasIce() { return hasIce; }
+    public bool CanMakeDrink(HashSet<Ingredient> unlockedIngredients)
+    {
+        bool HasAll<T>(IEnumerable<T> components, System.Func<T, Ingredient> selector)
+        {
+            if (components == null) return true;
+            foreach (var c in components)
+            {
+                if (!unlockedIngredients.Contains(selector(c)))
+                    return false;
+            }
+            return true;
+        }
+
+        return HasAll(spirits, s => s.GetIngredient()) &&
+               HasAll(mixers, m => m.GetIngredient()) &&
+               HasAll(garnishes, g => g);
+    }
+
 }

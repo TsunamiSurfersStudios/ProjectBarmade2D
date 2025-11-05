@@ -260,5 +260,12 @@ public class NPCOrderingTests
         Assert.AreEqual(1f, accuracy, 0.01f);
     }
 
+    [Test]
+    public void GetRandomRecipes_ReturnsValue()
+    {
+        npcOrdering.CreateOrder();
+        Recipe order = npcOrdering.GetOrder();
+        Assert.IsNotNull(order);
+    }
     //TODO: Implement tests to check for duplicate ingredients
 }

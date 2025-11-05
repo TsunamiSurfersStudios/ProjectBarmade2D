@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,30 +15,60 @@ public class Tier
 public class RecipeController : MonoBehaviour
 {
     [SerializeField] Tier[] tiers;
+    [SerializeField] string PATH = "Bar"; // For testing purposes only
 
-    private void Start()
+    int currentLevel = 0;
+    HashSet<Ingredient> hashedIngredients;
+
+    public bool VerifyAllIngredientsUsed()
     {
-        /*
         // Verify that all ingredients are being used. 
-        Ingredient[] allIngredients = Resources.FindObjectsOfTypeAll<Ingredient>();
+        Ingredient[] allIngredients = Resources.LoadAll(PATH + "/Ingredients", typeof(Ingredient)).Cast<Ingredient>().ToArray();
         // Build hash map
-        HashSet<Ingredient> ingredients = new HashSet<Ingredient>();
+        hashedIngredients = new HashSet<Ingredient>();
         foreach (Tier tier in tiers)
         {
             foreach (Ingredient ingredient in tier.GetIngredients())
             {
-                ingredients.Add(ingredient);
+                hashedIngredients.Add(ingredient);
             }
         }
+        bool foundAll = true;
         foreach (Ingredient ingredient in allIngredients)
         {
-            if (!ingredients.Contains(ingredient))
+            if (!hashedIngredients.Contains(ingredient))
             {
                 Debug.Log($"[RecipeController] {ingredient.GetName()} is not currently assigned to recipe controller.");
+                foundAll = false;
             }
         }
-        */
+        return foundAll;
     }
+
+    public IEnumerable<Ingredient> GetAllUnlockedIngredients(int level)
+    {
+        if (tiers.Length >= level)
+        {
+            foreach (Ingredient i in tiers[level].GetIngredients())
+                yield return i;
+        }
+        if (level > 0)
+        {
+            foreach (Ingredient ingredient in GetAllUnlockedIngredients(level - 1))
+                yield return ingredient;
+        }
+    }
+    /*private List<Recipe> GetAllUnlockedRecipes(int level)
+    {
+        Recipe[] allRecipes = Resources.LoadAll("Bar/Recipes", typeof(Recipe)).Cast<Recipe>().ToArray();
+        foreach (Recipe recipe in allRecipes)
+        {
+            if recipe.CanMakeDrink(GetUnlockedIngredients(level))
+            {
+                yield return recipe;
+            }
+        }
+    }*/
 
     /// Class should be able to pring all recipes that can be unlocked at a specific tier (put this in tests)
     /// class should track current level and return avaliable ingredients
@@ -46,4 +77,5 @@ public class RecipeController : MonoBehaviour
     /// given level num, return all recipes that are unlocked at that level
     /// given level num, return all ingredients that are unlocked at that level
     /// given level num, return all unlocked ingredients/recipes
+    /// Cannot duplicate ingredients
 }
