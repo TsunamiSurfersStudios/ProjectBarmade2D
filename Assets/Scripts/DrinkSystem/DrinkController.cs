@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class DrinkController : HoldableObject
 {
-    public GameObject drink;
     // Drink creation
     [SerializeField] private List<DrinkComponent> spirits = new List<DrinkComponent>();
     [SerializeField] private List<DrinkComponent> mixers = new List<DrinkComponent>();
@@ -17,7 +16,7 @@ public class DrinkController : HoldableObject
 
     void Start()
     {
-        item = drink;
+        base.Start(); //Assign itemHolder
         if (alcoholPercentage > 1)
         {
             Debug.Log(name + " alcohol percentage exceeds 100%. Scripts may not work as intended.");
@@ -96,9 +95,9 @@ public class DrinkController : HoldableObject
         IngredientType type = newIngredient.GetIngredientType();
         if (type == IngredientType.SPIRIT || type == IngredientType.MIXER)
         {
-            DrinkComponent drink = DrinkComponent.Create(newIngredient, milliliters);
-            if (type == IngredientType.SPIRIT) { spirits.Add(drink); }
-            else { mixers.Add(drink); }
+            DrinkComponent item = DrinkComponent.Create(newIngredient, milliliters);
+            if (type == IngredientType.SPIRIT) { spirits.Add(item); }
+            else { mixers.Add(item); }
 
             // Calculate percentage
             int totalVolume = 0;

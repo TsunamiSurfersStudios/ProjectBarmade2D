@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BeerItem : DrinkController
 {
-    public Recipe BeerRecipe;
-
     public void SayName()
     {
         Debug.Log(gameObject.name);
