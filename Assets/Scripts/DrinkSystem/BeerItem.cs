@@ -11,6 +11,6 @@ public class BeerItem : DrinkController
     
     public void SpawnBeer()
     {
-        SpawnDrink();
+        SpawnBeerDrink(BeerRecipe);
     }
 }
