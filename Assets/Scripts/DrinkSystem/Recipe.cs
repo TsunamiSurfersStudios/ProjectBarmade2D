@@ -61,4 +61,10 @@ public class Recipe : ScriptableObject
                HasAll(garnishes, g => g);
     }
 
+    public bool CanMakeDrink(IEnumerable<Ingredient> unlockedIngredients)
+    {
+        HashSet<Ingredient> unlockedSet = new HashSet<Ingredient>(unlockedIngredients);
+        return CanMakeDrink(unlockedSet);
+    }
+
 }

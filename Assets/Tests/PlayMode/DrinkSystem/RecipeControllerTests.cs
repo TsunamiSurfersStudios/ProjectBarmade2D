@@ -79,4 +79,26 @@ public class RecipeControllerTests
         List<Ingredient> ingredientList = new List<Ingredient>(ingredients);
         CollectionAssert.AreEquivalent(unlockedIngredients, ingredientList, $"Level {level} unlocked ingredients do not match expected.");
     }
+
+    [Test]
+    [LoadScene(SCENE_PATH)]
+    [TestCase(0, new string[] { "EmptyRecipe", "OneSpirit" })]
+    [TestCase(1, new string[] { "EmptyRecipe", "OneSpirit", "OneSpiritOneMixer" })]
+    [TestCase(2, new string[] { "EmptyRecipe", "OneSpirit", "OneSpiritOneMixer", "OneSpiritOneMixerOneGarnish", "OneSpiritTwoMixers" })]
+    [TestCase(3, new string[] { "EmptyRecipe", "OneSpirit", "OneSpiritOneMixer", "OneSpiritOneMixerOneGarnish", "OneSpiritTwoMixers", "AllIngredients" })]
+    public void GetAllUnlockedRecipes_HasAllRecipes(int level, string[] unlockedRecipeNames)
+    {
+        List<Recipe> unlockedRecipes = new List<Recipe>();
+
+        foreach (string name in unlockedRecipeNames)
+        {
+            Recipe recipe = Resources.Load<Recipe>(RECIPE_PATH + name);
+            Assert.IsNotNull(recipe, $"Recipe '{name}' could not be loaded.");
+            unlockedRecipes.Add(recipe);
+        }
+
+        IEnumerable<Recipe> recipes = controller.GetAllUnlockedRecipes(level);
+        List<Recipe> recipeList = new List<Recipe>(recipes);
+        CollectionAssert.AreEquivalent(unlockedRecipes, recipeList, $"Level {level} unlocked recipes do not match expected.");
+    }
 }

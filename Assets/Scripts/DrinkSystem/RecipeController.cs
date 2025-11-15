@@ -6,8 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class Tier
 {
-    [SerializeField] Ingredient[] ingredients;
-    public Ingredient[] GetIngredients()
+    [SerializeField] List<Ingredient> ingredients;
+    public List<Ingredient> GetIngredients()
     {
         return ingredients;
     }
@@ -17,7 +17,6 @@ public class RecipeController : MonoBehaviour
     [SerializeField] Tier[] tiers;
     [SerializeField] string PATH = "Bar"; // For testing purposes only
 
-    int currentLevel = 0;
     HashSet<Ingredient> hashedIngredients;
 
     public bool VerifyAllIngredientsUsed()
@@ -45,6 +44,14 @@ public class RecipeController : MonoBehaviour
         return foundAll;
     }
 
+    public List<Ingredient> GetIngredientsUnlockedAtLevel(int level)
+    {
+        if (tiers.Length >= level)
+        {
+            return tiers[level].GetIngredients();
+        }
+        return null;
+    }
     public IEnumerable<Ingredient> GetAllUnlockedIngredients(int level)
     {
         if (tiers.Length >= level)
@@ -58,17 +65,18 @@ public class RecipeController : MonoBehaviour
                 yield return ingredient;
         }
     }
-    /*private List<Recipe> GetAllUnlockedRecipes(int level)
+    public IEnumerable<Recipe> GetAllUnlockedRecipes(int level)
     {
-        Recipe[] allRecipes = Resources.LoadAll("Bar/Recipes", typeof(Recipe)).Cast<Recipe>().ToArray();
+        Recipe[] allRecipes = Resources.LoadAll(PATH + "/Recipes", typeof(Recipe)).Cast<Recipe>().ToArray();
+
         foreach (Recipe recipe in allRecipes)
         {
-            if recipe.CanMakeDrink(GetUnlockedIngredients(level))
+            if (recipe.CanMakeDrink(GetAllUnlockedIngredients(level)))
             {
                 yield return recipe;
             }
         }
-    }*/
+    }
 
     /// Class should be able to pring all recipes that can be unlocked at a specific tier (put this in tests)
     /// class should track current level and return avaliable ingredients
