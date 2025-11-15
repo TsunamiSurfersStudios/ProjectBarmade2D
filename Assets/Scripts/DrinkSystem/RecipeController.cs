@@ -54,19 +54,22 @@ public class RecipeController : MonoBehaviour
     }
     public IEnumerable<Ingredient> GetAllUnlockedIngredients(int level)
     {
-        if (tiers.Length >= level)
+        //TODO: Can we run these operations more efficiently by caching results?
+        if (tiers.Length > level)
         {
             foreach (Ingredient i in tiers[level].GetIngredients())
                 yield return i;
-        }
-        if (level > 0)
-        {
-            foreach (Ingredient ingredient in GetAllUnlockedIngredients(level - 1))
-                yield return ingredient;
+
+            if (level > 0)
+            {
+                foreach (Ingredient ingredient in GetAllUnlockedIngredients(level - 1))
+                    yield return ingredient;
+            }
         }
     }
     public IEnumerable<Recipe> GetAllUnlockedRecipes(int level)
     {
+        //TODO: Can we run these operations more efficiently by caching results?
         Recipe[] allRecipes = Resources.LoadAll(PATH + "/Recipes", typeof(Recipe)).Cast<Recipe>().ToArray();
 
         foreach (Recipe recipe in allRecipes)
@@ -76,6 +79,13 @@ public class RecipeController : MonoBehaviour
                 yield return recipe;
             }
         }
+    }
+
+    public IEnumerable<Recipe> GetNewlyUnlockedRecipes(int level)
+    {
+        IEnumerable<Recipe> oldRecipes = level > 0 ? GetAllUnlockedRecipes(level-1) : new List<Recipe>();
+        IEnumerable<Recipe> newRecipes = GetAllUnlockedRecipes(level);
+        return newRecipes.Except(oldRecipes);
     }
 
     /// Class should be able to pring all recipes that can be unlocked at a specific tier (put this in tests)
