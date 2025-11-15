@@ -25,7 +25,6 @@ public class RecipeControllerTests
     }
 
     [Test]
-    [LoadScene(PATH)]
     public void VerifyAllIngredientsUsedTest()
     {
         bool allUsed = controller.VerifyAllIngredientsUsed();
