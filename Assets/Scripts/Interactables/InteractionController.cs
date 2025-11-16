@@ -15,8 +15,12 @@ public class InteractionController : MonoBehaviour
 
     [SerializeField] KeyCode KEYBIND = KeyCode.E;
 
+    [SerializeField] bool requiresCollision;
+
     private bool isColliding = false;
     private bool isInteracting = false;
+
+    PlayerInteractions interactions;
 
     // Check for player collision
     void OnCollisionEnter2D(Collision2D collision)
@@ -25,17 +29,18 @@ public class InteractionController : MonoBehaviour
         {
             isColliding = true;
             OnBoxCollide.Invoke();
+            interactions.DisableKeybind(KEYBIND);
         }
     }
 
     // Check for end of player collision
     void OnCollisionExit2D(Collision2D collision)
     {
-
         if (collision.gameObject.CompareTag("Player"))
         {
             isColliding = false;
             OnBoxExit.Invoke();
+            interactions.EnableKeybind(KEYBIND);
         }
     }
     // Start is called before the first frame update
@@ -45,6 +50,9 @@ public class InteractionController : MonoBehaviour
         {
             Debug.Log(gameObject.name + " does not have a box collider. InteractionController will not work as intended.");
         }
+
+        GameObject player = GameObject.FindWithTag("Player");
+        interactions = player.GetComponent<PlayerInteractions>();
     }
 
     // Update is called once per frame
