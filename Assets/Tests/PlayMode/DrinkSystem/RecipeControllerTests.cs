@@ -72,6 +72,16 @@ public class RecipeControllerTests
 
     [Test]
     [LoadScene(SCENE_PATH)]
+    public void VerifyAllIngredientsUsedTest_HasDuplicate_ReturnsFalse()
+    {
+        GameObject duplicateObject = GameObject.Find("DuplicateRecipeController");
+        RecipeController duplicateController = duplicateObject.GetComponent<RecipeController>();
+        bool allUsed = duplicateController.VerifyAllIngredientsUsed();
+        Assert.IsFalse(allUsed, "Duplicate controller is returning that all ingredients are used.");
+    }
+
+    [Test]
+    [LoadScene(SCENE_PATH)]
     [TestCase(0, new string[] { "Spirit1" })]
     [TestCase(1, new string[] { "Spirit1", "Spirit2", "Mixer1" })]
     [TestCase(2, new string[] { "Spirit1", "Spirit2", "Mixer1", "Spirit3", "Mixer2", "Garnish1" })]
@@ -135,4 +145,5 @@ public class RecipeControllerTests
         List<Recipe> recipeList = new List<Recipe>(recipes);
         CollectionAssert.AreEquivalent(expectedRecipeList, recipeList, $"Level {level} newly unlocked recipes do not match expected.");
     }
+
 }

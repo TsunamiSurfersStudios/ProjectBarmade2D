@@ -363,10 +363,69 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1924994231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1924994233}
+  - component: {fileID: 1924994232}
+  m_Layer: 0
+  m_Name: DuplicateRecipeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1924994232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924994231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d062232745b004c90369942fd97919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiers:
+  - ingredients:
+    - {fileID: 11400000, guid: 4265fb662505b5f4fa8a24e7d8f08c41, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: b0442af81fe715941ab488cc4abb4d74, type: 2}
+    - {fileID: 11400000, guid: 4f322f46a4494c641aa91ec11704b581, type: 2}
+    - {fileID: 11400000, guid: 4265fb662505b5f4fa8a24e7d8f08c41, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: e3a5bdc1e18fd4a4e998c3ec93e9326b, type: 2}
+    - {fileID: 11400000, guid: 174a42970c9c43445af2acff843bf1a8, type: 2}
+    - {fileID: 11400000, guid: fd0225843bd40114891f98ff4905aa02, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: 2541255d3b09bbc44bde14f0567f86b6, type: 2}
+  PATH: TestBar
+--- !u!4 &1924994233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924994231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.29795617, y: -0.6390028, z: -9.919117}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 220765055}
   - {fileID: 367408361}
+  - {fileID: 1924994233}
   - {fileID: 1818079629}

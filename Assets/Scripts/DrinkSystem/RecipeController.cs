@@ -17,33 +17,35 @@ public class RecipeController : MonoBehaviour
     [SerializeField] Tier[] tiers;
     [SerializeField] string PATH = "Bar"; // For testing purposes only
 
-    public bool VerifyAllIngredientsUsed()
+    public bool VerifyAllIngredientsUsed() // TODO: Rename to VerifyControllerSetUpCorrectly or more appropriate name
     {
         Ingredient[] allIngredients = Resources.LoadAll<Ingredient>(PATH + "/Ingredients");
 
-        HashSet<Ingredient> hashedIngredients = tiers
-            .SelectMany(tier => tier.GetIngredients())
-            .ToHashSet();
-
+        HashSet<Ingredient> hashedIngredients = new HashSet<Ingredient>();
         bool foundAll = true;
 
-        if (!hashedIngredients.SetEquals(allIngredients))
+        // Build hash set and detect duplicates in one pass
+        foreach (Tier tier in tiers)
         {
-            // Find what's missing or extra
-            var unusedIngredients = allIngredients.Except(hashedIngredients);
-            var extraIngredients = hashedIngredients.Except(allIngredients);
+            foreach (Ingredient ingredient in tier.GetIngredients())
+            {
+                // HashSet.Add returns false if item already exists
+                if (!hashedIngredients.Add(ingredient))
+                {
+                    Debug.Log($"[RecipeController] Duplicate ingredient '{ingredient.GetName()}' found.");
+                    foundAll = false;
+                }
+            }
+        }
 
-            foreach (Ingredient ingredient in unusedIngredients)
+        // Check for unused ingredients
+        foreach (Ingredient ingredient in allIngredients)
+        {
+            if (!hashedIngredients.Contains(ingredient))
             {
                 Debug.Log($"[RecipeController] {ingredient.GetName()} is not currently assigned to recipe controller.");
+                foundAll = false;
             }
-
-            foreach (Ingredient ingredient in extraIngredients)
-            {
-                Debug.Log($"[RecipeController] {ingredient.GetName()} is assigned but not in Resources.");
-            }
-
-            foundAll = false;
         }
 
         return foundAll;
