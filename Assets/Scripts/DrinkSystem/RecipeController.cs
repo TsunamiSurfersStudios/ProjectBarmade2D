@@ -17,30 +17,35 @@ public class RecipeController : MonoBehaviour
     [SerializeField] Tier[] tiers;
     [SerializeField] string PATH = "Bar"; // For testing purposes only
 
-    HashSet<Ingredient> hashedIngredients;
-
     public bool VerifyAllIngredientsUsed()
     {
-        // Verify that all ingredients are being used. 
-        Ingredient[] allIngredients = Resources.LoadAll(PATH + "/Ingredients", typeof(Ingredient)).Cast<Ingredient>().ToArray();
-        // Build hash map
-        hashedIngredients = new HashSet<Ingredient>();
-        foreach (Tier tier in tiers)
-        {
-            foreach (Ingredient ingredient in tier.GetIngredients())
-            {
-                hashedIngredients.Add(ingredient);
-            }
-        }
+        Ingredient[] allIngredients = Resources.LoadAll<Ingredient>(PATH + "/Ingredients");
+
+        HashSet<Ingredient> hashedIngredients = tiers
+            .SelectMany(tier => tier.GetIngredients())
+            .ToHashSet();
+
         bool foundAll = true;
-        foreach (Ingredient ingredient in allIngredients)
+
+        if (!hashedIngredients.SetEquals(allIngredients))
         {
-            if (!hashedIngredients.Contains(ingredient))
+            // Find what's missing or extra
+            var unusedIngredients = allIngredients.Except(hashedIngredients);
+            var extraIngredients = hashedIngredients.Except(allIngredients);
+
+            foreach (Ingredient ingredient in unusedIngredients)
             {
                 Debug.Log($"[RecipeController] {ingredient.GetName()} is not currently assigned to recipe controller.");
-                foundAll = false;
             }
+
+            foreach (Ingredient ingredient in extraIngredients)
+            {
+                Debug.Log($"[RecipeController] {ingredient.GetName()} is assigned but not in Resources.");
+            }
+
+            foundAll = false;
         }
+
         return foundAll;
     }
 
@@ -88,12 +93,9 @@ public class RecipeController : MonoBehaviour
         return newRecipes.Except(oldRecipes);
     }
 
-    /// Class should be able to pring all recipes that can be unlocked at a specific tier (put this in tests)
-    /// class should track current level and return avaliable ingredients
-    /// given an ingredient, return boolean if it is unlocked
-    /// unlock new level ==> returns int
-    /// given level num, return all recipes that are unlocked at that level
-    /// given level num, return all ingredients that are unlocked at that level
-    /// given level num, return all unlocked ingredients/recipes
-    /// Cannot duplicate ingredients
+    public bool IngredientIsUnlocked(Ingredient ingredient, int level)
+    {
+        IEnumerable<Ingredient> unlockedIngredients = GetAllUnlockedIngredients(level);
+        return unlockedIngredients.Contains(ingredient);
+    }
 }

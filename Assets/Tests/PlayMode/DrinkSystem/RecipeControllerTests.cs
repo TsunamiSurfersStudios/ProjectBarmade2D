@@ -28,7 +28,8 @@ public class RecipeControllerTests
     [SetUp]
     public void SetUp()
     {
-        controller = GameObject.FindObjectOfType<RecipeController>();
+        GameObject recipeObject = GameObject.Find("RecipeController");
+        controller = recipeObject.GetComponent<RecipeController>();
 
         ALLINGREDIENTS = Resources.Load<Recipe>(RECIPE_PATH + "AllIngredients");
         EMPTYRECIPE = Resources.Load<Recipe>(RECIPE_PATH + "EmptyRecipe");
@@ -53,10 +54,20 @@ public class RecipeControllerTests
 
     [Test]
     [LoadScene(SCENE_PATH)]
-    public void VerifyAllIngredientsUsedTest()
+    public void VerifyAllIngredientsUsedTest_HasAllIngredients_ReturnsTrue()
     {
         bool allUsed = controller.VerifyAllIngredientsUsed();
         Assert.IsTrue(allUsed, "Not all ingredients are used in the RecipeController.");
+    }
+
+    [Test]
+    [LoadScene(SCENE_PATH)]
+    public void VerifyAllIngredientsUsedTest_IsEmpty_ReturnsFalse()
+    {
+        GameObject emptyObject = GameObject.Find("EmptyRecipeController");
+        RecipeController emptyController = emptyObject.GetComponent<RecipeController>();
+        bool allUsed = emptyController.VerifyAllIngredientsUsed();
+        Assert.IsFalse(allUsed, "Empty controller is returning that all ingredients are used.");
     }
 
     [Test]
