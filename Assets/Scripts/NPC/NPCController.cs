@@ -13,6 +13,7 @@ public class NPCController : MonoBehaviour
     private GameObject seat;
 
     [SerializeField] private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     // Interaction variables
     [SerializeField] private float sobering = 0.01f;
@@ -23,17 +24,25 @@ public class NPCController : MonoBehaviour
     [SerializeField] private float maxDrunk = 100f;
     private GameObject drunkMeter;
     private ToxicBar toxicBar;
+    private NPCDialogue dialogue;
 
+
+    // Start is called before the first frame update
     void Start()
     {
-        
-        drunkMeter = gameObject.transform.Find("DrunkMeter").gameObject; 
+        leavePoint = GameObject.Find("LeavePoint");
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        drunkMeter = gameObject.transform.Find("DrunkMeter").gameObject;
         toxicBar = drunkMeter.transform.Find("ToxicBar").GetComponent<ToxicBar>();
+        dialogue = gameObject.GetComponent<NPCDialogue>();
     }
-
-    public void Destroy()
+    
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Object.Destroy(gameObject);
+        if (collision.gameObject.tag == "LeavePoint")
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update() 
@@ -63,7 +72,6 @@ public class NPCController : MonoBehaviour
     }
     private void MoveNPC()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (moveHorizontally)
         {
             animator.SetBool("isDown", false);
@@ -141,7 +149,7 @@ public class NPCController : MonoBehaviour
         if (seat != null)
         {
             seat.GetComponent<NPCObjects>().SetOccupied(false);
-            seat = GameObject.Find("LeavePoint");
+            seat = leavePoint;
             destination = seat.transform.position;
         }
     }
@@ -156,7 +164,6 @@ public class NPCController : MonoBehaviour
     public void Interact()
     {
         ItemHolder holder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
-        NPCDialogue dialogue = gameObject.GetComponent<NPCDialogue>();
         if (holder.IsEmpty())
         {
             dialogue.StartConversation();

@@ -122,7 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1211273595
+--- !u!1 &220765052
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,10 +130,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1211273598}
-  - component: {fileID: 1211273597}
-  - component: {fileID: 1211273596}
-  - component: {fileID: 1211273599}
+  - component: {fileID: 220765055}
+  - component: {fileID: 220765054}
+  - component: {fileID: 220765053}
+  - component: {fileID: 220765056}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -141,21 +141,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1211273596
+--- !u!81 &220765053
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1211273595}
+  m_GameObject: {fileID: 220765052}
   m_Enabled: 1
---- !u!20 &1211273597
+--- !u!20 &220765054
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1211273595}
+  m_GameObject: {fileID: 220765052}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -200,13 +200,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &1211273598
+--- !u!4 &220765055
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1211273595}
+  m_GameObject: {fileID: 220765052}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
@@ -215,13 +215,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1211273599
+--- !u!114 &220765056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1211273595}
+  m_GameObject: {fileID: 220765052}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
@@ -259,7 +259,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &1501027499
+--- !u!1 &367408359
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,8 +267,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1501027501}
-  - component: {fileID: 1501027500}
+  - component: {fileID: 367408361}
+  - component: {fileID: 367408360}
   m_Layer: 0
   m_Name: RecipeController
   m_TagString: Untagged
@@ -276,13 +276,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1501027500
+--- !u!114 &367408360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1501027499}
+  m_GameObject: {fileID: 367408359}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52d062232745b004c90369942fd97919, type: 3}
@@ -290,22 +290,132 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiers:
   - ingredients:
-    - {fileID: 11400000, guid: 33c91a0e96b34ef4f840f9fa74f6a52e, type: 2}
-    - {fileID: 11400000, guid: 7a719f2577983594d976b2e00ec7e9e6, type: 2}
-    - {fileID: 11400000, guid: 7b05b65be630af14b867b9519361351b, type: 2}
-    - {fileID: 11400000, guid: 68ab2cd98b9ea974f8aba1d88461050f, type: 2}
+    - {fileID: 11400000, guid: 4265fb662505b5f4fa8a24e7d8f08c41, type: 2}
   - ingredients:
-    - {fileID: 11400000, guid: 7e05657a47a19e34d8d622e85cdc1b7e, type: 2}
---- !u!4 &1501027501
+    - {fileID: 11400000, guid: b0442af81fe715941ab488cc4abb4d74, type: 2}
+    - {fileID: 11400000, guid: 4f322f46a4494c641aa91ec11704b581, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: e3a5bdc1e18fd4a4e998c3ec93e9326b, type: 2}
+    - {fileID: 11400000, guid: 174a42970c9c43445af2acff843bf1a8, type: 2}
+    - {fileID: 11400000, guid: fd0225843bd40114891f98ff4905aa02, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: 2541255d3b09bbc44bde14f0567f86b6, type: 2}
+  PATH: TestBar
+--- !u!4 &367408361
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1501027499}
+  m_GameObject: {fileID: 367408359}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4331281, y: 0.04737428, z: -9.932018}
+  m_LocalPosition: {x: -0.29795617, y: -0.6390028, z: -9.919117}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1818079627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1818079629}
+  - component: {fileID: 1818079628}
+  m_Layer: 0
+  m_Name: EmptyRecipeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1818079628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818079627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d062232745b004c90369942fd97919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiers:
+  - ingredients: []
+  PATH: TestBar
+--- !u!4 &1818079629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818079627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.29795617, y: -0.6390028, z: -9.919117}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1924994231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1924994233}
+  - component: {fileID: 1924994232}
+  m_Layer: 0
+  m_Name: DuplicateRecipeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1924994232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924994231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d062232745b004c90369942fd97919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiers:
+  - ingredients:
+    - {fileID: 11400000, guid: 4265fb662505b5f4fa8a24e7d8f08c41, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: b0442af81fe715941ab488cc4abb4d74, type: 2}
+    - {fileID: 11400000, guid: 4f322f46a4494c641aa91ec11704b581, type: 2}
+    - {fileID: 11400000, guid: 4265fb662505b5f4fa8a24e7d8f08c41, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: e3a5bdc1e18fd4a4e998c3ec93e9326b, type: 2}
+    - {fileID: 11400000, guid: 174a42970c9c43445af2acff843bf1a8, type: 2}
+    - {fileID: 11400000, guid: fd0225843bd40114891f98ff4905aa02, type: 2}
+  - ingredients:
+    - {fileID: 11400000, guid: 2541255d3b09bbc44bde14f0567f86b6, type: 2}
+  PATH: TestBar
+--- !u!4 &1924994233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924994231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.29795617, y: -0.6390028, z: -9.919117}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -315,5 +425,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1211273598}
-  - {fileID: 1501027501}
+  - {fileID: 220765055}
+  - {fileID: 367408361}
+  - {fileID: 1924994233}
+  - {fileID: 1818079629}

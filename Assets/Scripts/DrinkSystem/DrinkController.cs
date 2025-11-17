@@ -14,7 +14,7 @@ public class DrinkController : HoldableObject
     private float alcoholPercentage = 0f; // max: 1
     private bool hasIce = false;
 
-    void Start()
+    new void Start()
     {
         base.Start(); //Assign itemHolder
         if (alcoholPercentage > 1)
