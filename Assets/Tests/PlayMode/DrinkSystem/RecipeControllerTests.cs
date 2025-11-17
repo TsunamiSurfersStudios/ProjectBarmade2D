@@ -13,35 +13,11 @@ public class RecipeControllerTests
 
     RecipeController controller;
 
-    Recipe ALLINGREDIENTS;
-    Recipe EMPTYRECIPE;
-    Recipe ONESPIRIT;
-    Recipe ONESPIRITONEMIXER;
-    Recipe ONESPIRITONEMIXERONEGARNISH;
-    Recipe ONESPIRITTWOMIXERS;
-
-    List<Recipe> LevelZeroRecipes;
-    List<Recipe> LevelOneRecipes;
-    List<Recipe> LevelTwoRecipes;
-    List<Recipe> LevelThreeRecipes;
-
     [SetUp]
     public void SetUp()
     {
         GameObject recipeObject = GameObject.Find("RecipeController");
         controller = recipeObject.GetComponent<RecipeController>();
-
-        ALLINGREDIENTS = Resources.Load<Recipe>(RECIPE_PATH + "AllIngredients");
-        EMPTYRECIPE = Resources.Load<Recipe>(RECIPE_PATH + "EmptyRecipe");
-        ONESPIRIT = Resources.Load<Recipe>(RECIPE_PATH + "OneSpirit");
-        ONESPIRITONEMIXER = Resources.Load<Recipe>(RECIPE_PATH + "OneSpiritOneMixer");
-        ONESPIRITONEMIXERONEGARNISH = Resources.Load<Recipe>(RECIPE_PATH + "OneSpiritOneMixerOneGarnish");
-        ONESPIRITTWOMIXERS = Resources.Load<Recipe>(RECIPE_PATH + "OneSpiritTwoMixers");
-
-        LevelZeroRecipes = new List<Recipe> { EMPTYRECIPE, ONESPIRIT };
-        LevelOneRecipes = new List<Recipe> { ONESPIRITONEMIXER };
-        LevelTwoRecipes = new List<Recipe> { ONESPIRITONEMIXERONEGARNISH, ONESPIRITTWOMIXERS };
-        LevelThreeRecipes = new List<Recipe> { ALLINGREDIENTS };
     }
 
     [Test]
@@ -56,7 +32,7 @@ public class RecipeControllerTests
     [LoadScene(SCENE_PATH)]
     public void VerifyAllIngredientsUsedTest_HasAllIngredients_ReturnsTrue()
     {
-        bool allUsed = controller.VerifyAllIngredientsUsed();
+        bool allUsed = controller.VerifyRecipeControllerSetup();
         Assert.IsTrue(allUsed, "Not all ingredients are used in the RecipeController.");
     }
 
@@ -66,7 +42,7 @@ public class RecipeControllerTests
     {
         GameObject emptyObject = GameObject.Find("EmptyRecipeController");
         RecipeController emptyController = emptyObject.GetComponent<RecipeController>();
-        bool allUsed = emptyController.VerifyAllIngredientsUsed();
+        bool allUsed = emptyController.VerifyRecipeControllerSetup();
         Assert.IsFalse(allUsed, "Empty controller is returning that all ingredients are used.");
     }
 
@@ -76,7 +52,7 @@ public class RecipeControllerTests
     {
         GameObject duplicateObject = GameObject.Find("DuplicateRecipeController");
         RecipeController duplicateController = duplicateObject.GetComponent<RecipeController>();
-        bool allUsed = duplicateController.VerifyAllIngredientsUsed();
+        bool allUsed = duplicateController.VerifyRecipeControllerSetup();
         Assert.IsFalse(allUsed, "Duplicate controller is returning that all ingredients are used.");
     }
 

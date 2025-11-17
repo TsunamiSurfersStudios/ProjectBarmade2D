@@ -267,5 +267,4 @@ public class NPCOrderingTests
         Recipe order = npcOrdering.GetOrder();
         Assert.IsNotNull(order);
     }
-    //TODO: Implement tests to check for duplicate ingredients
 }

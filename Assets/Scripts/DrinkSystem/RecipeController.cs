@@ -17,7 +17,7 @@ public class RecipeController : MonoBehaviour
     [SerializeField] Tier[] tiers;
     [SerializeField] string PATH = "Bar"; // For testing purposes only
 
-    public bool VerifyAllIngredientsUsed() // TODO: Rename to VerifyControllerSetUpCorrectly or more appropriate name
+    public bool VerifyRecipeControllerSetup()
     {
         Ingredient[] allIngredients = Resources.LoadAll<Ingredient>(PATH + "/Ingredients");
 
