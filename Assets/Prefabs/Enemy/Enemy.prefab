@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 8292467997724563778}
   - component: {fileID: 8072477619757483479}
   - component: {fileID: 7336511437868700639}
-  - component: {fileID: 4842466727183143993}
   - component: {fileID: 4554796626817718378}
-  - component: {fileID: 5597255643782833301}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -176,26 +174,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAggro: 0
   isDead: 0
---- !u!114 &4842466727183143993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8646344845184202188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed7cca0a540250b46888a93f2ea351a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  moveSpeed: 2
-  stopDistance: 1
-  attackRange: 1.2
-  damage: 10
-  attackCooldown: 4
-  externalDecay: 0.1
-  speed: 2
 --- !u!114 &4554796626817718378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,19 +187,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 100
---- !u!114 &5597255643782833301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8646344845184202188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8f9b54d462f745458d3d4b7832ab693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recoilDistance: 2
-  recoilDuration: 1.5
-  hitCooldown: 2
-  isRecoiling: 0

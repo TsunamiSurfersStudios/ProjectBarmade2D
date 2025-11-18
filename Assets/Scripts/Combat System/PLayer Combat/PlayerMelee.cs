@@ -54,7 +54,7 @@ public class PlayerMelee : MonoBehaviour
                 }
             }
 
-            var recoil = hit.GetComponent<EnemyRecoil>();
+            var recoil = hit.GetComponent<EnemyController>();
             if (recoil != null)
             {
                 // Apply recoil effect
