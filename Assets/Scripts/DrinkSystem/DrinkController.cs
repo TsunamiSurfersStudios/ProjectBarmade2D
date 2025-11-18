@@ -25,7 +25,7 @@ public class DrinkController : HoldableObject
 
     public void GiveDrink()
     {
-        Give();
+        GiveToPlayer();
     }
     public void SpawnDrink()
     {

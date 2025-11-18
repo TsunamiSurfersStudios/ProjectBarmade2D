@@ -15,8 +15,6 @@ public class InteractionController : MonoBehaviour
 
     [SerializeField] KeyCode KEYBIND = KeyCode.E;
 
-    [SerializeField] bool requiresCollision;
-
     private bool isColliding = false;
     private bool isInteracting = false;
 
@@ -29,7 +27,8 @@ public class InteractionController : MonoBehaviour
         {
             isColliding = true;
             OnBoxCollide.Invoke();
-            interactions.DisableKeybind(KEYBIND);
+            if (interactions != null)
+                interactions.DisableKeybind(KEYBIND);
         }
     }
 
@@ -40,7 +39,8 @@ public class InteractionController : MonoBehaviour
         {
             isColliding = false;
             OnBoxExit.Invoke();
-            interactions.EnableKeybind(KEYBIND);
+            if (interactions != null)
+                interactions.EnableKeybind(KEYBIND);
         }
     }
     // Start is called before the first frame update
