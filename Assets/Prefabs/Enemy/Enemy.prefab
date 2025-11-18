@@ -222,6 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recoilDistance: 2
-  recoilDuration: 1
+  recoilDuration: 1.5
   hitCooldown: 2
   isRecoiling: 0
