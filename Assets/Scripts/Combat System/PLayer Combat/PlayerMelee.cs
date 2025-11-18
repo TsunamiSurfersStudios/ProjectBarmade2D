@@ -40,10 +40,10 @@ public class PlayerMelee : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            var enemy = hit.GetComponent<EnemyHealth>();
+            var enemy = hit.GetComponent<EnemyController>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage, mouseWorldPos);
 
                 //simple knockback
                 Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();

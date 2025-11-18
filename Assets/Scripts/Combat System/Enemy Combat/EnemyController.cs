@@ -12,43 +12,34 @@ public class EnemyController : MonoBehaviour
     public int damage = 25;
     public float attackCooldown = 3f;
 
+    [Header("Enemy Health")]
+    public float currentHealth = 100f;
+    private float maxHealth = 100f;
+
     [Header("Attack Stuff")]
     private float lastAttackTime;
     private bool isAggro = false;
     public bool isDead = false;
 
     [Header("External Forces")]
+    private Rigidbody2D rb;
+    private Vector2 anchorPosition;
     public float externalDecay = 0.1f; // Decay rate for external forces
     private Vector2 externalForce; // Accumulated external force
-
+    float nextHitTime;
     public float speed = 2f; // Speed of the enemy when chasing the player
 
-    [Header("Enemy Settings")]
+    [Header("Recoil Settings")]
     public float recoilDistance = 0f; // How far the enemy is pushed back
     public float recoilDuration = 2.5f; // How long the recoil lasts    
     public float hitCooldown = 2f; // Minimum time between hits
     public bool isRecoiling = false;
 
-    float nextHitTime;
-
-    //components
-    private EnemyHealth health;
-    private Rigidbody2D rb;
-
-    //anchor for enemies
-    private Vector2 anchorPosition;
-
     // Start is called before the first frame update
     void Awake()
     {
-        health = GetComponent<EnemyHealth>();
         rb = GetComponent<Rigidbody2D>();
-
-        //checks
-        if (!health)
-        {
-            Debug.LogError("EnemyHealth component not found on " + gameObject.name);
-        }
+        currentHealth = maxHealth; // Initialize current health to max health
 
         // Find the player by tag
         if (!player)
@@ -120,6 +111,7 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    //Aggro attack
     void AttackPlayer()
     {
         // Assuming the player has a PlayerHealth script to handle damage
@@ -150,7 +142,35 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //enemyhealth
+    //enemy health
+    public void TakeDamage(float damage, Vector2 location)
+    {
+        currentHealth -= damage; // Reduce current health by damage amount
+        EnemyController enemyFollow = GetComponent<EnemyController>();
+        if (enemyFollow != null)
+        {
+            enemyFollow.SetAggro(true); // Set isAggro to true when taking damage
+        }
+
+        if (isAggro && Time.time >= nextHitTime)
+        {
+            nextHitTime = Time.time + hitCooldown;
+            ApplyRecoil(location);
+        }
+
+        if (currentHealth <= 0)
+        {
+            if (enemyFollow != null)
+            {
+                enemyFollow.Die();
+            }
+            else
+            {
+                Die();
+            }
+        }
+    }
+
     public void Die()
     {
         isDead = true;
@@ -161,6 +181,7 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject, 2f); // Destroy after 2 seconds to allow for death animation
     }
 
+    //enemy recoil
     public void ApplyRecoil(Vector2 direction)
     {
         if (Time.time < nextHitTime) return;
@@ -168,6 +189,7 @@ public class EnemyController : MonoBehaviour
         {
             StartCoroutine(RecoilCoroutine(direction));
             //isRecoiling = false;
+            Debug.Log("Enemy " + gameObject.name + " recoiled.");
         }
         nextHitTime = Time.time + hitCooldown;
     }
@@ -195,6 +217,7 @@ public class EnemyController : MonoBehaviour
         isRecoiling = false; // chase can resume
     }
 
+    //outside forces
     public void ApplyExternalForce(Vector2 dir, float force)
     {
         externalForce += dir.normalized * force;
