@@ -11,11 +11,11 @@ public class Recipe : ScriptableObject
     [SerializeField] List<Ingredient> garnishes;
     [SerializeField] Glass glass;
     [SerializeField] bool hasIce;
-    [SerializeField] bool isBlended;
+    [SerializeField] bool isBlended; // Don't delete field. To be implemented
     [Header("Sale Info")]
     [SerializeField] float price = 0f;
-    [SerializeField] bool isUnlocked;
 
+    bool isUnlocked = false; // TODO: may deprecate this field because of RecipeContoller 
     public bool getUnlocked()
     { return isUnlocked; }
     public static Recipe Create(string name, List<DrinkComponent> spirits, List<DrinkComponent> mixers, 
@@ -43,4 +43,28 @@ public class Recipe : ScriptableObject
     public List<Ingredient> GetGarnishes() { return garnishes; }
     public Glass GetGlass() {  return glass; }
     public bool HasIce() { return hasIce; }
+    public bool CanMakeDrink(HashSet<Ingredient> unlockedIngredients)
+    {
+        bool HasAll<T>(IEnumerable<T> components, System.Func<T, Ingredient> selector)
+        {
+            if (components == null) return true;
+            foreach (var c in components)
+            {
+                if (!unlockedIngredients.Contains(selector(c)))
+                    return false;
+            }
+            return true;
+        }
+
+        return HasAll(spirits, s => s.GetIngredient()) &&
+               HasAll(mixers, m => m.GetIngredient()) &&
+               HasAll(garnishes, g => g);
+    }
+
+    public bool CanMakeDrink(IEnumerable<Ingredient> unlockedIngredients)
+    {
+        HashSet<Ingredient> unlockedSet = new HashSet<Ingredient>(unlockedIngredients);
+        return CanMakeDrink(unlockedSet);
+    }
+
 }

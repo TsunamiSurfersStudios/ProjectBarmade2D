@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using UnityEditor;
 using UnityEngine;
@@ -11,19 +12,12 @@ public class NPCOrdering : MonoBehaviour
     private Recipe GetRandomRecipe()
     {
         // Get unlocked recipes
-        Recipe[] allRecipes = Resources.FindObjectsOfTypeAll<Recipe>();
-        List<Recipe> unlockedRecipes = new List<Recipe>();
-        foreach (Recipe recipe in allRecipes)
-        {
-            if (recipe != null && recipe.getUnlocked())
-            {
-                unlockedRecipes.Add(recipe);
-            }
-        }
+        Recipe[] allRecipes = Resources.LoadAll("Bar/Recipes", typeof(Recipe)).Cast<Recipe>().ToArray();
+        // TODO: Get unlocked recipes from RecipeController
 
         // Get random recipe
-        int index = Random.Range(0, unlockedRecipes.Count);
-        return unlockedRecipes[index];
+        int index = Random.Range(0, allRecipes.Length);
+        return allRecipes[index];
     }
 
     public void CreateOrder()
