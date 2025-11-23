@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenu;
-    //[SerializeField] private GameObject mainMenu;
+    private GameObject pauseMenu;
+   
 
     private bool isPaused;
 
     // Start is called before the first frame update
     void Start()
     {
+        pauseMenu = GameObject.Find("PauseMenu");
         pauseMenu.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -55,7 +58,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-
+        //SceneManager.LoadScene("MainMenu"); 
     }
 
 }

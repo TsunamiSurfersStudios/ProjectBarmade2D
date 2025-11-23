@@ -11,19 +11,19 @@ public class StorageSystem : MonoBehaviour
     [System.Serializable]
 
     // holds Ingredients and the amount of ingredients
-    public class BarStorage
+    public class Storage
     {
         public Ingredient drink;
         public float quantity;
 
-        public BarStorage(Ingredient drink, float quantity)
+        public Storage(Ingredient drink, float quantity)
         {
             this.drink = drink;
             this.quantity = quantity;
         }
     }
 
-    public List<BarStorage> storage = new List<BarStorage>();
+    public List<Storage> storageList = new List<Storage>();
 
     public void AddDrink(Ingredient drink, int amount)
     {
@@ -37,7 +37,7 @@ public class StorageSystem : MonoBehaviour
         }
         else //adds a new item in the storage by creating a new DrinkSlot object
         {
-            storage.Add(new BarStorage(drink, amount));
+            storage.Add(new Storage(drink, amount));
         }
 
     }
