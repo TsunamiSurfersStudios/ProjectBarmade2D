@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("Enemy Health")]
     public float currentHealth = 100f;
-    private float maxHealth = 100f;
+    public float maxHealth = 100f;
 
     [Header("Attack Stuff")]
     private float lastAttackTime;
@@ -88,13 +88,9 @@ public class EnemyController : MonoBehaviour
         float dist = to.magnitude;
         Vector2 dir = dist > 0.001f ? to / dist : Vector2.zero;
 
-        if (dist > stopDistance)
+        if (dist > stopDistance && !isRecoiling)
         {
             rb.MovePosition(pos + dir * speed * Time.fixedDeltaTime);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero; // don’t “crawl” into the player collider
         }
     }
 
@@ -127,7 +123,7 @@ public class EnemyController : MonoBehaviour
         if (isDead) return;
 
         isAggro = aggro;
-        rb.isKinematic = !aggro;
+        //rb.isKinematic = !aggro;
 
         if (!aggro)
         {
@@ -138,7 +134,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             // When becoming aggro, do nothing special for now
-            Debug.Log("Enemy " + gameObject.name + " is now aggro.");
+            //Debug.Log("Enemy " + gameObject.name + " is now aggro.");
         }
     }
 
@@ -198,14 +194,15 @@ public class EnemyController : MonoBehaviour
     {
         isRecoiling = true;
 
-        Vector2 dir = -direction.normalized; // move away from the hitter
+        Vector2 dir = direction.normalized; // move away from the hitter
         Vector2 start = rb.position;
         Vector2 end = start + dir * recoilDistance;
 
         float t = 0f;
         while (t < recoilDuration)
         {
-            //t += Time.deltaTime;
+            Debug.Log("Enemy is recoiling...");
+            t += Time.deltaTime;
             float u = Mathf.Clamp01(t / recoilDuration);
             // Ease-out (feels punchier): u = 1 - (1-u)^2
             u = 1f - (1f - u) * (1f - u);
@@ -215,11 +212,5 @@ public class EnemyController : MonoBehaviour
         }
 
         isRecoiling = false; // chase can resume
-    }
-
-    //outside forces
-    public void ApplyExternalForce(Vector2 dir, float force)
-    {
-        externalForce += dir.normalized * force;
     }
 }

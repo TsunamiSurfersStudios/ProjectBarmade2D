@@ -429,6 +429,26 @@ PrefabInstance:
       propertyPath: damage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: stopDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: currentHealth
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: recoilDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: recoilDuration
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8646344845184202188, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: m_Name
       value: Enemy
