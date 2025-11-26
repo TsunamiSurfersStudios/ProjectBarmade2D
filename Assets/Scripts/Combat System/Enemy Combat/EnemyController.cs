@@ -184,11 +184,11 @@ public class EnemyController : MonoBehaviour
     //enemy recoil
     public void ApplyRecoil(Vector2 direction)
     {
-        if (Time.time < nextHitTime) return;
+        //if (Time.time < nextHitTime) return;
         if (!isRecoiling)
         {
             StartCoroutine(RecoilCoroutine(direction));
-            //isRecoiling = false;
+            isRecoiling = false;
             Debug.Log("Enemy " + gameObject.name + " recoiled.");
         }
         nextHitTime = Time.time + hitCooldown;
@@ -198,14 +198,14 @@ public class EnemyController : MonoBehaviour
     {
         isRecoiling = true;
 
-        Vector2 dir = direction.normalized; // move away from the hitter
+        Vector2 dir = -direction.normalized; // move away from the hitter
         Vector2 start = rb.position;
         Vector2 end = start + dir * recoilDistance;
 
         float t = 0f;
         while (t < recoilDuration)
         {
-            t += Time.deltaTime;
+            //t += Time.deltaTime;
             float u = Mathf.Clamp01(t / recoilDuration);
             // Ease-out (feels punchier): u = 1 - (1-u)^2
             u = 1f - (1f - u) * (1f - u);
