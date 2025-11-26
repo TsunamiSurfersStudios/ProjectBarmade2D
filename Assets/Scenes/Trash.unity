@@ -526,9 +526,17 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1944123104}
+    - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1944123100}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxCollide.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
@@ -542,8 +550,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxCollide.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -570,12 +586,20 @@ PrefabInstance:
       value: UnityEngine.Animator, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Component, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxCollide.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.Animator, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Close
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Closing
       objectReference: {fileID: 0}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxCollide.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -594,6 +618,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522365985317629377, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: OnBoxCollide.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -602,21 +630,45 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4778938118098098602, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: m_Size.x
+      value: 0.1854136
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778938118098098602, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: m_Size.y
+      value: 0.23681803
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778938118098098602, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778938118098098602, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.11335798
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778938118098098602, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778938118098098602, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 4808308659305936010, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8974621686026106749, guid: e631c3fbb320d8a4bb14c172b172b259, type: 3}
+      objectReference: {fileID: -7460005997155716872, guid: b4cae423deb2b584daf7a18f09ac7c61, type: 3}
     - target: {fileID: 5437624907825811849, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: MAXFILL
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5437624907825811849, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: trashBag
       value: 
       objectReference: {fileID: 2082799238923171464, guid: d0352a3ef1d78374bb06e02dc9b30efa, type: 3}
+    - target: {fileID: 5437624907825811849, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
+      propertyPath: TRASHPERINTERACTION
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6986639519873444262, guid: 8c3e2e0ed0cc0fc4ea0e9156e39d8b22, type: 3}
       propertyPath: m_Controller
       value: 

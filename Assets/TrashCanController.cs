@@ -23,7 +23,6 @@ public class TrashCanController : MonoBehaviour
         {
             Debug.LogWarning("TrashCanController: No ItemHolder found in scene.");
         }
-
     }
 
     public void UseTrash()
@@ -36,15 +35,16 @@ public class TrashCanController : MonoBehaviour
         {
             AddTrash();
         }
+        mAnimator.SetTrigger("Close");
     }
 
     void AddTrash()
     {
         itemHolder.DestroyObject();
         currentFill += TRASHPERINTERACTION;
+        mAnimator.SetInteger("Garbage", currentFill);
         if (currentFill >= MAXFILL)
         {
-            mAnimator.SetBool("isFull", true);
             Debug.Log("Trash can is full");
         }
     }
@@ -53,6 +53,7 @@ public class TrashCanController : MonoBehaviour
     {
         itemHolder.Spawn(trashBag);
         currentFill = 0;
-        mAnimator.SetBool("isFull", false);
+        mAnimator.SetInteger("Garbage", 0);
+        mAnimator.SetTrigger("Close");
     }
 }
