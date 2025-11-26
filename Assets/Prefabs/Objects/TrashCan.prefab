@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2253911629886400664, guid: e631c3fbb320d8a4bb14c172b172b259, type: 3}
       propertyPath: m_Name
-      value: trash-can
+      value: TrashCan
       objectReference: {fileID: 0}
     - target: {fileID: -2253911629886400664, guid: e631c3fbb320d8a4bb14c172b172b259, type: 3}
       propertyPath: m_Layer
@@ -27,7 +27,7 @@ PrefabInstance:
     - target: {fileID: 3626916397498700004, guid: e631c3fbb320d8a4bb14c172b172b259, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8974621686026106749, guid: e631c3fbb320d8a4bb14c172b172b259, type: 3}
+      objectReference: {fileID: -7460005997155716872, guid: b4cae423deb2b584daf7a18f09ac7c61, type: 3}
     - target: {fileID: 7878350319992209165, guid: e631c3fbb320d8a4bb14c172b172b259, type: 3}
       propertyPath: m_LocalScale.x
       value: 6
@@ -161,7 +161,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.1}
+  m_Offset: {x: 0, y: 0.11335798}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -172,7 +172,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.2}
+  m_Size: {x: 0.1854136, y: 0.23681803}
   m_EdgeRadius: 0
 --- !u!114 &4522365985317629377
 MonoBehaviour:
@@ -219,13 +219,13 @@ MonoBehaviour:
   OnItemInteraction:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ItemHolder, Player
-        m_MethodName: Spawn
-        m_Mode: 2
+      - m_Target: {fileID: 5437624907825811849}
+        m_TargetAssemblyTypeName: TrashCanController, Assembly-CSharp
+        m_MethodName: UseTrash
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2082799238923171464, guid: d0352a3ef1d78374bb06e02dc9b30efa, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -247,6 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338a1c860bd305145968e748d3bc29cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAXFILL: 10
+  TRASHPERINTERACTION: 2
+  trashBag: {fileID: 2082799238923171464, guid: d0352a3ef1d78374bb06e02dc9b30efa, type: 3}
 --- !u!95 &6986639519873444262 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: e631c3fbb320d8a4bb14c172b172b259, type: 3}
