@@ -54,6 +54,5 @@ public class TrashCanController : MonoBehaviour
         itemHolder.Spawn(trashBag);
         currentFill = 0;
         mAnimator.SetInteger("Garbage", 0);
-        mAnimator.SetTrigger("Close");
     }
 }
