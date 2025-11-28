@@ -13,12 +13,12 @@ public class HoldableObject : MonoBehaviour
         }
     }
 
-    protected void Give()
+    public void GiveToPlayer()
     {
         itemHolder.GiveObject(gameObject);
     }
 
-    protected void Spawn()
+    public void Spawn()
     {
         GameObject clone = GameObject.Instantiate(item);
         itemHolder.GiveObject(clone);
