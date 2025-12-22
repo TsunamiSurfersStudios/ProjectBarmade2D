@@ -14,7 +14,7 @@ public class DrinkController : HoldableObject
     [SerializeField] private float alcoholPercentage = 0f; // max: 1
     [SerializeField] private bool hasIce = false;//TODO: Rework this, ice shouldnt be a boolean it should be a float that keeps track of how much ice is in the drink. Some guests might ask for extra ice, some might ask for light ice
 
-    void Start()
+    new void Start()
     {
         base.Start(); //Assign itemHolder
         if (alcoholPercentage > 1)
@@ -25,7 +25,7 @@ public class DrinkController : HoldableObject
 
     public void GiveDrink()
     {
-        Give();
+        GiveToPlayer();
     }
     public void SpawnBeerDrink(Recipe recipe = null)
     {

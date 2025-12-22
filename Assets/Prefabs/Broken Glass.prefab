@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7460041608554127837}
   - component: {fileID: 4588494355944195266}
-  - component: {fileID: 1695891141140271460}
   - component: {fileID: 2756576176412476723}
+  - component: {fileID: 7443063254750064798}
   m_Layer: 6
   m_Name: Broken Glass
   m_TagString: Untagged
@@ -86,25 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1695891141140271460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4209813557906616712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74cda89e56086e34e84cb91a4f9803e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdSpot: {fileID: 0}
-  pickUpMask:
-    serializedVersion: 2
-    m_Bits: 64
-  npcMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!61 &2756576176412476723
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +131,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.21, y: 0.05}
   m_EdgeRadius: 0
+--- !u!114 &7443063254750064798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209813557906616712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a960b71bb8272e843a2dee352137fd39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBoxCollide:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBoxExit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ItemHolder, Player
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4209813557906616712}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnItemDisable:
+    m_PersistentCalls:
+      m_Calls: []
+  KEYBIND: 101
