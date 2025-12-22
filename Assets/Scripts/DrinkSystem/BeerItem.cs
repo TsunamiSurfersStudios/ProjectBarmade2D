@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BeerItem : DrinkController
 {
+    [SerializeField] private Recipe BeerRecipe;
     public void SayName()
     {
         Debug.Log(gameObject.name);

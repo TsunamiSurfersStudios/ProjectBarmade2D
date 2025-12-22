@@ -8706,6 +8706,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3057946885571136550, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 2007083409}
+    - target: {fileID: 3600575402843179273, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.42857146
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600575402843179273, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600575402843179273, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600575402843179273, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.16
+      objectReference: {fileID: 0}
     - target: {fileID: 4483472972848839983, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -8782,6 +8802,10 @@ PrefabInstance:
       propertyPath: OnItemInteraction.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.Behaviour, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7307936698992784389, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 2007083409}
     - target: {fileID: 8062438061166749446, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -43303,11 +43327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drink: {fileID: 1404531168}
+  item: {fileID: 1404531168}
   spirits: []
   mixers: []
   garnishes: []
-  glass: 8
+  glass: 0
   alcoholPercentage: 0
   hasIce: 0
 --- !u!114 &617526458
@@ -98259,7 +98283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drink: {fileID: 1404531168}
+  item: {fileID: 0}
   spirits: []
   mixers: []
   garnishes: []
@@ -144032,6 +144056,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2007083409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1343011974452698745, guid: 5ccdcea90e13a26489ff47abe720e29d, type: 3}
+  m_PrefabInstance: {fileID: 114896752}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2007330391
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HoldableObject : MonoBehaviour
@@ -18,10 +19,11 @@ public class HoldableObject : MonoBehaviour
         itemHolder.GiveObject(gameObject);
     }
 
-    public void Spawn()
+    public void Spawn(Action<GameObject> onSpawned = null)
     {
         GameObject clone = GameObject.Instantiate(item);
         itemHolder.GiveObject(clone);
         clone.SetActive(true);
+        onSpawned?.Invoke(clone);
     }
 }
