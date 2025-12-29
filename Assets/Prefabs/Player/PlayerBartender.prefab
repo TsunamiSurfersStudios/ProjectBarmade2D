@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4827316967203846043}
   - component: {fileID: 1441503360820640898}
   m_Layer: 3
-  m_Name: itemHolder
+  m_Name: ItemHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 613540361
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_Sprite: {fileID: -3964357358844368543, guid: 3a6f1804cd439094b865525c79eac9d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -221,7 +221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  movementEnabled: 1
 --- !u!95 &5651147102646050334
 Animator:
   serializedVersion: 5

@@ -27,6 +27,7 @@ public class ItemHolder : MonoBehaviour
 
     public void DropItem()
     {
+        if (!heldObject) { return; }
         heldObject.transform.position = transform.position;
         heldObject.transform.parent = null;
         Rigidbody2D rb = heldObject.GetComponent<Rigidbody2D>();
@@ -54,5 +55,16 @@ public class ItemHolder : MonoBehaviour
     public bool IsEmpty()
     {
         return heldObject == null;
+    }
+
+    public void Spawn(GameObject item)
+    {
+        if (heldObject != null) 
+        { 
+            return; 
+        }
+        GameObject clone = GameObject.Instantiate(item);
+        GiveObject(clone);
+        clone.SetActive(true);
     }
 }
