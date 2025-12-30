@@ -43,7 +43,7 @@ public class PlayerMelee : MonoBehaviour
             var enemy = hit.GetComponent<EnemyController>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damage, mouseWorldPos);
+                enemy.TakeDamage(damage, transform.position);
 
                 //simple knockback
                 Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();

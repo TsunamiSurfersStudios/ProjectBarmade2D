@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
@@ -20,20 +21,18 @@ public class EnemyController : MonoBehaviour
     private float lastAttackTime;
     private bool isAggro = false;
     public bool isDead = false;
+    private bool isRecoiling = false;
 
     [Header("External Forces")]
     private Rigidbody2D rb;
-    private Vector2 anchorPosition;
-    public float externalDecay = 0.1f; // Decay rate for external forces
-    private Vector2 externalForce; // Accumulated external force
+    //private Vector2 anchorPosition;
     float nextHitTime;
+    public float hitCooldown = 2f; // Minimum time between hits
     public float speed = 2f; // Speed of the enemy when chasing the player
 
     [Header("Recoil Settings")]
-    public float recoilDistance = 0f; // How far the enemy is pushed back
-    public float recoilDuration = 2.5f; // How long the recoil lasts    
-    public float hitCooldown = 2f; // Minimum time between hits
-    public bool isRecoiling = false;
+    public float recoilDistance = 10f; // How far the enemy is pushed back
+    public float recoilDuration = 1f; // How long the recoil lasts    
 
     // Start is called before the first frame update
     void Awake()
@@ -48,10 +47,9 @@ public class EnemyController : MonoBehaviour
             if (p) player = p.transform;
         }
 
-        anchorPosition = rb.position;
+        //anchorPosition = rb.position;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        rb.isKinematic = true;
-
+        rb.gravityScale = 0f;
         SetAggro(false);
     }
 
@@ -63,21 +61,9 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        // Return to anchor position if not aggro
-        if (!isAggro)
+        if (isRecoiling)
         {
-            //Vector2 pos = rb.position;
-            //Vector2 to = anchorPosition - pos;
-            //float dist = to.magnitude;
-            //Vector2 dir = dist > 0.001f ? to / dist : Vector2.zero;
-            //if (dist > 0.1f)
-            //{
-            //    rb.MovePosition(pos + dir * follow.speed * Time.fixedDeltaTime);
-            //}
-
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-            rb.MovePosition(anchorPosition);
+            return; // Skip movement while recoiling
         }
 
         //enemy follow
@@ -88,9 +74,13 @@ public class EnemyController : MonoBehaviour
         float dist = to.magnitude;
         Vector2 dir = dist > 0.001f ? to / dist : Vector2.zero;
 
-        if (dist > stopDistance && !isRecoiling)
+        if (dist > stopDistance)
         {
             rb.MovePosition(pos + dir * speed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 
@@ -123,18 +113,17 @@ public class EnemyController : MonoBehaviour
         if (isDead) return;
 
         isAggro = aggro;
-        //rb.isKinematic = !aggro;
 
         if (!aggro)
         {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
-            rb.MovePosition(anchorPosition);
+            //rb.MovePosition(anchorPosition);
         }
         else
         {
             // When becoming aggro, do nothing special for now
-            //Debug.Log("Enemy " + gameObject.name + " is now aggro.");
+            Debug.Log("Enemy " + gameObject.name + " is now aggro.");
         }
     }
 
@@ -148,10 +137,10 @@ public class EnemyController : MonoBehaviour
             enemyFollow.SetAggro(true); // Set isAggro to true when taking damage
         }
 
-        if (isAggro && Time.time >= nextHitTime)
+        if (isAggro)
         {
-            nextHitTime = Time.time + hitCooldown;
-            ApplyRecoil(location);
+            Vector2 direction = ((Vector2)transform.position - location);
+            ApplyRecoil(direction);
         }
 
         if (currentHealth <= 0)
@@ -165,7 +154,7 @@ public class EnemyController : MonoBehaviour
                 Die();
             }
         }
-    }
+     }
 
     public void Die()
     {
@@ -178,39 +167,20 @@ public class EnemyController : MonoBehaviour
     }
 
     //enemy recoil
-    public void ApplyRecoil(Vector2 direction)
+    public void ApplyRecoil(Vector2 sender)
     {
-        //if (Time.time < nextHitTime) return;
+        StopAllCoroutines();
         if (!isRecoiling)
-        {
-            StartCoroutine(RecoilCoroutine(direction));
-            isRecoiling = false;
-            Debug.Log("Enemy " + gameObject.name + " recoiled.");
-        }
-        nextHitTime = Time.time + hitCooldown;
+            StartCoroutine(RecoilCoroutine(sender));
     }
 
-    System.Collections.IEnumerator RecoilCoroutine(Vector2 direction)
+    private IEnumerator RecoilCoroutine(Vector2 go)
     {
         isRecoiling = true;
-
-        Vector2 dir = direction.normalized; // move away from the hitter
-        Vector2 start = rb.position;
-        Vector2 end = start + dir * recoilDistance;
-
-        float t = 0f;
-        while (t < recoilDuration)
-        {
-            Debug.Log("Enemy is recoiling...");
-            t += Time.deltaTime;
-            float u = Mathf.Clamp01(t / recoilDuration);
-            // Ease-out (feels punchier): u = 1 - (1-u)^2
-            u = 1f - (1f - u) * (1f - u);
-
-            rb.MovePosition(Vector2.Lerp(start, end, u));
-            yield return null;
-        }
-
-        isRecoiling = false; // chase can resume
+        Vector2 direction = go.normalized * recoilDistance;
+        direction = rb.velocity;
+        yield return new WaitForSeconds(recoilDuration);
+        rb.velocity = Vector2.zero;
+        isRecoiling = false;
     }
 }

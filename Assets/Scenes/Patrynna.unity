@@ -224,6 +224,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1002308793093717198, guid: e04199e1ed205d543bf64400145e8536, type: 3}
   m_PrefabInstance: {fileID: 1643527741}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1607738885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8646344845184202188, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+  m_PrefabInstance: {fileID: 5345806186266690703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1607738886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607738885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644209b10fbb87344a6633a62f3a2eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 10
+  Duration: 1
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDone:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1643527741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -430,8 +455,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 595677875}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: maxHealth
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: stopDistance
@@ -439,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: currentHealth
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: recoilDistance
@@ -447,7 +476,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: recoilDuration
-      value: 10
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: OnBegin.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336511437868700639, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: OnBegin.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072477619757483479, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8646344845184202188, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
       propertyPath: m_Name
@@ -456,7 +497,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8646344845184202188, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607738886}
   m_SourcePrefab: {fileID: 100100000, guid: 718081123e0482d4fa787a9b46b9194b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
