@@ -7,6 +7,7 @@ using UnityEngine;
 public class DrinkController : HoldableObject
 {
     // Drink creation
+    //TODO: Update final glass sprite based on selected glass and drink contents
     [SerializeField] private List<DrinkComponent> spirits = new List<DrinkComponent>();
     [SerializeField] private List<DrinkComponent> mixers = new List<DrinkComponent>();
     [SerializeField] private List<Ingredient> garnishes = new List<Ingredient>();

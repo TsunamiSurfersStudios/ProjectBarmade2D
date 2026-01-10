@@ -15456,6 +15456,155 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &195834848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4413575831241918986, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+  m_PrefabInstance: {fileID: 6356095265923401815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &195834851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195834848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b9160278ac0554298633c43c530c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spiritsButtons:
+  - elementName: Rum
+    uiObject: {fileID: 596856613}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  - elementName: Vodka
+    uiObject: {fileID: 1983275600}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  - elementName: Gin
+    uiObject: {fileID: 185781052}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  mixerButtons:
+  - elementName: Cola
+    uiObject: {fileID: 205082693}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  - elementName: LimeJuice
+    uiObject: {fileID: 336527600}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  - elementName: Tonic
+    uiObject: {fileID: 1104455311}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  garnishButtons:
+  - elementName: Limes
+    uiObject: {fileID: 624629745}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  iceContainer:
+    elementName: Ice
+    uiObject: {fileID: 519522516}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+  createButton:
+    elementName: Create Button
+    uiObject: {fileID: 1769871537}
+    OnClick:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHoverExit:
+      m_PersistentCalls:
+        m_Calls: []
+    isInteracting: 0
+--- !u!114 &195834852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195834848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 1404531168}
+  spirits: []
+  mixers: []
+  garnishes: []
+  glass: 0
+  alcoholPercentage: 0
+  hasIce: 0
 --- !u!1 &197897027
 GameObject:
   m_ObjectHideFlags: 0
@@ -154424,7 +154573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1699879102337977962, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1746324258371390520, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: iceTray
@@ -154535,6 +154684,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1104455312}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4413575831241918986, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 195834852}
+    - targetCorrespondingSourceObject: {fileID: 4413575831241918986, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 195834851}
     - targetCorrespondingSourceObject: {fileID: 7772185200974971755, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 617526457}

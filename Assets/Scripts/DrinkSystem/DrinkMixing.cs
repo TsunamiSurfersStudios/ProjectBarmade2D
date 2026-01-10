@@ -46,6 +46,7 @@ public class DrinkMixing : MonoBehaviour
     public bool GetIceSelected() { return iceSelected; }
     public void SetIceSelected(bool ice) { iceSelected = ice; }
 
+    //Draw the ice and lime sprites in their respective trays
     public void drawSprites()
     {
         iceTrayVolume = iceTray.GetComponent<IceTray>().GetVolume();
@@ -56,6 +57,7 @@ public class DrinkMixing : MonoBehaviour
         populateTray(limesVolume, limeTrayUI, limeSprite);
     }
 
+    //Populate the ice tray UI with ice cube sprites based on the volume of ice in the tray
     private void populateTray(float volume, Transform UI, GameObject sprite)
     {
         float containerWidth = UI.GetComponent<RectTransform>().rect.width;
