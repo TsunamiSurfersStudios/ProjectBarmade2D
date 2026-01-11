@@ -14,7 +14,6 @@ public class DrinkController : HoldableObject
     [SerializeField] private Glass glass;
     [SerializeField] private float alcoholPercentage = 0f; // max: 1
     [SerializeField] private bool hasIce = false;//TODO: Rework this, ice shouldnt be a boolean it should be a float that keeps track of how much ice is in the drink. Some guests might ask for extra ice, some might ask for light ice
-
     new void Start()
     {
         base.Start(); //Assign itemHolder
@@ -42,6 +41,7 @@ public class DrinkController : HoldableObject
 
     public void SpawnCustomDrink()
     {
+        Debug.Log("Spawning custom drink");
         Spawn(clone =>
         {
             DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();

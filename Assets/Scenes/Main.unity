@@ -15474,7 +15474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiritsButtons:
-  - elementName: Rum
+  - elementName: DarkRum
+    elementMlValue: 44
     uiObject: {fileID: 596856613}
     OnClick:
       m_PersistentCalls:
@@ -15487,6 +15488,7 @@ MonoBehaviour:
         m_Calls: []
     isInteracting: 0
   - elementName: Vodka
+    elementMlValue: 44
     uiObject: {fileID: 1983275600}
     OnClick:
       m_PersistentCalls:
@@ -15499,6 +15501,7 @@ MonoBehaviour:
         m_Calls: []
     isInteracting: 0
   - elementName: Gin
+    elementMlValue: 44
     uiObject: {fileID: 185781052}
     OnClick:
       m_PersistentCalls:
@@ -15511,7 +15514,8 @@ MonoBehaviour:
         m_Calls: []
     isInteracting: 0
   mixerButtons:
-  - elementName: Cola
+  - elementName: Coke
+    elementMlValue: 40
     uiObject: {fileID: 205082693}
     OnClick:
       m_PersistentCalls:
@@ -15524,6 +15528,7 @@ MonoBehaviour:
         m_Calls: []
     isInteracting: 0
   - elementName: LimeJuice
+    elementMlValue: 40
     uiObject: {fileID: 336527600}
     OnClick:
       m_PersistentCalls:
@@ -15536,6 +15541,7 @@ MonoBehaviour:
         m_Calls: []
     isInteracting: 0
   - elementName: Tonic
+    elementMlValue: 40
     uiObject: {fileID: 1104455311}
     OnClick:
       m_PersistentCalls:
@@ -15548,7 +15554,8 @@ MonoBehaviour:
         m_Calls: []
     isInteracting: 0
   garnishButtons:
-  - elementName: Limes
+  - elementName: Lime
+    elementMlValue: 0
     uiObject: {fileID: 624629745}
     OnClick:
       m_PersistentCalls:
@@ -15562,6 +15569,7 @@ MonoBehaviour:
     isInteracting: 0
   iceContainer:
     elementName: Ice
+    elementMlValue: 0
     uiObject: {fileID: 519522516}
     OnClick:
       m_PersistentCalls:
@@ -15575,6 +15583,7 @@ MonoBehaviour:
     isInteracting: 0
   createButton:
     elementName: Create Button
+    elementMlValue: 0
     uiObject: {fileID: 1769871537}
     OnClick:
       m_PersistentCalls:
@@ -154647,13 +154656,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3632506136833079689, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      propertyPath: m_Name
+      value: Gin
+      objectReference: {fileID: 0}
     - target: {fileID: 3840214536656158887, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: m_Name
       value: ColaBottle
       objectReference: {fileID: 0}
+    - target: {fileID: 3974476212473548639, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      propertyPath: m_Name
+      value: DarkRum
+      objectReference: {fileID: 0}
     - target: {fileID: 4413575831241918986, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: m_TagString
       value: DrinkStation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003143991024299530, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
+      propertyPath: m_Name
+      value: Vodka
       objectReference: {fileID: 0}
     - target: {fileID: 5665390618822176772, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: m_Name

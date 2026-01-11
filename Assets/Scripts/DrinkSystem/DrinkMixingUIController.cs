@@ -9,6 +9,7 @@ public class DrinkMakingUIController : MonoBehaviour
     public class UIElement
     {
         public string elementName;
+        public int elementMlValue;
         public GameObject uiObject;
         public UnityEvent OnClick;
         public UnityEvent OnHoverEnter;
@@ -34,18 +35,18 @@ public class DrinkMakingUIController : MonoBehaviour
     void Start()
     {
         // Setup all spirits buttons
-        SetupUIElements(spiritsButtons, OnSpiritClick);
+        SetupUIElements(spiritsButtons, OnSpiritClick, "spirit");
         
         // Setup all mixer buttons
-        SetupUIElements(mixerButtons, OnMixerClick);
+        SetupUIElements(mixerButtons, OnMixerClick, "mixer");
 
         // Setup garnish buttons
-        SetupUIElements(garnishButtons, OnGarnishClick);
+        SetupUIElements(garnishButtons, OnGarnishClick, "garnish");
 
         // Setup ice container
         if (iceContainer != null && iceContainer.uiObject != null)
         {
-            SetupSingleElement(iceContainer, OnIceClick);
+            SetupSingleElement(iceContainer, OnIceClick, "ice");
         }
         // Setup create button
         if (createButton != null && createButton.uiObject != null)
@@ -57,18 +58,18 @@ public class DrinkMakingUIController : MonoBehaviour
         drinkController = GetComponent<DrinkController>();
     }
 
-    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> clickCallback)
+    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> clickCallback, string type)
     {
         foreach (var element in elements)
         {
             if (element.uiObject != null)
             {
-                SetupSingleElement(element, () => clickCallback(element));
+                SetupSingleElement(element, () => clickCallback(element), type);
             }
         }
     }
 
-    void SetupSingleElement(UIElement element, UnityAction clickCallback)
+    void SetupSingleElement(UIElement element, UnityAction clickCallback, string type = "")
     {
         // Add event trigger component if it doesn't exist
         EventTrigger trigger = element.uiObject.GetComponent<EventTrigger>();
@@ -81,10 +82,10 @@ public class DrinkMakingUIController : MonoBehaviour
         trigger.triggers.Clear();
 
         // Add click event
-        EventTrigger.Entry clickEntry = new EventTrigger.Entry();
-        clickEntry.eventID = EventTriggerType.PointerClick;
-        clickEntry.callback.AddListener((data) => { clickCallback.Invoke(); });
-        trigger.triggers.Add(clickEntry);
+        //EventTrigger.Entry clickEntry = new EventTrigger.Entry();
+        //clickEntry.eventID = EventTriggerType.PointerClick;
+        //clickEntry.callback.AddListener((data) => { clickCallback.Invoke(); });
+        //trigger.triggers.Add(clickEntry);
 
         // Add hover enter event
         EventTrigger.Entry enterEntry = new EventTrigger.Entry();
@@ -97,8 +98,73 @@ public class DrinkMakingUIController : MonoBehaviour
         exitEntry.eventID = EventTriggerType.PointerExit;
         exitEntry.callback.AddListener((data) => { element.OnHoverExit.Invoke(); });
         trigger.triggers.Add(exitEntry);
+
+        if (type == "spirit")
+        {
+            // Load spirit ingredient from Resources and add to drink
+            Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Spirits/{element.elementName}");
+            if (ingredient != null)
+            {
+                int ml = element.elementMlValue;
+                EventTrigger.Entry ingredientEntry = new EventTrigger.Entry();
+                ingredientEntry.eventID = EventTriggerType.PointerClick;
+                ingredientEntry.callback.AddListener((data) => { drinkController.AddIngredient(ingredient, ml); });
+                trigger.triggers.Add(ingredientEntry);
+            }
+            else
+            {
+                Debug.LogWarning($"Spirit ingredient not found: Bar/Ingredients/Spirits/{element.elementName}");
+            }
+        }
+        else if (type == "mixer")
+        {
+            // Load mixer ingredient from Resources and add to drink
+            Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Mixers/{element.elementName}");
+            if (ingredient != null)
+            {
+                int ml = element.elementMlValue;
+                EventTrigger.Entry ingredientEntry = new EventTrigger.Entry();
+                ingredientEntry.eventID = EventTriggerType.PointerClick;
+                ingredientEntry.callback.AddListener((data) => { drinkController.AddIngredient(ingredient, ml); });
+                trigger.triggers.Add(ingredientEntry);
+            }
+            else
+            {
+                Debug.LogWarning($"Mixer ingredient not found: Bar/Ingredients/Mixers/{element.elementName}");
+            }
+        }
+        else if (type == "garnish")
+        {
+            // Load garnish ingredient from Resources and add to drink
+            Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Garnishes/{element.elementName}");
+            if (ingredient != null)
+            {
+                EventTrigger.Entry ingredientEntry = new EventTrigger.Entry();
+                ingredientEntry.eventID = EventTriggerType.PointerClick;
+                ingredientEntry.callback.AddListener((data) => { drinkController.AddGarnish(ingredient); });
+                trigger.triggers.Add(ingredientEntry);
+            }
+            else
+            {
+                Debug.LogWarning($"Garnish ingredient not found: Bar/Ingredients/Garnishes/{element.elementName}");
+            }
+        } else if (type == "ice")
+        {
+            // Add ice to drink on click
+            EventTrigger.Entry iceEntry = new EventTrigger.Entry();
+            iceEntry.eventID = EventTriggerType.PointerClick;
+            iceEntry.callback.AddListener((data) => { drinkController.AddIce(); });
+            trigger.triggers.Add(iceEntry);
+        } else {
+            // Generic click event
+            EventTrigger.Entry createButtonEntry = new EventTrigger.Entry();
+            createButtonEntry.eventID = EventTriggerType.PointerClick;
+            createButtonEntry.callback.AddListener((data) => { drinkController.SpawnCustomDrink(); });
+            trigger.triggers.Add(createButtonEntry);
+        }
     }
 
+    //!Probably wont need these functions either
     void OnSpiritClick(UIElement element)
     {
         // Deselect all other spirit buttons

@@ -13,7 +13,7 @@ public class DrinkMixing : MonoBehaviour
     [SerializeField] private float spriteOffset = 30f;//Margin between individual lime/ice sprites positions
     private float iceTrayVolume;
 
-    [Header("Ice Values")]
+    [Header("Lime Values")]
     [SerializeField] private int limesVolume;
     [SerializeField] private GameObject limeSprite;
     [SerializeField] private Transform limeTrayUI;
