@@ -159,7 +159,7 @@ public class DrinkMakingUIController : MonoBehaviour
             // Generic click event
             EventTrigger.Entry createButtonEntry = new EventTrigger.Entry();
             createButtonEntry.eventID = EventTriggerType.PointerClick;
-            createButtonEntry.callback.AddListener((data) => { drinkController.SpawnCustomDrink(); });
+            createButtonEntry.callback.AddListener((data) => { drinkController.SpawnDrink(); });
             trigger.triggers.Add(createButtonEntry);
         }
     }

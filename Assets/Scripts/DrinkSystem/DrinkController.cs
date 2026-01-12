@@ -39,19 +39,17 @@ public class DrinkController : HoldableObject
         });
     }
 
-    public void SpawnCustomDrink()
+    public void SpawnDrink()
     {
-        Debug.Log("Spawning custom drink");
+        Recipe recipe = Recipe.Create("Custom drink", spirits, mixers, garnishes, glass, hasIce, false);
         Spawn(clone =>
         {
             DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
-            Recipe recipe = Recipe.Create("Custom drink", spirits, mixers, garnishes, glass, hasIce, false);
             if (cloneDrinkController != null && recipe != null)
             {
                 cloneDrinkController.InitializeFromRecipe(recipe);
             }
         });
-        
     }
 
     private void InitializeFromRecipe(Recipe recipe)
