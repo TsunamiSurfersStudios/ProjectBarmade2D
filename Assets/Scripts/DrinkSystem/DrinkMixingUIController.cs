@@ -23,53 +23,60 @@ public class DrinkMakingUIController : MonoBehaviour
     [SerializeField] List<UIElement> garnishButtons = new List<UIElement>();
     [SerializeField] UIElement iceContainer;  
     [SerializeField] UIElement createButton;
+    [SerializeField] UIElement resetButton;
 
     // Current selections
-    private string selectedSpirit = "";
+    /*private string selectedSpirit = "";
     private string selectedMixer = "";
     private string selectedGarnish = "";
-    private bool iceSelected = false;
+    private bool iceSelected = false;*/
 
     //Drink Controller
     DrinkController drinkController;
     void Start()
     {
         // Setup all spirits buttons
-        SetupUIElements(spiritsButtons, OnSpiritClick, "spirit");
+        SetupUIElements(spiritsButtons, /*OnSpiritClick,*/ "spirit");
         
         // Setup all mixer buttons
-        SetupUIElements(mixerButtons, OnMixerClick, "mixer");
+        SetupUIElements(mixerButtons, /*OnMixerClick,*/ "mixer");
 
         // Setup garnish buttons
-        SetupUIElements(garnishButtons, OnGarnishClick, "garnish");
+        SetupUIElements(garnishButtons, /*OnGarnishClick,*/ "garnish");
 
         // Setup ice container
         if (iceContainer != null && iceContainer.uiObject != null)
         {
-            SetupSingleElement(iceContainer, OnIceClick, "ice");
+            SetupSingleElement(iceContainer, /*OnIceClick,*/ "ice");
         }
         // Setup create button
         if (createButton != null && createButton.uiObject != null)
         {
-            SetupSingleElement(createButton, OnCreateDrinkClick);
+            SetupSingleElement(createButton/*, OnCreateDrinkClick*/, "create");
+        }
+
+        // Setup reset button
+        if (resetButton != null && resetButton.uiObject != null)
+        {
+            SetupSingleElement(resetButton/*, OnResetClick*/, "reset");
         }
 
         // Get DrinkController reference
         drinkController = GetComponent<DrinkController>();
     }
 
-    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> clickCallback, string type)
+    void SetupUIElements(List<UIElement> elements,/* UnityAction<UIElement> clickCallback,*/ string type)
     {
         foreach (var element in elements)
         {
             if (element.uiObject != null)
             {
-                SetupSingleElement(element, () => clickCallback(element), type);
+                SetupSingleElement(element, /*() => clickCallback(element),*/ type);
             }
         }
     }
 
-    void SetupSingleElement(UIElement element, UnityAction clickCallback, string type = "")
+    void SetupSingleElement(UIElement element, /*UnityAction clickCallback,*/ string type = "")
     {
         // Add event trigger component if it doesn't exist
         EventTrigger trigger = element.uiObject.GetComponent<EventTrigger>();
@@ -79,7 +86,7 @@ public class DrinkMakingUIController : MonoBehaviour
         }
 
         // Clear existing triggers to avoid duplicates
-        trigger.triggers.Clear();
+        //trigger.triggers.Clear();
 
         // Add click event
         //EventTrigger.Entry clickEntry = new EventTrigger.Entry();
@@ -155,17 +162,25 @@ public class DrinkMakingUIController : MonoBehaviour
             iceEntry.eventID = EventTriggerType.PointerClick;
             iceEntry.callback.AddListener((data) => { drinkController.AddIce(); });
             trigger.triggers.Add(iceEntry);
-        } else {
-            // Generic click event
+        } else if (type == "create") 
+        {
+            // Create drink on click
             EventTrigger.Entry createButtonEntry = new EventTrigger.Entry();
             createButtonEntry.eventID = EventTriggerType.PointerClick;
             createButtonEntry.callback.AddListener((data) => { drinkController.SpawnDrink(); });
             trigger.triggers.Add(createButtonEntry);
+        } else if (type == "reset")
+        {
+            // Reset drink on click
+            EventTrigger.Entry resetButtonEntry = new EventTrigger.Entry();
+            resetButtonEntry.eventID = EventTriggerType.PointerClick;
+            resetButtonEntry.callback.AddListener((data) => { drinkController.ResetDrink(); });
+            trigger.triggers.Add(resetButtonEntry);
         }
     }
 
     //!Probably wont need these functions either
-    void OnSpiritClick(UIElement element)
+    /*void OnSpiritClick(UIElement element)
     {
         // Deselect all other spirit buttons
         foreach (var spirit in spiritsButtons)
@@ -291,5 +306,5 @@ public class DrinkMakingUIController : MonoBehaviour
             garnish.isInteracting = false;
 
         Debug.Log("All selections reset");
-    }
+    }*/
 }

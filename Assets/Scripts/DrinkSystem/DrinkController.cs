@@ -137,6 +137,15 @@ public class DrinkController : HoldableObject
         hasIce = true;
     }
 
+    public void ResetDrink()
+    {
+        spirits.Clear();
+        mixers.Clear();
+        garnishes.Clear();
+        alcoholPercentage = 0f;
+        hasIce = false;
+    }
+
     public List<DrinkComponent> GetSpirits() { return spirits; }
     public List<DrinkComponent> GetMixers() { return mixers; }
     public List<Ingredient> GetGarnishes() { return garnishes; }
