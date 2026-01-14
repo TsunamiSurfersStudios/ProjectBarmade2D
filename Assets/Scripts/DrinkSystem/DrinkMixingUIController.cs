@@ -26,57 +26,58 @@ public class DrinkMakingUIController : MonoBehaviour
     [SerializeField] UIElement resetButton;
 
     // Current selections
-    /*private string selectedSpirit = "";
+    //!Most likely wont need these variables anymore
+    private string selectedSpirit = "";
     private string selectedMixer = "";
     private string selectedGarnish = "";
-    private bool iceSelected = false;*/
+    private bool iceSelected = false;
 
     //Drink Controller
     DrinkController drinkController;
     void Start()
     {
         // Setup all spirits buttons
-        SetupUIElements(spiritsButtons, /*OnSpiritClick,*/ "spirit");
+        SetupUIElements(spiritsButtons, OnSpiritHoverEnter, "spirit");
         
         // Setup all mixer buttons
-        SetupUIElements(mixerButtons, /*OnMixerClick,*/ "mixer");
+        SetupUIElements(mixerButtons, OnMixerClick, "mixer");
 
         // Setup garnish buttons
-        SetupUIElements(garnishButtons, /*OnGarnishClick,*/ "garnish");
+        SetupUIElements(garnishButtons, OnGarnishClick, "garnish");
 
         // Setup ice container
         if (iceContainer != null && iceContainer.uiObject != null)
         {
-            SetupSingleElement(iceContainer, /*OnIceClick,*/ "ice");
+            SetupSingleElement(iceContainer, OnIceClick, "ice");
         }
         // Setup create button
         if (createButton != null && createButton.uiObject != null)
         {
-            SetupSingleElement(createButton/*, OnCreateDrinkClick*/, "create");
+            SetupSingleElement(createButton, OnCreateDrinkClick, "create");
         }
 
         // Setup reset button
         if (resetButton != null && resetButton.uiObject != null)
         {
-            SetupSingleElement(resetButton/*, OnResetClick*/, "reset");
+            SetupSingleElement(resetButton, OnResetClick, "reset");
         }
 
         // Get DrinkController reference
         drinkController = GetComponent<DrinkController>();
     }
 
-    void SetupUIElements(List<UIElement> elements,/* UnityAction<UIElement> clickCallback,*/ string type)
+    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> clickCallback, string type)
     {
         foreach (var element in elements)
         {
             if (element.uiObject != null)
             {
-                SetupSingleElement(element, /*() => clickCallback(element),*/ type);
+                SetupSingleElement(element, () => clickCallback(element), type);
             }
         }
     }
 
-    void SetupSingleElement(UIElement element, /*UnityAction clickCallback,*/ string type = "")
+    void SetupSingleElement(UIElement element, UnityAction enterCallback, string type = "")
     {
         // Add event trigger component if it doesn't exist
         EventTrigger trigger = element.uiObject.GetComponent<EventTrigger>();
@@ -97,13 +98,13 @@ public class DrinkMakingUIController : MonoBehaviour
         // Add hover enter event
         EventTrigger.Entry enterEntry = new EventTrigger.Entry();
         enterEntry.eventID = EventTriggerType.PointerEnter;
-        enterEntry.callback.AddListener((data) => { element.OnHoverEnter.Invoke(); });
+        enterEntry.callback.AddListener((data) => { enterCallback.Invoke(); });
         trigger.triggers.Add(enterEntry);
 
         // Add hover exit event
         EventTrigger.Entry exitEntry = new EventTrigger.Entry();
         exitEntry.eventID = EventTriggerType.PointerExit;
-        exitEntry.callback.AddListener((data) => { element.OnHoverExit.Invoke(); });
+        exitEntry.callback.AddListener((data) => { OnSpiritHoverExit(element); }); //!Change tomorrow
         trigger.triggers.Add(exitEntry);
 
         if (type == "spirit")
@@ -179,8 +180,25 @@ public class DrinkMakingUIController : MonoBehaviour
         }
     }
 
+    //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
+    void OnSpiritHoverEnter(UIElement element)
+    {
+        // Highlight spirit button
+        element.uiObject.GetComponent<UnityEngine.UI.Image>().color = Color.yellow;
+    }
+
+    void OnSpiritHoverExit(UIElement element)
+    {
+        // Remove highlight from spirit button
+        element.uiObject.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+    }
+
     //!Probably wont need these functions either
-    /*void OnSpiritClick(UIElement element)
+    void OnResetClick()
+    {
+        
+    }
+    void OnSpiritClick(UIElement element)
     {
         // Deselect all other spirit buttons
         foreach (var spirit in spiritsButtons)
@@ -306,5 +324,5 @@ public class DrinkMakingUIController : MonoBehaviour
             garnish.isInteracting = false;
 
         Debug.Log("All selections reset");
-    }*/
+    }
 }
