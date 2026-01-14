@@ -154548,7 +154548,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1699879102337977962, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1746324258371390520, guid: ab0d2a55e3a91b44ead7d92ef14420ed, type: 3}
       propertyPath: iceTray
