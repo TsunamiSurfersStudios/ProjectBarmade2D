@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DrinkMixing : MonoBehaviour
 {
+    //TODO: Move all of this into DrinkMixingUIController
     [Header("Ice Values")]
     [SerializeField] private GameObject iceTray;
     [SerializeField] private GameObject iceSprite;

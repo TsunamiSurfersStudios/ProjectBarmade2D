@@ -37,47 +37,47 @@ public class DrinkMakingUIController : MonoBehaviour
     void Start()
     {
         // Setup all spirits buttons
-        SetupUIElements(spiritsButtons, OnSpiritHoverEnter, "spirit");
+        SetupUIElements(spiritsButtons, OnSpiritHoverEnter, OnSpiritHoverExit, "spirit");
         
         // Setup all mixer buttons
-        SetupUIElements(mixerButtons, OnMixerClick, "mixer");
+        SetupUIElements(mixerButtons, OnMixerHoverEnter, OnMixerHoverExit, "mixer");
 
         // Setup garnish buttons
-        SetupUIElements(garnishButtons, OnGarnishClick, "garnish");
+        SetupUIElements(garnishButtons, OnGarnishHoverEnter, OnGarnishHoverExit, "garnish");
 
         // Setup ice container
         if (iceContainer != null && iceContainer.uiObject != null)
         {
-            SetupSingleElement(iceContainer, OnIceClick, "ice");
+            SetupSingleElement(iceContainer, () => OnIceHoverEnter(iceContainer), () => OnIceHoverExit(iceContainer), "ice");
         }
         // Setup create button
         if (createButton != null && createButton.uiObject != null)
         {
-            SetupSingleElement(createButton, OnCreateDrinkClick, "create");
+            SetupSingleElement(createButton, null, null, "create");
         }
 
         // Setup reset button
         if (resetButton != null && resetButton.uiObject != null)
         {
-            SetupSingleElement(resetButton, OnResetClick, "reset");
+            SetupSingleElement(resetButton, null, null, "reset");
         }
 
         // Get DrinkController reference
         drinkController = GetComponent<DrinkController>();
     }
 
-    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> clickCallback, string type)
+    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> enterCallback, UnityAction<UIElement> exitCallback, string type)
     {
         foreach (var element in elements)
         {
             if (element.uiObject != null)
             {
-                SetupSingleElement(element, () => clickCallback(element), type);
+                SetupSingleElement(element, () => enterCallback(element), () => exitCallback(element), type);
             }
         }
     }
 
-    void SetupSingleElement(UIElement element, UnityAction enterCallback, string type = "")
+    void SetupSingleElement(UIElement element, UnityAction enterCallback, UnityAction exitCallback, string type = "")
     {
         // Add event trigger component if it doesn't exist
         EventTrigger trigger = element.uiObject.GetComponent<EventTrigger>();
@@ -104,7 +104,7 @@ public class DrinkMakingUIController : MonoBehaviour
         // Add hover exit event
         EventTrigger.Entry exitEntry = new EventTrigger.Entry();
         exitEntry.eventID = EventTriggerType.PointerExit;
-        exitEntry.callback.AddListener((data) => { OnSpiritHoverExit(element); }); //!Change tomorrow
+        exitEntry.callback.AddListener((data) => { exitCallback.Invoke(); });
         trigger.triggers.Add(exitEntry);
 
         if (type == "spirit")
@@ -181,20 +181,67 @@ public class DrinkMakingUIController : MonoBehaviour
     }
 
     //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
+    
+    void SetHighlight(UIElement element, bool highlight)
+    {
+        if (element == null || element.uiObject == null) return;
+        
+        // Highlight bottle images by changing their color
+        var image = element.uiObject.GetComponent<UnityEngine.UI.Image>();
+        
+        if (image != null)
+        {
+            image.color = highlight ? Color.yellow : Color.white;
+        }
+        else
+        {
+            // Highlight all images inside of the containers
+            var images = element.uiObject.GetComponentsInChildren<UnityEngine.UI.Image>();
+            foreach (var img in images)
+            {
+                img.color = highlight ? Color.yellow : Color.white;
+            }
+        }
+    }
+    
     void OnSpiritHoverEnter(UIElement element)
     {
-        // Highlight spirit button
-        element.uiObject.GetComponent<UnityEngine.UI.Image>().color = Color.yellow;
+        SetHighlight(element, true);
     }
 
     void OnSpiritHoverExit(UIElement element)
     {
-        // Remove highlight from spirit button
-        element.uiObject.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+        SetHighlight(element, false);
+    }
+
+    void OnMixerHoverEnter(UIElement element)
+    {
+        SetHighlight(element, true);
+    }
+
+    void OnMixerHoverExit(UIElement element)
+    {
+        SetHighlight(element, false);
+    }
+    void OnGarnishHoverEnter(UIElement element)
+    {
+        SetHighlight(element, true);
+    }
+    void OnGarnishHoverExit(UIElement element)
+    {
+        SetHighlight(element, false);
+    }
+    void OnIceHoverEnter(UIElement element)
+    {
+        SetHighlight(element, true);
+    }
+    void OnIceHoverExit(UIElement element)
+    {
+        SetHighlight(element, false);
     }
 
     //!Probably wont need these functions either
-    void OnResetClick()
+    /*void OnResetClick()
     {
         
     }
@@ -324,5 +371,5 @@ public class DrinkMakingUIController : MonoBehaviour
             garnish.isInteracting = false;
 
         Debug.Log("All selections reset");
-    }
+    }*/
 }
