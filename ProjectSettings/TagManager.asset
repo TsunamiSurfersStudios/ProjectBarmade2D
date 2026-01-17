@@ -17,6 +17,7 @@ TagManager:
   - Sink
   - BoxHolder
   - NPC
+  - Enemy
   - LeavePoint
   layers:
   - Default
@@ -28,7 +29,7 @@ TagManager:
   - Objects
   - NPC
   - FloorTiles
-  - 
+  - Enemy
   - 
   - 
   - 
