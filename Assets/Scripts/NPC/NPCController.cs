@@ -1,16 +1,11 @@
-using Codice.CM.Common;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class NPCController : MonoBehaviour
 {
     // Movement variables
-    bool moveHorizontally, moveVertically;
-    [SerializeField] private float movementSpeed = 0.01f;
     GameObject leavePoint;
-    Vector2 destination, position;
+    Vector2 destination;
 
     private GameObject seat;
 
@@ -58,27 +53,10 @@ public class NPCController : MonoBehaviour
     {
         if (!seat) { return; }
 
-        DetermineDirection();
         MoveNPC();
         HandleIntoxication();   
     }
     
-    private void DetermineDirection()
-    {
-        if (!moveVertically && Mathf.Round(position.x) != Mathf.Round(destination.x))
-        {
-            moveHorizontally = true;
-            moveVertically = false;
-        }
-        else if (!moveHorizontally && Mathf.Round(position.y) != Mathf.Round(destination.y))
-        {
-            moveVertically = true;
-            moveHorizontally = false;
-        }
-
-        if (Mathf.Round(position.x) == Mathf.Round(destination.x)) moveHorizontally = false;
-        if (Mathf.Round(position.y) == Mathf.Round(destination.y)) moveVertically = false;
-    }
     private void MoveNPC()
     {
         navAgent.SetDestination(destination);
@@ -110,7 +88,7 @@ public class NPCController : MonoBehaviour
     }
     private void HandleIntoxication()
     {
-        if (!moveVertically && !moveVertically) // Do not sober up while moving
+        if (navAgent.velocity.magnitude > 0) // Do not sober up while moving
         {
             drunkMeter.SetActive(true);
             if (currentDrunkness > 0 && toxicBar)
@@ -132,7 +110,6 @@ public class NPCController : MonoBehaviour
     {
         this.seat = seat;
         destination = seat.transform.position;
-        position = transform.position; 
     }
 
     public void Leave()
