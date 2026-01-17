@@ -1,6 +1,8 @@
+using Codice.CM.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCController : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class NPCController : MonoBehaviour
 
     [SerializeField] private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private NavMeshAgent navAgent;
 
     // Interaction variables
     [SerializeField] private float sobering = 0.01f;
@@ -26,6 +29,9 @@ public class NPCController : MonoBehaviour
     private ToxicBar toxicBar;
     private NPCDialogue dialogue;
 
+    private const string HORIZONTAL = "HorizontalVal";
+    private const string VERTICAL = "VerticalVal";
+    private const string SPEED = "Speed";
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +41,9 @@ public class NPCController : MonoBehaviour
         drunkMeter = gameObject.transform.Find("DrunkMeter").gameObject;
         toxicBar = drunkMeter.transform.Find("ToxicBar").GetComponent<ToxicBar>();
         dialogue = gameObject.GetComponent<NPCDialogue>();
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.updateRotation = false;
+        navAgent.updateUpAxis = false;
     }
     
     void OnCollisionEnter2D(Collision2D collision)
@@ -72,50 +81,32 @@ public class NPCController : MonoBehaviour
     }
     private void MoveNPC()
     {
-        if (moveHorizontally)
+        navAgent.SetDestination(destination);
+        Vector3 velocity = navAgent.velocity;
+
+        if (velocity.magnitude > 0)
         {
-            animator.SetBool("isDown", false);
-            animator.SetBool("isUp", false);
-            if (position.x > destination.x)
+            Vector3 direction = velocity.normalized;
+            animator.SetFloat(SPEED, 1f);
+
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
             {
-                position.x -= movementSpeed;
-                spriteRenderer.flipX = false;
-                animator.SetBool("isLeft", true);
-                animator.SetBool("isRight", false);
+                animator.SetFloat(HORIZONTAL, direction.x);
+                animator.SetFloat(VERTICAL, 0);
+                spriteRenderer.flipX = direction.x > 0;
             }
             else
             {
-                position.x += movementSpeed;
-                spriteRenderer.flipX = true;
-                animator.SetBool("isRight", true);
-                animator.SetBool("isLeft", false);
+                animator.SetFloat(HORIZONTAL, 0);
+                animator.SetFloat(VERTICAL, direction.z);
             }
         }
-        else if (moveVertically)
+        else
         {
-            animator.SetBool("isLeft", false);
-            animator.SetBool("isRight", false);
-            if (position.y > destination.y)
-            {
-                position.y -= movementSpeed;
-                animator.SetBool("isDown", true);
-            }
-            else
-            {
-                position.y += movementSpeed;
-                animator.SetBool("isUp", true);
-            }
+            animator.SetFloat(HORIZONTAL, 0);
+            animator.SetFloat(VERTICAL, 0);
+            animator.SetFloat(SPEED, 0f);
         }
-
-        if (Mathf.Round(position.x) == Mathf.Round(destination.x) && Mathf.Round(destination.y) == Mathf.Round(position.y))
-        {
-            animator.SetBool("isLeft", false);
-            animator.SetBool("isRight", false);
-            animator.SetBool("isDown", false);
-            animator.SetBool("isUp", false);
-        }
-
-        transform.position = position;
     }
     private void HandleIntoxication()
     {
