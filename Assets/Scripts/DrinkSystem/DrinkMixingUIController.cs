@@ -25,17 +25,26 @@ public class DrinkMakingUIController : MonoBehaviour
     [SerializeField] UIElement createButton;
     [SerializeField] UIElement resetButton;
 
-    // Current selections
-    //!Most likely wont need these variables anymore
-    private string selectedSpirit = "";
-    private string selectedMixer = "";
-    private string selectedGarnish = "";
-    private bool iceSelected = false;
+    //TODO: Make all these get populated on their own
+    [Header("Ice Values")]
+    [SerializeField] private GameObject iceTray;
+    [SerializeField] private GameObject iceSprite;
+    [SerializeField] private Transform iceTrayUI;
+    [SerializeField] private float spriteOffset = 30f;//Margin between individual lime/ice sprites positions
+    private float iceTrayVolume;
+
+    [Header("Lime Values")]
+    [SerializeField] private int limesVolume;
+    [SerializeField] private GameObject limeSprite;
+    [SerializeField] private Transform limeTrayUI;
+    [SerializeField] private bool iceSelected;
 
     //Drink Controller
     DrinkController drinkController;
     void Start()
     {
+        //Draw ice and lime tray sprites
+        DrawSprites();
         // Setup all spirits buttons
         SetupUIElements(spiritsButtons, OnSpiritHoverEnter, OnSpiritHoverExit, "spirit");
         
@@ -50,6 +59,7 @@ public class DrinkMakingUIController : MonoBehaviour
         {
             SetupSingleElement(iceContainer, () => OnIceHoverEnter(iceContainer), () => OnIceHoverExit(iceContainer), "ice");
         }
+
         // Setup create button
         if (createButton != null && createButton.uiObject != null)
         {
@@ -64,6 +74,53 @@ public class DrinkMakingUIController : MonoBehaviour
 
         // Get DrinkController reference
         drinkController = GetComponent<DrinkController>();
+    }
+
+    void OnEnable()
+    {
+        // Redraw sprites when UI is enabled
+        DrawSprites();
+    }
+
+    //Draw the ice and lime sprites in their respective trays
+    public void DrawSprites()
+    {
+        iceTrayVolume = iceTray.GetComponent<IceTray>().GetVolume();
+        //Spawn ice cubes in the tray based on the ice tray volume
+        PopulateTray(iceTrayVolume, iceTrayUI, iceSprite);
+
+        //Spawn limes in the tray based on the lime tray volume
+        PopulateTray(limesVolume, limeTrayUI, limeSprite);
+    }
+
+    //Populate the ice tray UI with ice cube sprites based on the volume of ice in the tray
+    private void PopulateTray(float volume, Transform UI, GameObject sprite)
+    {
+        float containerWidth = UI.GetComponent<RectTransform>().rect.width;
+        float containerHeight = UI.GetComponent<RectTransform>().rect.height;
+        float xCounter = 0f;
+        float yCounter = 0f;
+        Vector3 position = sprite.transform.position;
+        Vector3 ogPosition = position;
+        //Generate as many ice cubes as there are ice in ice tray
+        for (float i = 0f; i < volume; i += 2.5f)
+        {
+            if (xCounter < containerWidth)
+            {//Fill line with ice
+                float randomRotation = Random.Range(0f, 360f);
+                GameObject obj = Instantiate(sprite, position, Quaternion.Euler(0, 0, randomRotation), UI);
+                position.x += spriteOffset;
+                obj.SetActive(true);
+                xCounter += spriteOffset;
+            }
+            else if (yCounter < containerHeight)
+            {//Start generating ice on a new line
+                yCounter += spriteOffset;
+                position.y += spriteOffset;
+                position.x = ogPosition.x;
+                xCounter = 0f;
+            }
+        }
     }
 
     void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> enterCallback, UnityAction<UIElement> exitCallback, string type)
@@ -86,26 +143,20 @@ public class DrinkMakingUIController : MonoBehaviour
             trigger = element.uiObject.AddComponent<EventTrigger>();
         }
 
-        // Clear existing triggers to avoid duplicates
-        //trigger.triggers.Clear();
+        if(type != "create" && type != "reset")
+        {
+            // Add hover enter event
+            EventTrigger.Entry enterEntry = new EventTrigger.Entry();
+            enterEntry.eventID = EventTriggerType.PointerEnter;
+            enterEntry.callback.AddListener((data) => { enterCallback.Invoke(); });
+            trigger.triggers.Add(enterEntry);
 
-        // Add click event
-        //EventTrigger.Entry clickEntry = new EventTrigger.Entry();
-        //clickEntry.eventID = EventTriggerType.PointerClick;
-        //clickEntry.callback.AddListener((data) => { clickCallback.Invoke(); });
-        //trigger.triggers.Add(clickEntry);
-
-        // Add hover enter event
-        EventTrigger.Entry enterEntry = new EventTrigger.Entry();
-        enterEntry.eventID = EventTriggerType.PointerEnter;
-        enterEntry.callback.AddListener((data) => { enterCallback.Invoke(); });
-        trigger.triggers.Add(enterEntry);
-
-        // Add hover exit event
-        EventTrigger.Entry exitEntry = new EventTrigger.Entry();
-        exitEntry.eventID = EventTriggerType.PointerExit;
-        exitEntry.callback.AddListener((data) => { exitCallback.Invoke(); });
-        trigger.triggers.Add(exitEntry);
+            // Add hover exit event
+            EventTrigger.Entry exitEntry = new EventTrigger.Entry();
+            exitEntry.eventID = EventTriggerType.PointerExit;
+            exitEntry.callback.AddListener((data) => { exitCallback.Invoke(); });
+            trigger.triggers.Add(exitEntry);
+        }
 
         if (type == "spirit")
         {
@@ -114,10 +165,7 @@ public class DrinkMakingUIController : MonoBehaviour
             if (ingredient != null)
             {
                 int ml = element.elementMlValue;
-                EventTrigger.Entry ingredientEntry = new EventTrigger.Entry();
-                ingredientEntry.eventID = EventTriggerType.PointerClick;
-                ingredientEntry.callback.AddListener((data) => { drinkController.AddIngredient(ingredient, ml); });
-                trigger.triggers.Add(ingredientEntry);
+                AddClickTriger(element, () => drinkController.AddIngredient(ingredient, ml));
             }
             else
             {
@@ -131,10 +179,7 @@ public class DrinkMakingUIController : MonoBehaviour
             if (ingredient != null)
             {
                 int ml = element.elementMlValue;
-                EventTrigger.Entry ingredientEntry = new EventTrigger.Entry();
-                ingredientEntry.eventID = EventTriggerType.PointerClick;
-                ingredientEntry.callback.AddListener((data) => { drinkController.AddIngredient(ingredient, ml); });
-                trigger.triggers.Add(ingredientEntry);
+                AddClickTriger(element, () => drinkController.AddIngredient(ingredient, ml));
             }
             else
             {
@@ -147,10 +192,7 @@ public class DrinkMakingUIController : MonoBehaviour
             Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Garnishes/{element.elementName}");
             if (ingredient != null)
             {
-                EventTrigger.Entry ingredientEntry = new EventTrigger.Entry();
-                ingredientEntry.eventID = EventTriggerType.PointerClick;
-                ingredientEntry.callback.AddListener((data) => { drinkController.AddGarnish(ingredient); });
-                trigger.triggers.Add(ingredientEntry);
+                AddClickTriger(element, () => drinkController.AddGarnish(ingredient));
             }
             else
             {
@@ -159,28 +201,37 @@ public class DrinkMakingUIController : MonoBehaviour
         } else if (type == "ice")
         {
             // Add ice to drink on click
-            EventTrigger.Entry iceEntry = new EventTrigger.Entry();
-            iceEntry.eventID = EventTriggerType.PointerClick;
-            iceEntry.callback.AddListener((data) => { drinkController.AddIce(); });
-            trigger.triggers.Add(iceEntry);
+            AddClickTriger(element, () => drinkController.AddIce());
         } else if (type == "create") 
         {
             // Create drink on click
-            EventTrigger.Entry createButtonEntry = new EventTrigger.Entry();
-            createButtonEntry.eventID = EventTriggerType.PointerClick;
-            createButtonEntry.callback.AddListener((data) => { drinkController.SpawnDrink(); });
-            trigger.triggers.Add(createButtonEntry);
+            AddClickTriger(element, () => drinkController.SpawnDrink());
         } else if (type == "reset")
         {
             // Reset drink on click
-            EventTrigger.Entry resetButtonEntry = new EventTrigger.Entry();
-            resetButtonEntry.eventID = EventTriggerType.PointerClick;
-            resetButtonEntry.callback.AddListener((data) => { drinkController.ResetDrink(); });
-            trigger.triggers.Add(resetButtonEntry);
+            AddClickTriger(element, () => drinkController.ResetDrink());
         }
     }
 
     //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
+
+    void AddClickTriger(UIElement element, UnityAction clickCallback)
+    {
+        if (element == null || element.uiObject == null) return;
+
+        // Add event trigger component if it doesn't exist
+        EventTrigger trigger = element.uiObject.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = element.uiObject.AddComponent<EventTrigger>();
+        }
+
+        // Add click event
+        EventTrigger.Entry clickEntry = new EventTrigger.Entry();
+        clickEntry.eventID = EventTriggerType.PointerClick;
+        clickEntry.callback.AddListener((data) => { clickCallback.Invoke(); });
+        trigger.triggers.Add(clickEntry);
+    }
     
     void SetHighlight(UIElement element, bool highlight)
     {
@@ -239,137 +290,4 @@ public class DrinkMakingUIController : MonoBehaviour
     {
         SetHighlight(element, false);
     }
-
-    //!Probably wont need these functions either
-    /*void OnResetClick()
-    {
-        
-    }
-    void OnSpiritClick(UIElement element)
-    {
-        // Deselect all other spirit buttons
-        foreach (var spirit in spiritsButtons)
-        {
-            spirit.isInteracting = false;
-        }
-
-        // Select spirit
-        element.isInteracting = true;
-        selectedSpirit = element.elementName;
-        
-        element.OnClick.Invoke();
-        Debug.Log($"Selected spirit: {element.elementName}");
-
-
-    }
-
-    void OnMixerClick(UIElement element)
-    {
-        foreach (var mixer in mixerButtons)
-        {
-            mixer.isInteracting = false;
-        }
-        selectedMixer = "";
-        
-        element.isInteracting = true;
-        selectedMixer = element.elementName;
-        
-        element.OnClick.Invoke();
-        Debug.Log($"Selected mixer: {selectedMixer}");
-    }
-
-    void OnGarnishClick(UIElement element)
-    {
-        foreach (var garnish in garnishButtons)
-        {
-            garnish.isInteracting = false;
-        }
-        
-        element.isInteracting = true;
-        selectedGarnish = element.elementName;
-        
-        element.OnClick.Invoke();
-        Debug.Log($"Selected garnish: {element.elementName}");
-    }
-
-    void OnIceClick()
-    {
-        iceSelected = !iceSelected;
-        iceContainer.isInteracting = iceSelected;
-        
-        iceContainer.OnClick.Invoke();
-        Debug.Log($"Ice selected: {iceSelected}");
-    }
-
-    void OnCreateDrinkClick()
-    {
-        if (string.IsNullOrEmpty(selectedSpirit) && string.IsNullOrEmpty(selectedMixer))
-        {
-            Debug.LogWarning("No spirit or mixer selected!");
-            return;
-        }
-
-        createButton.OnClick.Invoke();
-        
-        Debug.Log("=== Creating Drink ===");
-        Debug.Log($"Spirit: {selectedSpirit}");
-        Debug.Log($"Mixer: {selectedMixer}");
-        Debug.Log($"Ice: {iceSelected}");
-        Debug.Log($"Garnish: {selectedGarnish}");
-        Debug.Log("======================");
-
-        // Create the drink
-        //CreateDrink(selectedSpirit, selectedMixer, iceSelected);
-    }
-
-    void CreateDrink(string spirit, string mixer, string ice)
-    {
-        // TODO: Call drink creating from drink controller
-    }
-    public string GetSelectedSpirit() => selectedSpirit;
-    public string GetSelectedMixer() => selectedMixer;
-    public string GetSelectedGarnish() => selectedGarnish;
-    public bool GetIceSelected() => iceSelected;
-
-
-    //!Might not need these functions on the bottom. Decide before pushing to main
-    // check if a specific element is selected
-    private bool IsElementSelected(string elementName)
-    {
-        // Check spirits
-        var spirit = spiritsButtons.Find(e => e.elementName == elementName);
-        if (spirit != null) return spirit.isInteracting;
-
-        // Check mixers
-        var mixer = mixerButtons.Find(e => e.elementName == elementName);
-        if (mixer != null) return mixer.isInteracting;
-
-        // Check ice
-        var garnish = garnishButtons.Find(e => e.elementName == elementName);
-        if (garnish != null) return garnish.isInteracting;
-
-        var ice = iceContainer;
-        if (ice != null && ice.elementName == elementName) return ice.isInteracting;
-
-        return false;
-    }
-
-    // Reset all selections
-    private void ResetSelections()
-    {
-        selectedSpirit = "";
-        selectedMixer = "";
-        selectedGarnish = "";
-
-        foreach (var spirit in spiritsButtons)
-            spirit.isInteracting = false;
-        
-        foreach (var mixer in mixerButtons)
-            mixer.isInteracting = false;
-        
-        foreach (var garnish in garnishButtons)
-            garnish.isInteracting = false;
-
-        Debug.Log("All selections reset");
-    }*/
 }
