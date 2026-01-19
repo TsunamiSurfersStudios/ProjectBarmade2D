@@ -3,7 +3,18 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
-public class DrinkMakingUIController : MonoBehaviour
+public enum UIElementType
+{
+    None,
+    Spirit,
+    Mixer,
+    Garnish,
+    Ice,
+    Create,
+    Reset
+}
+
+public class DrinkMixingUIController : MonoBehaviour
 {
     [System.Serializable]
     public class UIElement
@@ -11,10 +22,6 @@ public class DrinkMakingUIController : MonoBehaviour
         public string elementName;
         public int elementMlValue;
         public GameObject uiObject;
-        public UnityEvent OnClick;
-        public UnityEvent OnHoverEnter;
-        public UnityEvent OnHoverExit;
-        [HideInInspector] public bool isInteracting = false;
     }
 
     [Header("UI Elements")]
@@ -46,34 +53,39 @@ public class DrinkMakingUIController : MonoBehaviour
         //Draw ice and lime tray sprites
         DrawSprites();
         // Setup all spirits buttons
-        SetupUIElements(spiritsButtons, OnSpiritHoverEnter, OnSpiritHoverExit, "spirit");
+        SetupUIElements(spiritsButtons, OnHoverEnter, OnHoverExit, UIElementType.Spirit);
         
         // Setup all mixer buttons
-        SetupUIElements(mixerButtons, OnMixerHoverEnter, OnMixerHoverExit, "mixer");
+        SetupUIElements(mixerButtons, OnHoverEnter, OnHoverExit, UIElementType.Mixer);
 
         // Setup garnish buttons
-        SetupUIElements(garnishButtons, OnGarnishHoverEnter, OnGarnishHoverExit, "garnish");
+        SetupUIElements(garnishButtons, OnHoverEnter, OnHoverExit, UIElementType.Garnish);
 
         // Setup ice container
         if (iceContainer != null && iceContainer.uiObject != null)
         {
-            SetupSingleElement(iceContainer, () => OnIceHoverEnter(iceContainer), () => OnIceHoverExit(iceContainer), "ice");
+            SetupSingleElement(iceContainer, () => OnHoverEnter(iceContainer), () => OnHoverExit(iceContainer), UIElementType.Ice);
         }
 
         // Setup create button
         if (createButton != null && createButton.uiObject != null)
         {
-            SetupSingleElement(createButton, null, null, "create");
+            SetupSingleElement(createButton, null, null, UIElementType.Create);
         }
 
         // Setup reset button
         if (resetButton != null && resetButton.uiObject != null)
         {
-            SetupSingleElement(resetButton, null, null, "reset");
+            SetupSingleElement(resetButton, null, null, UIElementType.Reset);
         }
 
         // Get DrinkController reference
         drinkController = GetComponent<DrinkController>();
+
+        if (drinkController == null)
+        {
+            Debug.LogError("DrinkController component not found on GameObject '" + gameObject.name + "'. DrinkMakingUIController requires a DrinkController to function correctly.", this);
+        }
     }
 
     void OnEnable()
@@ -96,6 +108,12 @@ public class DrinkMakingUIController : MonoBehaviour
     //Populate the ice tray UI with ice cube sprites based on the volume of ice in the tray
     private void PopulateTray(float volume, Transform UI, GameObject sprite)
     {
+        //Clear existing sprites
+        foreach (Transform child in UI)
+        {
+            Destroy(child.gameObject);
+        }
+        
         float containerWidth = UI.GetComponent<RectTransform>().rect.width;
         float containerHeight = UI.GetComponent<RectTransform>().rect.height;
         float xCounter = 0f;
@@ -123,7 +141,7 @@ public class DrinkMakingUIController : MonoBehaviour
         }
     }
 
-    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> enterCallback, UnityAction<UIElement> exitCallback, string type)
+    void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> enterCallback, UnityAction<UIElement> exitCallback, UIElementType type)
     {
         foreach (var element in elements)
         {
@@ -134,7 +152,7 @@ public class DrinkMakingUIController : MonoBehaviour
         }
     }
 
-    void SetupSingleElement(UIElement element, UnityAction enterCallback, UnityAction exitCallback, string type = "")
+    void SetupSingleElement(UIElement element, UnityAction enterCallback, UnityAction exitCallback, UIElementType type = UIElementType.None)
     {
         // Add event trigger component if it doesn't exist
         EventTrigger trigger = element.uiObject.GetComponent<EventTrigger>();
@@ -143,7 +161,7 @@ public class DrinkMakingUIController : MonoBehaviour
             trigger = element.uiObject.AddComponent<EventTrigger>();
         }
 
-        if(type != "create" && type != "reset")
+        if (type != UIElementType.Create && type != UIElementType.Reset)
         {
             // Add hover enter event
             EventTrigger.Entry enterEntry = new EventTrigger.Entry();
@@ -158,64 +176,70 @@ public class DrinkMakingUIController : MonoBehaviour
             trigger.triggers.Add(exitEntry);
         }
 
-        if (type == "spirit")
+        switch (type)
         {
-            // Load spirit ingredient from Resources and add to drink
-            Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Spirits/{element.elementName}");
-            if (ingredient != null)
+            case UIElementType.Spirit:
             {
-                int ml = element.elementMlValue;
-                AddClickTriger(element, () => drinkController.AddIngredient(ingredient, ml));
+                // Load spirit ingredient from Resources and add to drink
+                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Spirits/{element.elementName}");
+                if (ingredient != null)
+                {
+                    int ml = element.elementMlValue;
+                    AddClickTrigger(element, () => drinkController.AddIngredient(ingredient, ml));
+                }
+                else
+                {
+                    Debug.LogWarning($"Spirit ingredient not found: Bar/Ingredients/Spirits/{element.elementName}");
+                }
+                break;
             }
-            else
+            case UIElementType.Mixer:
             {
-                Debug.LogWarning($"Spirit ingredient not found: Bar/Ingredients/Spirits/{element.elementName}");
+                // Load mixer ingredient from Resources and add to drink
+                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Mixers/{element.elementName}");
+                if (ingredient != null)
+                {
+                    int ml = element.elementMlValue;
+                    AddClickTrigger(element, () => drinkController.AddIngredient(ingredient, ml));
+                }
+                else
+                {
+                    Debug.LogWarning($"Mixer ingredient not found: Bar/Ingredients/Mixers/{element.elementName}");
+                }
+                break;
             }
-        }
-        else if (type == "mixer")
-        {
-            // Load mixer ingredient from Resources and add to drink
-            Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Mixers/{element.elementName}");
-            if (ingredient != null)
+            case UIElementType.Garnish:
             {
-                int ml = element.elementMlValue;
-                AddClickTriger(element, () => drinkController.AddIngredient(ingredient, ml));
+                // Load garnish ingredient from Resources and add to drink
+                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Garnishes/{element.elementName}");
+                if (ingredient != null)
+                {
+                    AddClickTrigger(element, () => drinkController.AddGarnish(ingredient));
+                }
+                else
+                {
+                    Debug.LogWarning($"Garnish ingredient not found: Bar/Ingredients/Garnishes/{element.elementName}");
+                }
+                break;
             }
-            else
-            {
-                Debug.LogWarning($"Mixer ingredient not found: Bar/Ingredients/Mixers/{element.elementName}");
-            }
-        }
-        else if (type == "garnish")
-        {
-            // Load garnish ingredient from Resources and add to drink
-            Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Garnishes/{element.elementName}");
-            if (ingredient != null)
-            {
-                AddClickTriger(element, () => drinkController.AddGarnish(ingredient));
-            }
-            else
-            {
-                Debug.LogWarning($"Garnish ingredient not found: Bar/Ingredients/Garnishes/{element.elementName}");
-            }
-        } else if (type == "ice")
-        {
-            // Add ice to drink on click
-            AddClickTriger(element, () => drinkController.AddIce());
-        } else if (type == "create") 
-        {
-            // Create drink on click
-            AddClickTriger(element, () => drinkController.SpawnDrink());
-        } else if (type == "reset")
-        {
-            // Reset drink on click
-            AddClickTriger(element, () => drinkController.ResetDrink());
+            case UIElementType.Ice:
+                // Add ice to drink on click
+                AddClickTrigger(element, () => drinkController.AddIce());
+                break;
+            case UIElementType.Create:
+                // Create drink on click
+                AddClickTrigger(element, () => drinkController.SpawnDrink());
+                break;
+            case UIElementType.Reset:
+                // Reset drink on click
+                AddClickTrigger(element, () => drinkController.ResetDrink());
+                break;
         }
     }
 
     //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
 
-    void AddClickTriger(UIElement element, UnityAction clickCallback)
+    void AddClickTrigger(UIElement element, UnityAction clickCallback)
     {
         if (element == null || element.uiObject == null) return;
 
@@ -255,38 +279,12 @@ public class DrinkMakingUIController : MonoBehaviour
         }
     }
     
-    void OnSpiritHoverEnter(UIElement element)
+    void OnHoverEnter(UIElement element)
     {
         SetHighlight(element, true);
     }
 
-    void OnSpiritHoverExit(UIElement element)
-    {
-        SetHighlight(element, false);
-    }
-
-    void OnMixerHoverEnter(UIElement element)
-    {
-        SetHighlight(element, true);
-    }
-
-    void OnMixerHoverExit(UIElement element)
-    {
-        SetHighlight(element, false);
-    }
-    void OnGarnishHoverEnter(UIElement element)
-    {
-        SetHighlight(element, true);
-    }
-    void OnGarnishHoverExit(UIElement element)
-    {
-        SetHighlight(element, false);
-    }
-    void OnIceHoverEnter(UIElement element)
-    {
-        SetHighlight(element, true);
-    }
-    void OnIceHoverExit(UIElement element)
+    void OnHoverExit(UIElement element)
     {
         SetHighlight(element, false);
     }
