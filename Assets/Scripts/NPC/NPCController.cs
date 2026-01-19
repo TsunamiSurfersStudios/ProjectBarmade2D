@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -67,7 +68,7 @@ public class NPCController : MonoBehaviour
             Vector3 direction = velocity.normalized;
             animator.SetFloat(SPEED, 1f);
 
-            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
             {
                 animator.SetFloat(HORIZONTAL, direction.x);
                 animator.SetFloat(VERTICAL, 0);
@@ -76,7 +77,7 @@ public class NPCController : MonoBehaviour
             else
             {
                 animator.SetFloat(HORIZONTAL, 0);
-                animator.SetFloat(VERTICAL, direction.z);
+                animator.SetFloat(VERTICAL, direction.y);
             }
         }
         else
