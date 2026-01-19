@@ -113,7 +113,7 @@ public class DrinkMixingUIController : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        
+
         float containerWidth = UI.GetComponent<RectTransform>().rect.width;
         float containerHeight = UI.GetComponent<RectTransform>().rect.height;
         float xCounter = 0f;
