@@ -56,4 +56,15 @@ public class ItemHolder : MonoBehaviour
     {
         return heldObject == null;
     }
+
+    public void Spawn(GameObject item)
+    {
+        if (heldObject != null) 
+        { 
+            return; 
+        }
+        GameObject clone = GameObject.Instantiate(item);
+        GiveObject(clone);
+        clone.SetActive(true);
+    }
 }
