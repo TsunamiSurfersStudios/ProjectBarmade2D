@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public enum UIElementType
 {
@@ -28,16 +29,18 @@ public class DrinkMixingUIController : MonoBehaviour
     [SerializeField] List<UIElement> spiritsButtons = new List<UIElement>();
     [SerializeField] List<UIElement> mixerButtons = new List<UIElement>();
     [SerializeField] List<UIElement> garnishButtons = new List<UIElement>();
-    [SerializeField] UIElement iceContainer;  
+    [SerializeField] UIElement iceContainer;
     [SerializeField] UIElement createButton;
     [SerializeField] UIElement resetButton;
+    [SerializeField] private Text hoveredElementText;
+    [SerializeField] private Text ingredientsInDrinkText;
 
     //TODO: Make all these get populated on their own
     [Header("Ice Values")]
     [SerializeField] private GameObject iceTray;
     [SerializeField] private GameObject iceSprite;
     [SerializeField] private Transform iceTrayUI;
-    [SerializeField] private float spriteOffset = 30f;//Margin between individual lime/ice sprites positions
+    const float spriteOffset = 30f;//Margin between individual lime/ice sprites positions
     private float iceTrayVolume;
 
     [Header("Lime Values")]
@@ -52,6 +55,7 @@ public class DrinkMixingUIController : MonoBehaviour
     {
         //Draw ice and lime tray sprites
         DrawSprites();
+
         // Setup all spirits buttons
         SetupUIElements(spiritsButtons, OnHoverEnter, OnHoverExit, UIElementType.Spirit);
         
@@ -88,10 +92,39 @@ public class DrinkMixingUIController : MonoBehaviour
         }
     }
 
+    public void RefreshIngredientsText()
+    {
+        if (drinkController != null && ingredientsInDrinkText != null)
+        {
+            ingredientsInDrinkText.text = "Ingredients: " + GetCurrentDrinkIngredients();
+        }
+    }
+
     void OnEnable()
     {
         // Redraw sprites when UI is enabled
         DrawSprites();
+    }
+
+    
+    public string GetCurrentDrinkIngredients()
+    {
+        //TODO: Show amounts in a pretty way. Right now looks like ass
+        string ingredients = "";
+        foreach (DrinkComponent spirit in drinkController.GetSpirits())
+        {
+            ingredients += spirit.GetIngredient().GetName() + "\n";
+        }
+        foreach (DrinkComponent mixer in drinkController.GetMixers())
+        {
+            ingredients += mixer.GetIngredient().GetName() + "\n";
+        }
+        foreach (Ingredient garnish in drinkController.GetGarnishes())
+        {
+            ingredients += garnish.GetName() + "\n";
+        }
+
+        return ingredients;
     }
 
     //Draw the ice and lime sprites in their respective trays
@@ -176,63 +209,72 @@ public class DrinkMixingUIController : MonoBehaviour
             trigger.triggers.Add(exitEntry);
         }
 
+        //Replace space to properly find ingredient in Resources
+        var ingredientName = "";
+        if (element.elementName.Contains(" ")) 
+        {
+            ingredientName = element.elementName.Replace(" ", "");
+        } else {
+            ingredientName = element.elementName;
+        }
+
         switch (type)
         {
             case UIElementType.Spirit:
             {
                 // Load spirit ingredient from Resources and add to drink
-                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Spirits/{element.elementName}");
+                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Spirits/{ingredientName}");
                 if (ingredient != null)
                 {
                     int ml = element.elementMlValue;
-                    AddClickTrigger(element, () => drinkController.AddIngredient(ingredient, ml));
+                    AddClickTrigger(element, () => { drinkController.AddIngredient(ingredient, ml); RefreshIngredientsText(); });
                 }
                 else
                 {
-                    Debug.LogWarning($"Spirit ingredient not found: Bar/Ingredients/Spirits/{element.elementName}");
+                    Debug.LogWarning($"Spirit ingredient not found: Bar/Ingredients/Spirits/{ingredientName}");
                 }
                 break;
             }
             case UIElementType.Mixer:
             {
                 // Load mixer ingredient from Resources and add to drink
-                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Mixers/{element.elementName}");
+                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Mixers/{ingredientName}");
                 if (ingredient != null)
                 {
                     int ml = element.elementMlValue;
-                    AddClickTrigger(element, () => drinkController.AddIngredient(ingredient, ml));
+                    AddClickTrigger(element, () => { drinkController.AddIngredient(ingredient, ml); RefreshIngredientsText(); });
                 }
                 else
                 {
-                    Debug.LogWarning($"Mixer ingredient not found: Bar/Ingredients/Mixers/{element.elementName}");
+                    Debug.LogWarning($"Mixer ingredient not found: Bar/Ingredients/Mixers/{ingredientName}");
                 }
                 break;
             }
             case UIElementType.Garnish:
             {
                 // Load garnish ingredient from Resources and add to drink
-                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Garnishes/{element.elementName}");
+                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Garnishes/{ingredientName}");
                 if (ingredient != null)
                 {
-                    AddClickTrigger(element, () => drinkController.AddGarnish(ingredient));
+                    AddClickTrigger(element, () => { drinkController.AddGarnish(ingredient); RefreshIngredientsText(); });
                 }
                 else
                 {
-                    Debug.LogWarning($"Garnish ingredient not found: Bar/Ingredients/Garnishes/{element.elementName}");
+                    Debug.LogWarning($"Garnish ingredient not found: Bar/Ingredients/Garnishes/{ingredientName}");
                 }
                 break;
             }
             case UIElementType.Ice:
                 // Add ice to drink on click
-                AddClickTrigger(element, () => drinkController.AddIce());
+                AddClickTrigger(element, () => { drinkController.AddIce(); RefreshIngredientsText(); });
                 break;
             case UIElementType.Create:
                 // Create drink on click
-                AddClickTrigger(element, () => drinkController.SpawnDrink());
+                AddClickTrigger(element, () => { drinkController.SpawnDrink(); RefreshIngredientsText(); });
                 break;
             case UIElementType.Reset:
                 // Reset drink on click
-                AddClickTrigger(element, () => drinkController.ResetDrink());
+                AddClickTrigger(element, () => { drinkController.ResetDrink(); RefreshIngredientsText(); });
                 break;
         }
     }
@@ -267,6 +309,7 @@ public class DrinkMixingUIController : MonoBehaviour
         if (image != null)
         {
             image.color = highlight ? Color.yellow : Color.white;
+            hoveredElementText.text = highlight ? element.elementName : "";
         }
         else
         {
@@ -276,6 +319,7 @@ public class DrinkMixingUIController : MonoBehaviour
             {
                 img.color = highlight ? Color.yellow : Color.white;
             }
+            hoveredElementText.text = highlight ? element.elementName : "";
         }
     }
     

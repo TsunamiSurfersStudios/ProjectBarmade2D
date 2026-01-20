@@ -50,6 +50,8 @@ public class DrinkController : HoldableObject
                 cloneDrinkController.InitializeFromRecipe(recipe);
             }
         });
+        
+        ResetDrink();
     }
 
     private void InitializeFromRecipe(Recipe recipe)
