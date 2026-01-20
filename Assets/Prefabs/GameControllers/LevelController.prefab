@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startHour: 12
   hoursOpen: 15
+  bufferToStopSpawning: 1
   spawnSchedules:
   - defaultMinWait: 20
     defaultMaxWait: 40
