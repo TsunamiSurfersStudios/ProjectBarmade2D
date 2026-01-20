@@ -9,13 +9,11 @@ public class TimeController : MonoBehaviour
     [Header("Time Settings")]
     [SerializeField] private float timeScale = 60f;
     [SerializeField] private int startHour = 12;
-    [SerializeField] private int startMinute = 0;
 
     private int currentHour;
     private int currentMinute;
 
-    private string displayTime;
-
+    private bool isRunning = false;
     private float elapsedTime;
 
     // Events for other scripts to subscribe to
@@ -35,14 +33,25 @@ public class TimeController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
 
-        // Initialize time
-        elapsedTime = startHour * 60f + startMinute;
+    public void StartTime(int startHour)
+    {
+        isRunning = true;
+        elapsedTime = startHour * 60f;
         UpdateDisplayTime();
+    }
+
+    public void StopTime()
+    {
+        isRunning = false;
     }
 
     private void Update()
     {
+        if (!isRunning)
+            return;
+
         float previousTimeInMinutes = elapsedTime;
         int previousHour = currentHour;
 
