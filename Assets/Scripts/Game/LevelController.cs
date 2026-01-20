@@ -42,6 +42,8 @@ public class SpawnSchedule
     [Header("General")]
     [SerializeField][Range(0,23)] int startHour;
     [SerializeField][Range(1, 24)] int hoursOpen;
+    [Tooltip("Number of hours before closing to stop spawning NPCs")]
+    [SerializeField] int bufferToStopSpawning = 1;
     [Header("Individual Level Controls")]
     [SerializeField] List<SpawnSchedule> spawnSchedules;
 
@@ -57,12 +59,16 @@ public class SpawnSchedule
     void UpdateForHour(int hour)
     {
         hoursPassed++;
+        if ( hoursPassed == hoursOpen - bufferToStopSpawning)
+        {
+            // Stop spawning
+            npcSpawner.StopSpawning();
+        }
         if (hoursPassed >= hoursOpen) // Check Day Over
         {
             TimeController.Instance.OnHourChanged -= UpdateForHour;
             TimeController.Instance.StopTime();
             currLevel++;
-            npcSpawner.StopSpawning();
             // Level up here
             return;
         }
@@ -97,6 +103,37 @@ public class SpawnSchedule
     {
         return currLevel;
     }
-
-
 }
+
+#if UNITY_EDITOR
+// Custom property drawer for SpawnSchedule list
+[CustomPropertyDrawer(typeof(SpawnSchedule))]
+public class SpawnScheduleDrawer : PropertyDrawer
+{
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        // Get the index from the property path
+        string path = property.propertyPath;
+        int index = -1;
+
+        // Extract index from path like "spawnSchedules.Array.data[0]"
+        if (path.Contains("[") && path.Contains("]"))
+        {
+            int startIndex = path.IndexOf("[") + 1;
+            int length = path.IndexOf("]") - startIndex;
+            if (int.TryParse(path.Substring(startIndex, length), out index))
+            {
+                label.text = "Level " + index;
+            }
+        }
+
+        // Draw the property with custom label
+        EditorGUI.PropertyField(position, property, label, true);
+    }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        return EditorGUI.GetPropertyHeight(property, label, true);
+    }
+}
+#endif
