@@ -28,7 +28,7 @@ public class StorageSystem : MonoBehaviour
     public void AddDrink(Ingredient drink, int amount)
     {
         // checks to see if the item already exist in List storage
-        var existingItem = storage.Find(i => i.drink == drink);
+        var existingItem = storageList.Find(i => i.drink == drink);
 
         // if the item does exist then add to the amount
         if (existingItem != null)
@@ -37,14 +37,14 @@ public class StorageSystem : MonoBehaviour
         }
         else //adds a new item in the storage by creating a new DrinkSlot object
         {
-            storage.Add(new Storage(drink, amount));
+            storageList.Add(new Storage(drink, amount));
         }
 
     }
 
     public void RemoveDrink(Ingredient drink, int amount)
     {
-        var existingItem = storage.Find(i => i.drink == drink);
+        var existingItem = storageList.Find(i => i.drink == drink);
 
         if (existingItem != null)
         {
