@@ -34,6 +34,8 @@ public class DrinkMixingUIController : MonoBehaviour
     [SerializeField] UIElement resetButton;
     [SerializeField] private Text hoveredElementText;
     [SerializeField] private Text ingredientsInDrinkText;
+    [SerializeField] private UIElement mixerRightArrow; 
+    [SerializeField] private UIElement mixerLeftArrow; 
 
     //TODO: Make all these get populated on their own
     [Header("Ice Values")]
@@ -90,87 +92,11 @@ public class DrinkMixingUIController : MonoBehaviour
         {
             Debug.LogError("DrinkController component not found on GameObject '" + gameObject.name + "'. DrinkMakingUIController requires a DrinkController to function correctly.", this);
         }
-    }
 
-    public void RefreshIngredientsText()
-    {
-        if (drinkController != null && ingredientsInDrinkText != null)
+        if (mixerLeftArrow != null && mixerRightArrow != null)
         {
-            ingredientsInDrinkText.text = "Ingredients: " + GetCurrentDrinkIngredients();
-        }
-    }
-
-    void OnEnable()
-    {
-        // Redraw sprites when UI is enabled
-        DrawSprites();
-    }
-
-    
-    public string GetCurrentDrinkIngredients()
-    {
-        //TODO: Show amounts in a pretty way. Right now looks like ass
-        string ingredients = "";
-        foreach (DrinkComponent spirit in drinkController.GetSpirits())
-        {
-            ingredients += spirit.GetIngredient().GetName() + "\n";
-        }
-        foreach (DrinkComponent mixer in drinkController.GetMixers())
-        {
-            ingredients += mixer.GetIngredient().GetName() + "\n";
-        }
-        foreach (Ingredient garnish in drinkController.GetGarnishes())
-        {
-            ingredients += garnish.GetName() + "\n";
-        }
-
-        return ingredients;
-    }
-
-    //Draw the ice and lime sprites in their respective trays
-    public void DrawSprites()
-    {
-        iceTrayVolume = iceTray.GetComponent<IceTray>().GetVolume();
-        //Spawn ice cubes in the tray based on the ice tray volume
-        PopulateTray(iceTrayVolume, iceTrayUI, iceSprite);
-
-        //Spawn limes in the tray based on the lime tray volume
-        PopulateTray(limesVolume, limeTrayUI, limeSprite);
-    }
-
-    //Populate the ice tray UI with ice cube sprites based on the volume of ice in the tray
-    private void PopulateTray(float volume, Transform UI, GameObject sprite)
-    {
-        //Clear existing sprites
-        foreach (Transform child in UI)
-        {
-            Destroy(child.gameObject);
-        }
-
-        float containerWidth = UI.GetComponent<RectTransform>().rect.width;
-        float containerHeight = UI.GetComponent<RectTransform>().rect.height;
-        float xCounter = 0f;
-        float yCounter = 0f;
-        Vector3 position = sprite.transform.position;
-        Vector3 ogPosition = position;
-        //Generate as many ice cubes as there are ice in ice tray
-        for (float i = 0f; i < volume; i += 2.5f)
-        {
-            if (xCounter < containerWidth)
-            {//Fill line with ice
-                float randomRotation = Random.Range(0f, 360f);
-                GameObject obj = Instantiate(sprite, position, Quaternion.Euler(0, 0, randomRotation), UI);
-                position.x += spriteOffset;
-                obj.SetActive(true);
-                xCounter += spriteOffset;
-            }
-            else if (yCounter < containerHeight)
-            {//Start generating ice on a new line
-                yCounter += spriteOffset;
-                position.y += spriteOffset;
-                position.x = ogPosition.x;
-                xCounter = 0f;
-            }
+            SetupSingleElement(mixerLeftArrow, () => OnHoverEnter(mixerLeftArrow), () => OnHoverExit(mixerLeftArrow), UIElementType.None);
+            SetupSingleElement(mixerRightArrow, () => OnHoverEnter(mixerRightArrow), () => OnHoverExit(mixerRightArrow), UIElementType.None);
         }
     }
 
@@ -331,5 +257,87 @@ public class DrinkMixingUIController : MonoBehaviour
     void OnHoverExit(UIElement element)
     {
         SetHighlight(element, false);
+    }
+
+    public void RefreshIngredientsText()
+    {
+        if (drinkController != null && ingredientsInDrinkText != null)
+        {
+            ingredientsInDrinkText.text = "Ingredients: " + GetCurrentDrinkIngredients();
+        }
+    }
+
+    void OnEnable()
+    {
+        // Redraw sprites when UI is enabled
+        DrawSprites();
+    }
+
+    
+    public string GetCurrentDrinkIngredients()
+    {
+        //TODO: Show amounts in a pretty way. Right now looks like ass
+        string ingredients = "";
+        foreach (DrinkComponent spirit in drinkController.GetSpirits())
+        {
+            ingredients += spirit.GetIngredient().GetName() + "\n";
+        }
+        foreach (DrinkComponent mixer in drinkController.GetMixers())
+        {
+            ingredients += mixer.GetIngredient().GetName() + "\n";
+        }
+        foreach (Ingredient garnish in drinkController.GetGarnishes())
+        {
+            ingredients += garnish.GetName() + "\n";
+        }
+
+        return ingredients;
+    }
+
+    //Draw the ice and lime sprites in their respective trays
+    public void DrawSprites()
+    {
+        iceTrayVolume = iceTray.GetComponent<IceTray>().GetVolume();
+        //Spawn ice cubes in the tray based on the ice tray volume
+        PopulateTray(iceTrayVolume, iceTrayUI, iceSprite);
+
+        //Spawn limes in the tray based on the lime tray volume
+        PopulateTray(limesVolume, limeTrayUI, limeSprite);
+    }
+
+    //Populate the ice tray UI with ice cube sprites based on the volume of ice in the tray
+    private void PopulateTray(float volume, Transform UI, GameObject sprite)
+    {
+        //Clear existing sprites
+        foreach (Transform child in UI)
+        {
+            Destroy(child.gameObject);
+        }
+
+        float containerWidth = UI.GetComponent<RectTransform>().rect.width;
+        float containerHeight = UI.GetComponent<RectTransform>().rect.height;
+        float xCounter = 0f;
+        float yCounter = 0f;
+        Vector3 position = sprite.transform.position;
+        Vector3 ogPosition = position;
+        //Generate as many ice cubes as there are ice in ice tray
+        for (float i = 0f; i < volume; i += 2.5f)
+        {
+            if (xCounter < containerWidth)
+            {//Fill line with ice
+                float randomRotation = Random.Range(0f, 360f);
+                GameObject obj = Instantiate(sprite, position, Quaternion.Euler(0, 0, randomRotation), UI);
+                position.x += spriteOffset;
+                obj.SetActive(true);
+                xCounter += spriteOffset;
+            }
+            else if (yCounter < containerHeight)
+            {//Start generating ice on a new line
+                yCounter += spriteOffset;
+                position.y += spriteOffset;
+                position.x = ogPosition.x;
+                xCounter = 0f;
+            }
+        }
     }
 }
