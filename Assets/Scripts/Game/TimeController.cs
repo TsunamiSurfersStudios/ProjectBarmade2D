@@ -52,7 +52,6 @@ public class TimeController : MonoBehaviour
         if (!isRunning)
             return;
 
-        float previousTimeInMinutes = elapsedTime;
         int previousHour = currentHour;
 
         // Advance time
