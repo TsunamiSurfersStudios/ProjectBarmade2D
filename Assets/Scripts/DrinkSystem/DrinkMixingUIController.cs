@@ -25,17 +25,30 @@ public class DrinkMixingUIController : MonoBehaviour
         public GameObject uiObject;
     }
 
+    [System.Serializable]
+    public class ArrowPair
+    {
+        public UIElement leftArrow;
+        public UIElement rightArrow;
+        [HideInInspector] public int currentPageIndex = 0;
+        public int itemsPerPage = 4;
+    }
+
     [Header("UI Elements")]
     [SerializeField] List<UIElement> spiritsButtons = new List<UIElement>();
     [SerializeField] List<UIElement> mixerButtons = new List<UIElement>();
     [SerializeField] List<UIElement> garnishButtons = new List<UIElement>();
+    [SerializeField] List<UIElement> glassButtons = new List<UIElement>();
     [SerializeField] UIElement iceContainer;
     [SerializeField] UIElement createButton;
     [SerializeField] UIElement resetButton;
     [SerializeField] private Text hoveredElementText;
     [SerializeField] private Text ingredientsInDrinkText;
-    [SerializeField] private UIElement mixerRightArrow; 
-    [SerializeField] private UIElement mixerLeftArrow; 
+
+    [Header("Page Navigation")]
+    [SerializeField] private ArrowPair spiritArrows = new ArrowPair { itemsPerPage = 4 };
+    [SerializeField] private ArrowPair mixerArrows = new ArrowPair { itemsPerPage = 3 }; 
+    [SerializeField] private ArrowPair glassArrows = new ArrowPair { itemsPerPage = 1}; 
 
     //TODO: Make all these get populated on their own
     [Header("Ice Values")]
@@ -93,13 +106,22 @@ public class DrinkMixingUIController : MonoBehaviour
             Debug.LogError("DrinkController component not found on GameObject '" + gameObject.name + "'. DrinkMakingUIController requires a DrinkController to function correctly.", this);
         }
 
-        if (mixerLeftArrow != null && mixerRightArrow != null)
-        {
-            SetupSingleElement(mixerLeftArrow, () => OnHoverEnter(mixerLeftArrow), () => OnHoverExit(mixerLeftArrow), UIElementType.None);
-            SetupSingleElement(mixerRightArrow, () => OnHoverEnter(mixerRightArrow), () => OnHoverExit(mixerRightArrow), UIElementType.None);
-        }
+        // Setup spirit arrows
+        SetupArrowPair(spiritArrows, spiritsButtons);
+
+        // Setup mixer arrows
+        SetupArrowPair(mixerArrows, mixerButtons);
+
+        //Setup glass arrows
+        SetupArrowPair(glassArrows, glassButtons); 
+
+        // Initialize pages to show first page
+        UpdatePage(spiritArrows, spiritsButtons);
+        UpdatePage(mixerArrows, mixerButtons);
+        UpdatePage(glassArrows, glassButtons);
     }
 
+    #region UI Bottle Elements
     void SetupUIElements(List<UIElement> elements, UnityAction<UIElement> enterCallback, UnityAction<UIElement> exitCallback, UIElementType type)
     {
         foreach (var element in elements)
@@ -224,7 +246,96 @@ public class DrinkMixingUIController : MonoBehaviour
         clickEntry.callback.AddListener((data) => { clickCallback.Invoke(); });
         trigger.triggers.Add(clickEntry);
     }
+    #endregion
+
+    #region Page Navigation
+
+    void SetupArrowPair(ArrowPair arrows, List<UIElement> items)
+    {
+        if (arrows == null) 
+        {
+            return;
+        }
+
+        // Setup left arrow with hover and click
+        if (arrows.leftArrow != null && arrows.leftArrow.uiObject != null)
+        {
+            SetupSingleElement(arrows.leftArrow, () => OnHoverEnter(arrows.leftArrow), () => OnHoverExit(arrows.leftArrow), UIElementType.None);
+            AddClickTrigger(arrows.leftArrow, () => OnArrowClick(arrows, -1, items));
+        }
+
+        // Setup right arrow with hover and click
+        if (arrows.rightArrow != null && arrows.rightArrow.uiObject != null)
+        {
+            SetupSingleElement(arrows.rightArrow, () => OnHoverEnter(arrows.rightArrow), () => OnHoverExit(arrows.rightArrow), UIElementType.None);
+            AddClickTrigger(arrows.rightArrow, () => OnArrowClick(arrows, 1, items));
+        }
+    }
+
+    void OnArrowClick(ArrowPair arrows, int direction, List<UIElement> items)
+    {
+        if (arrows == null || items == null || items.Count == 0)
+        {
+            return;
+        }
+
+        int maxPageIndex = GetMaxPageIndex(items.Count, arrows.itemsPerPage);
+        arrows.currentPageIndex = Mathf.Clamp(arrows.currentPageIndex + direction, 0, maxPageIndex);
+        UpdatePage(arrows, items);
+    }
+
+    void UpdatePage(ArrowPair arrows, List<UIElement> items)
+    {
+        if (arrows == null || items == null) 
+        {
+            return;
+        }
+
+        int startIndex = arrows.currentPageIndex * arrows.itemsPerPage;
+        int endIndex = startIndex + arrows.itemsPerPage;
+
+        // Show/hide items based on current page
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] != null && items[i].uiObject != null)
+            {
+                bool shouldShow = i >= startIndex && i < endIndex;
+                items[i].uiObject.SetActive(shouldShow);
+            }
+        }
+
+        // Update arrow visibility
+        UpdateArrowVisibility(arrows, items.Count);
+    }
+
+    void UpdateArrowVisibility(ArrowPair arrows, int totalItems)
+    {
+        if (arrows == null) return;
+
+        int maxPageIndex = GetMaxPageIndex(totalItems, arrows.itemsPerPage);
+
+        // Hide left arrow on first page
+        if (arrows.leftArrow != null && arrows.leftArrow.uiObject != null)
+        {
+            arrows.leftArrow.uiObject.SetActive(arrows.currentPageIndex > 0);
+        }
+
+        // Hide right arrow on last page
+        if (arrows.rightArrow != null && arrows.rightArrow.uiObject != null)
+        {
+            arrows.rightArrow.uiObject.SetActive(arrows.currentPageIndex < maxPageIndex);
+        }
+    }
+
+    int GetMaxPageIndex(int totalItems, int itemsPerPage)
+    {
+        if (itemsPerPage <= 0) return 0;
+        return Mathf.Max(0, Mathf.CeilToInt((float)totalItems / itemsPerPage) - 1);
+    }
+
+    #endregion
     
+    #region Highlighting UI Elements and text description
     void SetHighlight(UIElement element, bool highlight)
     {
         if (element == null || element.uiObject == null) return;
@@ -293,7 +404,9 @@ public class DrinkMixingUIController : MonoBehaviour
 
         return ingredients;
     }
-
+    #endregion
+    
+    #region Ice and Lime Tray UI
     //Draw the ice and lime sprites in their respective trays
     public void DrawSprites()
     {
@@ -340,4 +453,5 @@ public class DrinkMixingUIController : MonoBehaviour
             }
         }
     }
+    #endregion
 }
