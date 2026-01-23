@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2862104a4967b7745a1465e47465f520, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
+  Name: Second  Day
   recipeRewards:
-  - {fileID: 11400000, guid: 7618adde4f7f4cb488eb77fa37224453, type: 2}
-  ingredientRewards:
-  - {fileID: 11400000, guid: 7e05657a47a19e34d8d622e85cdc1b7e, type: 2}
+  - {fileID: 11400000, guid: 2665c4bb2688d8448ad8bc69f95503e0, type: 2}
+  ingredientRewards: []

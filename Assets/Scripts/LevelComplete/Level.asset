@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2862104a4967b7745a1465e47465f520, type: 3}
+  m_Name: Level
+  m_EditorClassIdentifier: 
+  Name: First Day
+  recipeRewards:
+  - {fileID: 11400000, guid: ee9a46196a42aea43ac45b9c6b0d95fc, type: 2}
+  - {fileID: 11400000, guid: 7618adde4f7f4cb488eb77fa37224453, type: 2}
+  ingredientRewards:
+  - {fileID: 11400000, guid: 68ab2cd98b9ea974f8aba1d88461050f, type: 2}
+  - {fileID: 11400000, guid: 7e05657a47a19e34d8d622e85cdc1b7e, type: 2}
+  - {fileID: 11400000, guid: 712673bbc09390247a8a12417bcac1fa, type: 2}
+  - {fileID: 11400000, guid: eedc8cc2744f3ff42982c0a9c78622c8, type: 2}
