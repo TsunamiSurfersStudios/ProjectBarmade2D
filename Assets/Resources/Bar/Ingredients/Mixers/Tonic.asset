@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51d94bb90aeb17e4d9729317423851e9, type: 3}
-  m_Name: Vodka
+  m_Name: Tonic
   m_EditorClassIdentifier: 
-  ingredientName: Vodka
-  type: 0
-  alcoholPercentage: 0.42
+  ingredientName: Tonic
+  type: 1
+  alcoholPercentage: 0

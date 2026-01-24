@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84b2f9549830e714fbbdf0c153e51f64, type: 3}
-  m_Name: BudLight
+  m_Name: GinTonic
   m_EditorClassIdentifier: 
-  drinkName: BudLight
+  drinkName: Gin Tonic
   spirits:
-  - ingredient: {fileID: 11400000, guid: 33c91a0e96b34ef4f840f9fa74f6a52e, type: 2}
-    milliliters: 355
-  mixers: []
+  - ingredient: {fileID: 11400000, guid: 130aeaba34768e44baf574afd01fd50e, type: 2}
+    milliliters: 60
+  mixers:
+  - ingredient: {fileID: 11400000, guid: 6ca9a2a25b0a0424181a25ffffc22cf2, type: 2}
+    milliliters: 20
   garnishes: []
-  glass: 6
-  hasIce: 0
+  glass: 8
+  hasIce: 1
   isBlended: 0
-  price: 5.99
+  price: 6.99
   isUnlocked: 1
