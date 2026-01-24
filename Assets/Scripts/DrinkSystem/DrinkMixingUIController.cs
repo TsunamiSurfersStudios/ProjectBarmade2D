@@ -10,6 +10,7 @@ public enum UIElementType
     Spirit,
     Mixer,
     Garnish,
+    Glass,
     Ice,
     Create,
     Reset
@@ -44,6 +45,7 @@ public class DrinkMixingUIController : MonoBehaviour
     [SerializeField] UIElement resetButton;
     [SerializeField] private Text hoveredElementText;
     [SerializeField] private Text ingredientsInDrinkText;
+    [SerializeField] private Text glassTypeText;
 
     [Header("Page Navigation")]
     [SerializeField] private ArrowPair spiritArrows = new ArrowPair { itemsPerPage = 4 };
@@ -66,6 +68,9 @@ public class DrinkMixingUIController : MonoBehaviour
 
     //Drink Controller
     DrinkController drinkController;
+
+    private UIElement currentActiveGlass;
+    private Glass currentActiveGlassType = Glass.MARTINI;
     void Start()
     {
         //Draw ice and lime tray sprites
@@ -113,7 +118,7 @@ public class DrinkMixingUIController : MonoBehaviour
         SetupArrowPair(mixerArrows, mixerButtons);
 
         //Setup glass arrows
-        SetupArrowPair(glassArrows, glassButtons); 
+        SetupArrowPair(glassArrows, glassButtons);
 
         // Initialize pages to show first page
         UpdatePage(spiritArrows, spiritsButtons);
@@ -306,6 +311,20 @@ public class DrinkMixingUIController : MonoBehaviour
 
         // Update arrow visibility
         UpdateArrowVisibility(arrows, items.Count);
+
+        // Auto-select glass
+        if (arrows == glassArrows && items == glassButtons)
+        {
+            // Get the currently visible glass
+            for (int i = startIndex; i < endIndex && i < items.Count; i++)
+            {
+                if (items[i] != null && items[i].uiObject != null)
+                {
+                    SetActiveGlass(items[i]);
+                    break; // Only one glass visible at a time
+                }
+            }
+        }
     }
 
     void UpdateArrowVisibility(ArrowPair arrows, int totalItems)
@@ -331,6 +350,36 @@ public class DrinkMixingUIController : MonoBehaviour
     {
         if (itemsPerPage <= 0) return 0;
         return Mathf.Max(0, Mathf.CeilToInt((float)totalItems / itemsPerPage) - 1);
+    }
+
+    #endregion
+
+    #region Glass Selection
+
+    public void SetActiveGlass(UIElement glass)
+    {
+        currentActiveGlass = glass;
+        
+        // Convert glass name string to Glass enum
+        if (glass != null && System.Enum.TryParse<Glass>(glass.elementName.ToUpper(), out Glass glassType))
+        {
+            currentActiveGlassType = glassType;
+        }
+        else
+        {
+            currentActiveGlassType = Glass.MARTINI;
+        }
+        
+        if (glassTypeText != null && glass != null)
+        {
+            glassTypeText.text = glass.elementName;
+        }
+
+        // Update DrinkController with the selected glass
+        if (drinkController != null && glass != null)
+        {
+            drinkController.SelectGlass(currentActiveGlassType);
+        }
     }
 
     #endregion
@@ -400,6 +449,10 @@ public class DrinkMixingUIController : MonoBehaviour
         foreach (Ingredient garnish in drinkController.GetGarnishes())
         {
             ingredients += garnish.GetName() + "\n";
+        }
+        if (drinkController.HasIce())
+        {
+            ingredients += "Ice\n";
         }
 
         return ingredients;
