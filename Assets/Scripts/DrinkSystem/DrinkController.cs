@@ -30,7 +30,11 @@ public class DrinkController : HoldableObject
 
     public new void Spawn()
     {
-        item = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Drink")); // This needs to be swapped out based on glass and drink
+        if (item == null)
+        {
+            item = gameObject;
+        }
+        base.Spawn();
     }
 
     public void AddIngredient(Ingredient ingredient, int milliliters = 0)

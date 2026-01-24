@@ -4,35 +4,50 @@ using UnityEngine;
 
 public class DrinkMixingService : MonoBehaviour
 {
-    private DrinkController drink;
+    private DrinkController drinkController;
+    [SerializeField] GameObject starterDrink; // TODO: Use different glass types instead
     public void StartNewDrink()
     {
-        drink = new DrinkController();
+        if (!starterDrink)
+        {
+            Debug.LogError("No starter drink prefab assigned to DrinkMixingService.");
+            return;
+        }
+
+        GameObject newDrink = Instantiate(starterDrink);
+        newDrink.AddComponent<DrinkController>();
+        drinkController = newDrink.GetComponent<DrinkController>();
+
+        if (drinkController == null)
+        {
+            Debug.LogError("Failed to add DrinkController to the new drink instance.");
+        }
     }
+
 
     public void AddIngredient(Ingredient ingredient, int amount = 0)
     {
-        drink.AddIngredient(ingredient, amount);
+        drinkController.AddIngredient(ingredient, amount);
     }
 
     public void SelectGlass(Glass glass)
     {
-        drink.SetGlass(glass);
+        drinkController.SetGlass(glass);
     }
 
     public DrinkController GetDrink()
     {
-        return drink;
+        return drinkController;
     }
 
     public void AddIce()
     {
-        drink.AddIce();
+        drinkController.AddIce();
     }
 
     public void FinishDrink()
     {
-        drink.Spawn();
-        drink = null; // Reset for next drink
+        drinkController.Spawn();
+        drinkController = null;
     }
 }

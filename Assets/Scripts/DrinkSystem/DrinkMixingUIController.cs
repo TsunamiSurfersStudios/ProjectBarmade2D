@@ -117,6 +117,8 @@ public class DrinkMixingUIController : MonoBehaviour
         {
             Debug.LogError("DrinkMixingService component not found on GameObject '" + gameObject.name + "'. DrinkMakingUIController requires a DrinkController to function correctly.", this);
         }
+        // Initalize new drink
+        drinkMixingService.StartNewDrink();
 
         // Setup spirit arrows
         SetupArrowPair(spiritArrows, spiritsButtons);
@@ -131,6 +133,8 @@ public class DrinkMixingUIController : MonoBehaviour
         UpdatePage(spiritArrows, spiritsButtons);
         UpdatePage(mixerArrows, mixerButtons);
         UpdatePage(glassArrows, glassButtons);
+
+        
     }
 
     #region UI Bottle Elements
@@ -178,10 +182,6 @@ public class DrinkMixingUIController : MonoBehaviour
             ingredientName = element.elementName;
         }
 
-        // Add Ingredient
-        
-       
-
         switch (type)
         {
             case UIElementType.Spirit:
@@ -192,31 +192,44 @@ public class DrinkMixingUIController : MonoBehaviour
                 if (ingredient != null)
                 {
                     int ml = element.elementMlValue;
-                    AddClickTrigger(element, () => { drinkMixingService.AddIngredient(ingredient, ml); RefreshIngredientsText(); });
+                    AddClickTrigger(element, () => { ProcessClick(ingredient, ml); });
                 }
                 else
                 {
                     Debug.LogWarning($"{type.ToString()} ingredient not found: {localPath}/{ingredientName}");
                 }
                 break;
-            case UIElementType.Ice:
-                // Add ice to drink on click
-                AddClickTrigger(element, () => { drinkMixingService.AddIce(); RefreshIngredientsText(); });
-                break;
-            case UIElementType.Create:
-                // Create drink on click
-                AddClickTrigger(element, () => { drinkMixingService.FinishDrink(); RefreshIngredientsText(); });
-                break;
-            case UIElementType.Reset:
-                // Reset drink on click
-                AddClickTrigger(element, () => { drinkMixingService.StartNewDrink(); RefreshIngredientsText(); });
+            default:
+                AddClickTrigger(element, () => { ProcessClick(type); });
                 break;
         }
     }
+    void ProcessClick(UIElementType type)
+    {
+        switch (type)
+        {
+            case UIElementType.Ice:
+                drinkMixingService.AddIce();
+                break;
+            case UIElementType.Create:
+                drinkMixingService.FinishDrink();
+                break;
+            case UIElementType.Reset:
+                drinkMixingService.StartNewDrink();
+                break;
+        }
+        RefreshIngredientsText();
+    }
+    void ProcessClick(Ingredient ingredient, int amount)
+    {
+        drinkMixingService.AddIngredient(ingredient, amount);
+        RefreshIngredientsText();
+    }
+               
 
-    //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
+        //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
 
-    void AddClickTrigger(UIElement element, UnityAction clickCallback)
+        void AddClickTrigger(UIElement element, UnityAction clickCallback)
     {
         if (element == null || element.uiObject == null) return;
 
