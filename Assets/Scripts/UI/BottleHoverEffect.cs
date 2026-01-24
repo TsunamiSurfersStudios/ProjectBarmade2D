@@ -135,6 +135,7 @@ public class BottleHoverEffect : MonoBehaviour
 
         // Calculate spacing
         float spacing = panelWidth / bottles.Count; // Default spacing
+        float startX = spacing / 2f;
 
         // Create and position bottles
         for (int i = 0; i < bottles.Count; i++)
@@ -151,9 +152,9 @@ public class BottleHoverEffect : MonoBehaviour
             // Scale bottle to target height
 
             currBottle.rectTransform.sizeDelta = new Vector2(panelHeight, panelHeight);
-            currBottle.rectTransform.anchoredPosition = new Vector2(spacing*i, 0f);
-            currBottle.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-            currBottle.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            currBottle.rectTransform.anchoredPosition = new Vector2(startX +(spacing*i), 0f);
+            currBottle.rectTransform.anchorMin = new Vector2(0f, 0.5f);
+            currBottle.rectTransform.anchorMax = new Vector2(0f, 0.5f);
             currBottle.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         }
     }
