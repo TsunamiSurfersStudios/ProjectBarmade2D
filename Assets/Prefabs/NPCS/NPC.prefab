@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3496767700219160323}
   - component: {fileID: 3292303383505894591}
   - component: {fileID: 7655391263410662640}
+  - component: {fileID: 2493463172978352017}
   m_Layer: 7
   m_Name: NPC
   m_TagString: Untagged
@@ -303,6 +304,28 @@ MonoBehaviour:
   soberSeconds: 50
   currentDrunkness: 1
   maxDrunk: 100
+--- !u!195 &2493463172978352017
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8139766964376146961}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.6
+  m_BaseOffset: 0.3
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1912993001524625823
 PrefabInstance:
   m_ObjectHideFlags: 0
