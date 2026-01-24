@@ -13,7 +13,7 @@ public class DrinkController : HoldableObject
     private List<Ingredient> garnishes = new List<Ingredient>();
     private Glass glass;
     private float alcoholPercentage = 0f; // max: 1
-    private bool hasIce = false;//TODO: Rework this, ice shouldnt be a boolean it should be a float that keeps track of how much ice is in the drink. Some guests might ask for extra ice, some might ask for light ice
+    private bool hasIce = false;
     new void Start()
     {
         base.Start(); //Assign itemHolder
@@ -23,64 +23,14 @@ public class DrinkController : HoldableObject
         }
     }
 
-    public void GiveDrink()
-    {
-        GiveToPlayer();
-    }
-
-    public void SpawnDrink(Ingredient spirit = null)
-    {
-        if (spirit != null)
-        {
-            AddIngredient(spirit, 355);//Add beer ingredient with 355 ml (12 oz)
-        }
-        Recipe recipe = Recipe.Create("Custom drink", spirits, mixers, garnishes, glass, hasIce, false);
-        Spawn(clone =>
-        {
-            DrinkController cloneDrinkController = clone.GetComponent<DrinkController>();
-            if (cloneDrinkController != null && recipe != null)
-            {
-                cloneDrinkController.InitializeFromRecipe(recipe);
-            }
-        });
-        
-        ResetDrink();
-    }
-
-    private void InitializeFromRecipe(Recipe recipe)
-    {
-        spirits.Clear();
-        mixers.Clear();
-        garnishes.Clear();
-
-        // Add spirits from recipe
-        foreach (DrinkComponent spirit in recipe.GetSpirits())
-        {
-            AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
-        }
-
-        // Add mixers from recipe
-        foreach (DrinkComponent mixer in recipe.GetMixers())
-        {
-            AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
-        }
-
-        // Add garnishes from recipe
-        foreach (Ingredient garnish in recipe.GetGarnishes())
-        {
-            AddGarnish(garnish);
-        }
-
-        SetGlass(recipe.GetGlass());
-        if (recipe.HasIce())
-        {
-            AddIce();
-        }
-    }
-
     public float GetAlcoholPercentage()
     {
         return alcoholPercentage;
+    }
+
+    public new void Spawn()
+    {
+        item = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Drink")); // This needs to be swapped out based on glass and drink
     }
 
     public void AddIngredient(Ingredient ingredient, int milliliters = 0)
@@ -118,27 +68,9 @@ public class DrinkController : HoldableObject
         }
     }
 
-    public void SelectGlass(Glass glass)
-    {
-        this.glass = glass; 
-    }
-    public void AddGarnish(Ingredient ingredient)
-    {
-        AddIngredient(ingredient, 0);
-    }
-
     public void AddIce()//TODO: Rework to use float for keeping track of how much ice is in the drink
     {
         hasIce = true;
-    }
-
-    public void ResetDrink()
-    {
-        spirits.Clear();
-        mixers.Clear();
-        garnishes.Clear();
-        alcoholPercentage = 0f;
-        hasIce = false;
     }
 
     public List<DrinkComponent> GetSpirits() { return spirits; }

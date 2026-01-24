@@ -19,11 +19,10 @@ public class HoldableObject : MonoBehaviour
         itemHolder.GiveObject(gameObject);
     }
 
-    public void Spawn(Action<GameObject> onSpawned = null)
+    public void Spawn()
     {
         GameObject clone = GameObject.Instantiate(item);
         itemHolder.GiveObject(clone);
         clone.SetActive(true);
-        onSpawned?.Invoke(clone);
     }
 }
