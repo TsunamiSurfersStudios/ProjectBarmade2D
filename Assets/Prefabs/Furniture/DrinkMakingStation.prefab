@@ -1111,6 +1111,7 @@ GameObject:
   - component: {fileID: 8045002623283721921}
   - component: {fileID: 6564411159701944842}
   - component: {fileID: 5077934456570206987}
+  - component: {fileID: 7245788484424851625}
   m_Layer: 0
   m_Name: DrinkMakingStation
   m_TagString: DrinkStation
@@ -1353,6 +1354,22 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   KEYBIND: 101
+--- !u!114 &7245788484424851625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723329078031560401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1742587783236085770
 GameObject:
   m_ObjectHideFlags: 0
