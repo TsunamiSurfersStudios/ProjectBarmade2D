@@ -1,11 +1,16 @@
-using UnityEngine;
 using TMPro;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class ClockTimer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] TextMeshProUGUI dayOfWeekText;
+
+    private void Start()
+    {
+        TimeController.Instance.OnDayChanged += UpdateDayOfWeek;
+        UpdateDayOfWeek(TimeController.Instance.DayOfWeek());
+    }
 
     void Update()
     {
@@ -15,4 +20,11 @@ public class ClockTimer : MonoBehaviour
         }
     }
 
+    void UpdateDayOfWeek(TimeController.Day dayOfWeek)
+    {
+        if (TimeController.Instance != null && dayOfWeekText != null)
+        {
+            dayOfWeekText.text = dayOfWeek.ToString();
+        }
+    }
 }

@@ -3,12 +3,23 @@ using UnityEngine;
 
 public class TimeController : MonoBehaviour
 {
+    public enum Day
+    {
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday,
+        Sunday
+    }
+
     // Singleton instance
     public static TimeController Instance { get; private set; }
 
     [Header("Time Settings")]
     [SerializeField] private float timeScale = 60f;
-    [SerializeField] private int startHour = 12;
+    [SerializeField] private Day currentDay = Day.Monday;
 
     private int currentHour;
     private int currentMinute;
@@ -19,6 +30,7 @@ public class TimeController : MonoBehaviour
     // Events for other scripts to subscribe to
     public event Action<int> OnHourChanged;
     public event Action<int, int> OnTimeChanged;
+    public event Action<Day> OnDayChanged;
 
     private void Awake()
     {
@@ -61,6 +73,8 @@ public class TimeController : MonoBehaviour
         if (elapsedTime >= 1440f) // 24 hours * 60 minutes
         {
             elapsedTime -= 1440f;
+            currentDay = (Day)(((int)currentDay + 1) % 7);
+            OnDayChanged?.Invoke(currentDay);
         }
 
         UpdateDisplayTime();
@@ -133,5 +147,10 @@ public class TimeController : MonoBehaviour
     public bool IsDay()
     {
         return !IsNight();
+    }
+
+    public Day DayOfWeek()
+    {
+        return currentDay;
     }
 }

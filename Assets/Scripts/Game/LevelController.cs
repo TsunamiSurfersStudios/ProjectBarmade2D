@@ -41,7 +41,7 @@ public class SpawnSchedule
 {
     [Header("General")]
     [SerializeField][Range(0,23)] int startHour;
-    [SerializeField][Range(1, 24)] int hoursOpen;
+    [SerializeField][Range(1, 25)] int hoursOpen;
     [Tooltip("Number of hours before closing to stop spawning NPCs")]
     [SerializeField] int bufferToStopSpawning = 1;
     [Header("Individual Level Controls")]
