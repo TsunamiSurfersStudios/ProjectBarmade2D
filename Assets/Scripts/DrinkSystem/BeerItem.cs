@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BeerItem : DrinkController
 {
-    [SerializeField] private Recipe BeerRecipe;
     [SerializeField] private Ingredient ingredient;
     public void SayName()
     {
@@ -13,6 +12,6 @@ public class BeerItem : DrinkController
     
     public void SpawnBeer()
     {
-        SpawnBeerDrink(BeerRecipe);
+        SpawnDrink(ingredient);
     }
 }
