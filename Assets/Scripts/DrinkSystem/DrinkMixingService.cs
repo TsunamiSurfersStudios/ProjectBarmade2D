@@ -14,9 +14,8 @@ public class DrinkMixingService : MonoBehaviour
             return;
         }
 
-        GameObject newDrink = Instantiate(starterDrink);
-        newDrink.AddComponent<DrinkController>();
-        drinkController = newDrink.GetComponent<DrinkController>();
+        starterDrink.AddComponent<DrinkController>();
+        drinkController = starterDrink.GetComponent<DrinkController>();
 
         if (drinkController == null)
         {
