@@ -1,34 +1,30 @@
-using UnityEngine;
 using TMPro;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class ClockTimer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] float timeMultiplier = 60f; // This will make time pass 60x faster than real time
-    float elapsedTime = 0;
+    [SerializeField] TextMeshProUGUI dayOfWeekText;
 
-    void Update()
-    {   
-        timerText.text = CalculateTime();
+    private void Start()
+    {
+        TimeController.Instance.OnDayChanged += UpdateDayOfWeek;
+        UpdateDayOfWeek(TimeController.Instance.DayOfWeek());
     }
 
-    string CalculateTime()
+    void Update()
     {
-        // Accumulate time at accelerated rate
-        elapsedTime += Time.deltaTime * timeMultiplier;
+        if (TimeController.Instance != null && timerText != null)
+        {
+            timerText.text = TimeController.Instance.GetTimeString();
+        }
+    }
 
-        int hours = Mathf.FloorToInt(elapsedTime / 3600) % 24; // Convert to hours (0-23)
-        int minutes = Mathf.FloorToInt((elapsedTime % 3600) / 60); // Get minutes (0-59)
-
-        // Determine AM or PM
-        string period = hours >= 12 ? "AM" : "PM";
-
-        // Convert to 12-hour format
-        int displayHour = hours % 12;
-        if (displayHour == 0) displayHour = 12; // Display 12 instead of 0 for 12-hour clock format
-
-        return string.Format("{0:00}:{1:00} {2}", displayHour, minutes, period);
+    void UpdateDayOfWeek(TimeController.Day dayOfWeek)
+    {
+        if (TimeController.Instance != null && dayOfWeekText != null)
+        {
+            dayOfWeekText.text = dayOfWeek.ToString();
+        }
     }
 }
