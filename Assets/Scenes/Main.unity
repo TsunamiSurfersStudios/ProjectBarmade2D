@@ -141894,6 +141894,14 @@ PrefabInstance:
       propertyPath: OnItemInteraction.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5469631246116780604, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469631246116780604, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1504589739
+      objectReference: {fileID: 0}
     - target: {fileID: 7265912120607467177, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -434,6 +434,10 @@ public class DrinkMixingUIController : MonoBehaviour
         //TODO: Show amounts in a pretty way. Right now looks like ass
         string ingredients = "";
         DrinkController drink = drinkMixingService.GetDrink();
+        if (drink == null)
+        {
+            return ingredients;
+        }
         foreach (DrinkComponent spirit in drink.GetSpirits())
         {
             ingredients += spirit.GetIngredient().GetName() + "\n";
