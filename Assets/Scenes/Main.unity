@@ -69301,6 +69301,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &985794264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2582471914067119877, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+  m_PrefabInstance: {fileID: 1985157058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &987239364
 GameObject:
   m_ObjectHideFlags: 0
@@ -79216,95 +79221,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &1146364276
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 132098902779551344, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 132098902779551344, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1484465501
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048559545921048092, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3480245052296568648, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: Drink
-      value: 
-      objectReference: {fileID: 3126480558376364719}
-    - target: {fileID: 3480245052296568648, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: spawnPosition.x
-      value: -3.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 3480245052296568648, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: spawnPosition.y
-      value: -2.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 8801739166792457780, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_Name
-      value: drinkSpawn
-      objectReference: {fileID: 0}
-    - target: {fileID: 8801739166792457780, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
 --- !u!1 &1153021317
 GameObject:
   m_ObjectHideFlags: 0
@@ -141958,6 +141874,10 @@ PrefabInstance:
       propertyPath: iceTray
       value: 
       objectReference: {fileID: 1674904302}
+    - target: {fileID: 4278861082973672604, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+      propertyPath: starterDrink
+      value: 
+      objectReference: {fileID: 985794264}
     - target: {fileID: 5077934456570206987, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
       propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -153297,11 +153217,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c596bafa9b5eb9d419d8d6d0e0da8b7d, type: 3}
---- !u!1 &3126480558376364719 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2862089132393778325, guid: 1ec4ac83be83e674c98f637398f296ab, type: 3}
-  m_PrefabInstance: {fileID: 1146364276}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4492187327070480903 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9126037730222779888, guid: c9e2782f03e60074ebe816905649726f, type: 3}
@@ -153631,7 +153546,6 @@ SceneRoots:
   - {fileID: 1696966538}
   - {fileID: 5584390731174742830}
   - {fileID: 1978401702}
-  - {fileID: 1146364276}
   - {fileID: 192730197}
   - {fileID: 1640848150}
   - {fileID: 692003200}
