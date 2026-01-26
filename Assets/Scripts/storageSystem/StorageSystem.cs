@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BackRoomStorage : Ingredient
 {
-    [SerializeField] private GameObject backRoomObject;dw
+    [SerializeField] private GameObject backRoomObject;
 }
 public class StorageSystem : MonoBehaviour
 {
