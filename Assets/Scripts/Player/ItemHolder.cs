@@ -14,6 +14,7 @@ public class ItemHolder : MonoBehaviour
 
             obj.transform.position = gameObject.transform.position;
             obj.transform.parent = gameObject.transform;
+            obj.transform.localScale = Vector3.one; // fix weirdness with instantiating
 
             Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
             if (rb != null)
