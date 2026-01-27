@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84b2f9549830e714fbbdf0c153e51f64, type: 3}
-  m_Name: WhiteRussian
+  m_Name: SleepingMycelium
   m_EditorClassIdentifier: 
-  drinkName: WhiteRussian
+  drinkName: Sleeping Mycelium
   spirits:
-  - ingredient: {fileID: 11400000, guid: afe37e77966fa144d86f2e9cbc4e10c6, type: 2}
-    milliliters: 0
+  - ingredient: {fileID: 11400000, guid: a92cf91ecff8df6468301f039f53434a, type: 2}
+    milliliters: 44
+  - ingredient: {fileID: 11400000, guid: 67f5522800f8a3944ab747d8f1d18399, type: 2}
+    milliliters: 44
   mixers: []
-  garnishes: []
-  glass: 8
-  hasIce: 1
+  garnishes:
+  - {fileID: 11400000, guid: 4d2aa84ba8a8939409a2f275c6eae6e8, type: 2}
+  glass: 0
+  hasIce: 0
   isBlended: 0
-  price: 0
+  price: 14.99
