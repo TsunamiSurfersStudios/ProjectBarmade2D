@@ -19,11 +19,14 @@ public class HoldableObject : MonoBehaviour
         itemHolder.GiveObject(gameObject);
     }
 
-    public void Spawn(Action<GameObject> onSpawned = null)
+    public void Spawn()
     {
         GameObject clone = GameObject.Instantiate(item);
+        if (itemHolder == null)
+        {
+            itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        }
         itemHolder.GiveObject(clone);
         clone.SetActive(true);
-        onSpawned?.Invoke(clone);
     }
 }
