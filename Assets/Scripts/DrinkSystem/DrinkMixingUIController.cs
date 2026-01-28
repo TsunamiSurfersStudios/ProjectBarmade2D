@@ -67,10 +67,17 @@ public class DrinkMixingUIController : MonoBehaviour
     [SerializeField] private bool iceSelected;
 
     //Drink Controller
-    DrinkController drinkController;
+    DrinkMixingService drinkMixingService;
 
     private UIElement currentActiveGlass;
     private Glass currentActiveGlassType = Glass.MARTINI;
+    string PATH = "Bar/Ingredients/";
+    private Dictionary<UIElementType, string> subfolderMap = new Dictionary<UIElementType, string>()
+    {
+        { UIElementType.Spirit, "Spirits" },
+        { UIElementType.Mixer, "Mixers" },
+        { UIElementType.Garnish, "Garnishes" }
+    };
     void Start()
     {
         //Draw ice and lime tray sprites
@@ -104,12 +111,14 @@ public class DrinkMixingUIController : MonoBehaviour
         }
 
         // Get DrinkController reference
-        drinkController = GetComponent<DrinkController>();
+        drinkMixingService = GetComponent<DrinkMixingService>();
 
-        if (drinkController == null)
+        if (drinkMixingService == null)
         {
-            Debug.LogError("DrinkController component not found on GameObject '" + gameObject.name + "'. DrinkMakingUIController requires a DrinkController to function correctly.", this);
+            Debug.LogError("DrinkMixingService component not found on GameObject '" + gameObject.name + "'. DrinkMakingUIController requires a DrinkController to function correctly.", this);
         }
+        // Initalize new drink
+        drinkMixingService.StartNewDrink();
 
         // Setup spirit arrows
         SetupArrowPair(spiritArrows, spiritsButtons);
@@ -123,7 +132,7 @@ public class DrinkMixingUIController : MonoBehaviour
         // Initialize pages to show first page
         UpdatePage(spiritArrows, spiritsButtons);
         UpdatePage(mixerArrows, mixerButtons);
-        UpdatePage(glassArrows, glassButtons);
+        UpdatePage(glassArrows, glassButtons);  
     }
 
     #region UI Bottle Elements
@@ -174,67 +183,51 @@ public class DrinkMixingUIController : MonoBehaviour
         switch (type)
         {
             case UIElementType.Spirit:
-            {
-                // Load spirit ingredient from Resources and add to drink
-                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Spirits/{ingredientName}");
-                if (ingredient != null)
-                {
-                    int ml = element.elementMlValue;
-                    AddClickTrigger(element, () => { drinkController.AddIngredient(ingredient, ml); RefreshIngredientsText(); });
-                }
-                else
-                {
-                    Debug.LogWarning($"Spirit ingredient not found: Bar/Ingredients/Spirits/{ingredientName}");
-                }
-                break;
-            }
             case UIElementType.Mixer:
-            {
-                // Load mixer ingredient from Resources and add to drink
-                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Mixers/{ingredientName}");
+            case UIElementType.Garnish:
+                string localPath = PATH + subfolderMap.GetValueOrDefault(type, "");
+                Ingredient ingredient = Resources.Load<Ingredient>($"{localPath}/{ingredientName}");
                 if (ingredient != null)
                 {
                     int ml = element.elementMlValue;
-                    AddClickTrigger(element, () => { drinkController.AddIngredient(ingredient, ml); RefreshIngredientsText(); });
+                    AddClickTrigger(element, () => { ProcessClick(ingredient, ml); });
                 }
                 else
                 {
-                    Debug.LogWarning($"Mixer ingredient not found: Bar/Ingredients/Mixers/{ingredientName}");
+                    Debug.LogWarning($"{type.ToString()} ingredient not found: {localPath}/{ingredientName}");
                 }
                 break;
-            }
-            case UIElementType.Garnish:
-            {
-                // Load garnish ingredient from Resources and add to drink
-                Ingredient ingredient = Resources.Load<Ingredient>($"Bar/Ingredients/Garnishes/{ingredientName}");
-                if (ingredient != null)
-                {
-                    AddClickTrigger(element, () => { drinkController.AddGarnish(ingredient); RefreshIngredientsText(); });
-                }
-                else
-                {
-                    Debug.LogWarning($"Garnish ingredient not found: Bar/Ingredients/Garnishes/{ingredientName}");
-                }
-                break;
-            }
-            case UIElementType.Ice:
-                // Add ice to drink on click
-                AddClickTrigger(element, () => { drinkController.AddIce(); RefreshIngredientsText(); });
-                break;
-            case UIElementType.Create:
-                // Create drink on click
-                AddClickTrigger(element, () => { drinkController.SpawnDrink(); RefreshIngredientsText(); });
-                break;
-            case UIElementType.Reset:
-                // Reset drink on click
-                AddClickTrigger(element, () => { drinkController.ResetDrink(); RefreshIngredientsText(); });
+            default:
+                AddClickTrigger(element, () => { ProcessClick(type); });
                 break;
         }
     }
+    void ProcessClick(UIElementType type)
+    {
+        switch (type)
+        {
+            case UIElementType.Ice:
+                drinkMixingService.AddIce();
+                break;
+            case UIElementType.Create:
+                drinkMixingService.FinishDrink();
+                break;
+            case UIElementType.Reset:
+                drinkMixingService.ResetDrink();
+                break;
+        }
+        RefreshIngredientsText();
+    }
+    void ProcessClick(Ingredient ingredient, int amount)
+    {
+        drinkMixingService.AddIngredient(ingredient, amount);
+        RefreshIngredientsText();
+    }
+               
 
-    //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
+        //TODO: Buy all in 1 shader from unity asset store to highlight buttons on hover
 
-    void AddClickTrigger(UIElement element, UnityAction clickCallback)
+        void AddClickTrigger(UIElement element, UnityAction clickCallback)
     {
         if (element == null || element.uiObject == null) return;
 
@@ -375,10 +368,10 @@ public class DrinkMixingUIController : MonoBehaviour
             glassTypeText.text = glass.elementName;
         }
 
-        // Update DrinkController with the selected glass
-        if (drinkController != null && glass != null)
+        // Update DrinkMixingService with the selected glass
+        if (drinkMixingService != null && glass != null)
         {
-            drinkController.SelectGlass(currentActiveGlassType);
+            drinkMixingService.SelectGlass(currentActiveGlassType);
         }
     }
 
@@ -421,7 +414,7 @@ public class DrinkMixingUIController : MonoBehaviour
 
     public void RefreshIngredientsText()
     {
-        if (drinkController != null && ingredientsInDrinkText != null)
+        if (drinkMixingService != null && ingredientsInDrinkText != null)
         {
             ingredientsInDrinkText.text = "Ingredients: " + GetCurrentDrinkIngredients();
         }
@@ -438,19 +431,24 @@ public class DrinkMixingUIController : MonoBehaviour
     {
         //TODO: Show amounts in a pretty way. Right now looks like ass
         string ingredients = "";
-        foreach (DrinkComponent spirit in drinkController.GetSpirits())
+        DrinkController drink = drinkMixingService.GetDrink();
+        if (drink == null)
+        {
+            return ingredients;
+        }
+        foreach (DrinkComponent spirit in drink.GetSpirits())
         {
             ingredients += spirit.GetIngredient().GetName() + "\n";
         }
-        foreach (DrinkComponent mixer in drinkController.GetMixers())
+        foreach (DrinkComponent mixer in drink.GetMixers())
         {
             ingredients += mixer.GetIngredient().GetName() + "\n";
         }
-        foreach (Ingredient garnish in drinkController.GetGarnishes())
+        foreach (Ingredient garnish in drink.GetGarnishes())
         {
             ingredients += garnish.GetName() + "\n";
         }
-        if (drinkController.HasIce())
+        if (drink.HasIce())
         {
             ingredients += "Ice\n";
         }
