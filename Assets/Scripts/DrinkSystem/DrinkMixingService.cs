@@ -13,7 +13,7 @@ public class DrinkMixingService : MonoBehaviour
             Debug.LogError("No starter drink prefab assigned to DrinkMixingService.");
             return;
         }
-
+        
         starterDrink.AddComponent<DrinkController>();
         drinkController = starterDrink.GetComponent<DrinkController>();
 
@@ -47,6 +47,12 @@ public class DrinkMixingService : MonoBehaviour
     public void FinishDrink()
     {
         drinkController.Spawn();
-        drinkController = null;
+        ResetDrink();
+    }
+
+    public void ResetDrink()
+    {
+        DestroyImmediate(drinkController);
+        StartNewDrink();
     }
 }

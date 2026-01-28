@@ -132,9 +132,7 @@ public class DrinkMixingUIController : MonoBehaviour
         // Initialize pages to show first page
         UpdatePage(spiritArrows, spiritsButtons);
         UpdatePage(mixerArrows, mixerButtons);
-        UpdatePage(glassArrows, glassButtons);
-
-        
+        UpdatePage(glassArrows, glassButtons);  
     }
 
     #region UI Bottle Elements
@@ -215,7 +213,7 @@ public class DrinkMixingUIController : MonoBehaviour
                 drinkMixingService.FinishDrink();
                 break;
             case UIElementType.Reset:
-                drinkMixingService.StartNewDrink();
+                drinkMixingService.ResetDrink();
                 break;
         }
         RefreshIngredientsText();
