@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drinkName: OneSpiritOneMixerOneGarnish
   spirits:
-  - ingredient: {fileID: 11400000, guid: 4265fb662505b5f4fa8a24e7d8f08c41, type: 2}
+  - ingredient: {fileID: 11400000, guid: b0442af81fe715941ab488cc4abb4d74, type: 2}
+    milliliters: 0
+  - ingredient: {fileID: 11400000, guid: 174a42970c9c43445af2acff843bf1a8, type: 2}
+    milliliters: 0
+  - ingredient: {fileID: 11400000, guid: 2541255d3b09bbc44bde14f0567f86b6, type: 2}
     milliliters: 0
   mixers:
   - ingredient: {fileID: 11400000, guid: 4f322f46a4494c641aa91ec11704b581, type: 2}
@@ -25,3 +29,4 @@ MonoBehaviour:
   hasIce: 0
   isBlended: 0
   price: 0
+  sprite: {fileID: 7989189113543359841, guid: 7ae45073ae6d6fc478473b98536d1574, type: 3}

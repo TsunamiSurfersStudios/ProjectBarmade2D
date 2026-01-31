@@ -15,3 +15,4 @@ MonoBehaviour:
   ingredientName: Garnish1
   type: 2
   alcoholPercentage: 0
+  sprite: {fileID: -8037262982306476745, guid: 43f79f9ca1facb341a4a9e7f1474506d, type: 3}

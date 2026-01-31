@@ -31,7 +31,7 @@ public class Ingredient : ScriptableObject
     [SerializeField] string ingredientName;
     [SerializeField] IngredientType type;
     [Range(0f, 1f)] [SerializeField] float alcoholPercentage = 0f;
-    [SerializeField] Sprite sprite;
+    [SerializeField] public Sprite sprite;
 
     public static Ingredient Create(string name, IngredientType type, float percentage)
     {
