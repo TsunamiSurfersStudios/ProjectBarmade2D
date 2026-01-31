@@ -83,7 +83,7 @@ public class NPCOrderingTests
         // Add garnishes
         foreach (Ingredient garnish in recipe.GetGarnishes())
         {
-            drink.AddGarnish(garnish);
+            drink.AddIngredient(garnish);
         }
 
         // Add ice if recipe requires it
@@ -122,12 +122,12 @@ public class NPCOrderingTests
         {
             foreach (Ingredient garnish in recipe.GetGarnishes())
             {
-                drink.AddGarnish(garnish);
+                drink.AddIngredient(garnish);
             }
         }
         else
         {
-            drink.AddGarnish(recipe.GetGarnishes()[0]);
+            drink.AddIngredient(recipe.GetGarnishes()[0]);
         }
 
         if (!skipIce)
