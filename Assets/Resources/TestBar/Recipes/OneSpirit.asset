@@ -22,3 +22,4 @@ MonoBehaviour:
   hasIce: 0
   isBlended: 0
   price: 0
+  sprite: {fileID: 8260867921072958366, guid: 8e9fa28b89417d34fb08e94bcf25b6d0, type: 3}

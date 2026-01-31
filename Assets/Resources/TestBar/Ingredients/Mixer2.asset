@@ -15,3 +15,4 @@ MonoBehaviour:
   ingredientName: Mixer1
   type: 1
   alcoholPercentage: 0
+  sprite: {fileID: 3508548445562351685, guid: c5c518c09d11f2d4fb4371a6967ad4d6, type: 3}

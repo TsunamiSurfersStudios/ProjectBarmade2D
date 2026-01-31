@@ -15,3 +15,4 @@ MonoBehaviour:
   ingredientName: Spirit1
   type: 0
   alcoholPercentage: 0
+  sprite: {fileID: -6880585465101245582, guid: 8b4c080f28138b04e9f7c5ddf645d6d8, type: 3}
