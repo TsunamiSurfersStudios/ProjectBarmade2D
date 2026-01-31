@@ -16,6 +16,7 @@ public class RecipeController : MonoBehaviour
 {
     [SerializeField] Tier[] tiers;
     [SerializeField] string PATH = "Bar"; // For testing purposes only
+    //[SerializeField] GameEvent 
 
     public bool VerifyRecipeControllerSetup()
     {
