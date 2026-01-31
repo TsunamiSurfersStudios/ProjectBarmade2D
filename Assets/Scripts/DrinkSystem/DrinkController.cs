@@ -7,13 +7,13 @@ using UnityEngine;
 public class DrinkController : HoldableObject
 {
     // Drink creation
+    //TODO: Update final glass sprite based on selected glass and drink contents
     private List<DrinkComponent> spirits = new List<DrinkComponent>();
     private List<DrinkComponent> mixers = new List<DrinkComponent>();
     private List<Ingredient> garnishes = new List<Ingredient>();
     private Glass glass;
     private float alcoholPercentage = 0f; // max: 1
     private bool hasIce = false;
-
     new void Start()
     {
         base.Start(); //Assign itemHolder
@@ -23,49 +23,18 @@ public class DrinkController : HoldableObject
         }
     }
 
-    public void GiveDrink()
-    {
-        GiveToPlayer();
-    }
-    public void SpawnDrink()
-    {
-        Spawn();
-    }
-
-    private void InitializeFromRecipe(Recipe recipe) // TODO: Deprecate this. DO NOT USE 
-    {
-        spirits.Clear();
-        mixers.Clear();
-        garnishes.Clear();
-        
-        // Add spirits from recipe
-        foreach (DrinkComponent spirit in recipe.GetSpirits())
-        {
-            AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
-        }
-        
-        // Add mixers from recipe
-        foreach (DrinkComponent mixer in recipe.GetMixers())
-        {
-            AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
-        }
-        
-        // Add garnishes from recipe
-        foreach (Ingredient garnish in recipe.GetGarnishes())
-        {
-            AddGarnish(garnish);
-        }
-        
-        SetGlass(recipe.GetGlass());
-        if (recipe.HasIce())
-        {
-            AddIce();
-        }
-    }
-
     public float GetAlcoholPercentage()
     {
         return alcoholPercentage;
+    }
+
+    public new void Spawn()
+    {
+        if (item == null)
+        {
+            item = gameObject;
+        }
+        base.Spawn();
     }
 
     public void AddIngredient(Ingredient ingredient, int milliliters = 0)
@@ -103,16 +72,7 @@ public class DrinkController : HoldableObject
         }
     }
 
-    public void SelectGlass(Glass glass)
-    {
-        this.glass = glass; 
-    }
-    public void AddGarnish(Ingredient ingredient)
-    {
-        AddIngredient(ingredient, 0);
-    }
-
-    public void AddIce()
+    public void AddIce()//TODO: Rework to use float for keeping track of how much ice is in the drink
     {
         hasIce = true;
     }

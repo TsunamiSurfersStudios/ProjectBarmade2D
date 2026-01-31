@@ -6,21 +6,45 @@ using UnityEngine;
 public class NPCSpawner : MonoBehaviour
 {
     private int executeTime; // TODO: Unclear variable name
-    
-    public int minSpawnWait;
-    public int maxSpawnWait;
-    public GameObject NPCObject;
-    public GameObject spawnPoint;
 
-    void Start()
+    [SerializeField] int minSpawnWait;
+    [SerializeField] int maxSpawnWait;
+    [SerializeField] GameObject NPCObject;
+    [SerializeField] GameObject spawnPoint;
+
+    private bool isSpawning = false;
+    List<NPCController> controllerList = new List<NPCController>();
+
+    public void SetWaitTimes(int minWait, int maxWait)
     {
-        // Set inital start spawn time
-        executeTime = Mathf.RoundToInt(Time.time) + Random.Range(minSpawnWait, maxSpawnWait);
+        minSpawnWait = minWait;
+        maxSpawnWait = maxWait;
     }
 
-    // Update is called once per frame
+    public void StartSpawning()
+    {
+        executeTime = Mathf.RoundToInt(Time.time) + Random.Range(minSpawnWait, maxSpawnWait);
+        isSpawning = true;
+    }
+
+    public void StopSpawning()
+    {
+        isSpawning = false;
+        foreach(NPCController controller in controllerList)
+        {
+            controller.Leave(); 
+        }
+        controllerList.Clear();
+    }
+
+
     void Update()
     {
+        if (!isSpawning)
+        {
+            return;
+        }
+
         if (Mathf.RoundToInt(Time.time) == executeTime){
             // Check for open seat
             foreach (GameObject seat in GameObject.FindGameObjectsWithTag("Seat")) // TODO: This could be a function bool isSeatAvaliable()
@@ -31,9 +55,10 @@ public class NPCSpawner : MonoBehaviour
                     // TODO: This should be a function
                     Vector2 spawnPosition = spawnPoint.transform.position; // Get the spawn position from the spawn point
                     GameObject NPC = Instantiate(NPCObject, spawnPosition, Quaternion.identity);
-                    NPCController behavior = NPC.GetComponent<NPCController>();
-                    
-                    behavior.SetSeat(seat); // Give NPC seat property
+                    NPCController controller = NPC.GetComponent<NPCController>();
+                    controllerList.Add(controller);
+
+                    controller.SetSeat(seat); // Give NPC seat property
                     NPC.SetActive(true); // Show NPC
                     seat.GetComponent<NPCObjects>().SetOccupied(true); // Set seat as occupied
 
