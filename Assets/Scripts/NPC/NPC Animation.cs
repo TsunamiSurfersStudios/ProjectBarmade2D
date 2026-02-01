@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NPCAnimation : MonoBehaviour
 {
+    private Animator Sitting;
+
     // Start is called before the first frame update
     void Start()
     {
