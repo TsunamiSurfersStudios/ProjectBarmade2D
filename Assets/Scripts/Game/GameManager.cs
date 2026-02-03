@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameState : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public int currentTier { get; private set; }
     public GameEvent EventDayComplete;
-    private static GameState _instance;
-    public static GameState Instance { get { return _instance; } }
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } }
 
     private void Awake()
     {
