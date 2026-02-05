@@ -27,4 +27,4 @@ MonoBehaviour:
   hasIce: 1
   isBlended: 0
   price: 5.99
-  isUnlocked: 0
+  isUnlocked: 1

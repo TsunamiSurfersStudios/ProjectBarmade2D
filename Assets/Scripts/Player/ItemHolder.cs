@@ -4,16 +4,48 @@ using UnityEngine;
 
 public class ItemHolder : MonoBehaviour
 {
+    private static ItemHolder instance;
+    public static ItemHolder Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ItemHolder>();
+
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject("ItemHolder");
+                    instance = singletonObject.AddComponent<ItemHolder>();
+                }
+            }
+            return instance;
+        }
+    }
+
     private GameObject heldObject;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void GiveObject(GameObject obj)
     {
         if (heldObject == null && obj != null)
         {
             heldObject = obj;
-
-            obj.transform.position = gameObject.transform.position;
-            obj.transform.parent = gameObject.transform;
+            obj.transform.position = transform.position;
+            obj.transform.parent = transform;
+            obj.transform.localScale = Vector3.one; // fix weirdness with instantiating
 
             Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -27,29 +59,52 @@ public class ItemHolder : MonoBehaviour
 
     public void DropItem()
     {
-        if (!heldObject) { return; }
-        heldObject.transform.position = transform.position;
+        if (heldObject == null)
+        {
+            return;
+        }
+
         heldObject.transform.parent = null;
+
         Rigidbody2D rb = heldObject.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.isKinematic = false;
-            rb.bodyType = RigidbodyType2D.Static;
+            rb.bodyType = RigidbodyType2D.Dynamic;
         }
+
         heldObject = null;
     }
 
     public GameObject TakeObject()
     {
+        if (heldObject == null)
+        {
+            return null;
+        }
+
         GameObject obj = heldObject;
         heldObject = null;
+
+        obj.transform.parent = null;
+
+        Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+
         return obj;
     }
 
     public void DestroyObject()
     {
-        Destroy(heldObject); 
-        heldObject = null;
+        if (heldObject != null)
+        {
+            Destroy(heldObject);
+            heldObject = null;
+        }
     }
 
     public bool IsEmpty()
@@ -57,14 +112,20 @@ public class ItemHolder : MonoBehaviour
         return heldObject == null;
     }
 
-    public void Spawn(GameObject item)
+    public GameObject GetHeldObject()
     {
-        if (heldObject != null) 
-        { 
-            return; 
+        return heldObject;
+    }
+
+    public void Spawn(GameObject itemPrefab)
+    {
+        if (heldObject != null || itemPrefab == null)
+        {
+            return;
         }
-        GameObject clone = GameObject.Instantiate(item);
-        GiveObject(clone);
+
+        GameObject clone = Instantiate(itemPrefab);
         clone.SetActive(true);
+        GiveObject(clone);
     }
 }

@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Vodka
   type: 0
-  alcoholPercentage: 0.4
-  amountInOunces: 0
+  alcoholPercentage: 0.42

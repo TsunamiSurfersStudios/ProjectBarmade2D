@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,7 +15,14 @@ public class Tier
 }
 public class RecipeController : MonoBehaviour
 {
-    [SerializeField] Tier[] tiers;
+    [SerializeField] Tier[] tiers; // tiers (or levels) can maybe be scriptable objects
+                                   // so we can persist and easily decouple
+                                   // their data from this script. We would just need 
+                                   // to pass the tier to the methods here
+                                   // And this script itself can be static / singleton
+                                   // or even a regular class so we don't need to always
+                                   // have one in the scene
+
     [SerializeField] string PATH = "Bar"; // For testing purposes only
 
     public bool VerifyRecipeControllerSetup()
@@ -101,3 +109,36 @@ public class RecipeController : MonoBehaviour
         return unlockedIngredients.Contains(ingredient);
     }
 }
+
+#if UNITY_EDITOR
+// Custom property drawer for SpawnSchedule list
+[CustomPropertyDrawer(typeof(Tier))]
+public class TierDrawer : PropertyDrawer
+{
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        // Get the index from the property path
+        string path = property.propertyPath;
+        int index = -1;
+
+        // Extract index from path like "spawnSchedules.Array.data[0]"
+        if (path.Contains("[") && path.Contains("]"))
+        {
+            int startIndex = path.IndexOf("[") + 1;
+            int length = path.IndexOf("]") - startIndex;
+            if (int.TryParse(path.Substring(startIndex, length), out index))
+            {
+                label.text = "Tier " + index;
+            }
+        }
+
+        // Draw the property with custom label
+        EditorGUI.PropertyField(position, property, label, true);
+    }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        return EditorGUI.GetPropertyHeight(property, label, true);
+    }
+}
+#endif

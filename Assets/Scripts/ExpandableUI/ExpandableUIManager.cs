@@ -11,7 +11,6 @@ public class ExpandableUIManager : MonoBehaviour
     [SerializeField] private float defaultSpacing = 10f;
 
     [Tooltip("Spacing buffer when elements expand")]
-    [SerializeField] private float expansionBuffer = 5f;
     [SerializeField] private float firstElementY;
 
     private Dictionary<GameObject, RectTransform> elementRects = new Dictionary<GameObject, RectTransform>();
