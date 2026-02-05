@@ -6,7 +6,7 @@ using TMPro;
 
 [RequireComponent(typeof(RectTransform))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class ExpandableElement : MonoBehaviour, IPointerClickHandler
+public class ExpandableElement : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Expansion Settings")]
     [SerializeField] private float collapsedHeight = 100f;
@@ -21,6 +21,7 @@ public class ExpandableElement : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject recipeContainer;
     [SerializeField] private GameObject drinkTitle;
     [SerializeField] private GameObject drinkDescription;
+    private Image image;
     
     private void Awake()
     {
@@ -33,11 +34,31 @@ public class ExpandableElement : MonoBehaviour, IPointerClickHandler
         {
             uiManager = FindObjectOfType<ExpandableUIManager>();
         }
+        
+        image = gameObject.GetComponent<UnityEngine.UI.Image>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         ToggleExpansion();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //Hover effect 
+        if (image != null)
+        {
+            image.color = Color.yellow;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //Hover effect 
+        if (image != null)
+        {
+            image.color = Color.white;
+        }
     }
 
     public void ToggleExpansion()

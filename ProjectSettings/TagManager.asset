@@ -19,6 +19,7 @@ TagManager:
   - NPC
   - Enemy
   - LeavePoint
+  - DrinkBucket
   layers:
   - Default
   - TransparentFX
@@ -59,14 +60,20 @@ TagManager:
   - name: Background
     uniqueID: 1886961135
     locked: 0
+  - name: ObjectOnBG
+    uniqueID: 254690081
+    locked: 0
+  - name: Object
+    uniqueID: 1484465501
+    locked: 0
   - name: NPC
     uniqueID: 3096702705
     locked: 0
   - name: Player
     uniqueID: 613540361
     locked: 0
-  - name: Object
-    uniqueID: 1484465501
+  - name: ObjectInFront
+    uniqueID: 2790377557
     locked: 0
   - name: UI
     uniqueID: 2376884963
