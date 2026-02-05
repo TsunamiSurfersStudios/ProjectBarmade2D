@@ -18,6 +18,7 @@ TagManager:
   - BoxHolder
   - NPC
   - LeavePoint
+  - DrinkBucket
   layers:
   - Default
   - TransparentFX

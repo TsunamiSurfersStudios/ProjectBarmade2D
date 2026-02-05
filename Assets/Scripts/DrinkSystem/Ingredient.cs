@@ -24,13 +24,18 @@ public enum Glass
 }
 
 [CreateAssetMenu(fileName = "NewIngredient", menuName = "Bar/Ingredient")]
-
 [System.Serializable]
 public class Ingredient : ScriptableObject
 {
     [SerializeField] string ingredientName;
     [SerializeField] IngredientType type;
     [Range(0f, 1f)] [SerializeField] float alcoholPercentage = 0f;
+    [SerializeField] public Sprite sprite;
+
+
+    [Header("UI")]
+    [SerializeField] Sprite icon;
+    [SerializeField] Color color = Color.white;
     public static Ingredient Create(string name, IngredientType type, float percentage)
     {
         Ingredient ingredient = ScriptableObject.CreateInstance<Ingredient>();
