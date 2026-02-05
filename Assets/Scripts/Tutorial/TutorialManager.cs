@@ -68,6 +68,8 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = -1;
     private TutorialStep currentStep;
     private bool waitingForProgression = false;
+    private System.Action currentTriggerHandler;
+    private System.Action currentProgressionHandler;
 
     void Start()
     {
@@ -113,10 +115,15 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TriggerType.WaitForEvent:
-                GameEventManager.Instance.Subscribe(step.gameEvent, () => {
-                    GameEventManager.Instance.Unsubscribe(step.gameEvent, null);
-                    ShowTooltip(step);
-                });
+                if (step.gameEvent != null)
+                {
+                    currentTriggerHandler = () => {
+                        step.gameEvent.OnRaised -= currentTriggerHandler;
+                        currentTriggerHandler = null;
+                        ShowTooltip(step);
+                    };
+                    step.gameEvent.OnRaised += currentTriggerHandler;
+                }
                 break;
 
             case TriggerType.Manual:
@@ -141,7 +148,11 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ProgressionType.WaitForEvent:
-                GameEventManager.Instance.Subscribe(step.progressionEventName, OnStepComplete);
+                if (step.progressionEventName != null)
+                {
+                    currentProgressionHandler = OnStepComplete;
+                    step.progressionEventName.OnRaised += currentProgressionHandler;
+                }
                 break;
 
             case ProgressionType.AutoProgress:
@@ -173,8 +184,11 @@ public class TutorialManager : MonoBehaviour
     {
         tooltipUI.Hide();
 
-        if (currentStep != null && currentStep.progressionType == ProgressionType.WaitForEvent)
-            GameEventManager.Instance.Unsubscribe(currentStep.progressionEventName, OnStepComplete);
+        if (currentStep != null && currentStep.progressionType == ProgressionType.WaitForEvent && currentStep.progressionEventName != null)
+        {
+            currentStep.progressionEventName.OnRaised -= currentProgressionHandler;
+            currentProgressionHandler = null;
+        }
     }
 
     void EndTutorial()
