@@ -19,7 +19,8 @@ MonoBehaviour:
   mixers: []
   garnishes:
   - {fileID: 11400000, guid: 9fa354a1fa8fca445b2a9f30f6806686, type: 2}
-  glass: 0
+  glass: 8
   hasIce: 0
   isBlended: 0
-  price: 12.99
+  price: 6.99
+  sprite: {fileID: 0}

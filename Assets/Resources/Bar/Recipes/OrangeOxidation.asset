@@ -22,7 +22,8 @@ MonoBehaviour:
   garnishes:
   - {fileID: 11400000, guid: 6a670412ac1365845acc6cd8b1c25166, type: 2}
   - {fileID: 11400000, guid: 0f550158dfd9f0b498f7c4c3625f43a1, type: 2}
-  glass: 0
+  glass: 8
   hasIce: 0
   isBlended: 0
   price: 4.99
+  sprite: {fileID: 0}

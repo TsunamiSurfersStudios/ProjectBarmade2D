@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d94bb90aeb17e4d9729317423851e9, type: 3}
   m_Name: Rust Devil Mushroom
   m_EditorClassIdentifier: 
-  ingredientName: 
+  ingredientName: Rust Devil Mushroom
   type: 0
   alcoholPercentage: 0
+  sprite: {fileID: 0}
+  icon: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
