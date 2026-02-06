@@ -1,4 +1,7 @@
+using Codice.Client.Common.GameUI;
 using System;
+using Unity.VisualScripting.YamlDotNet.Core;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,6 +31,9 @@ public class NPCController : MonoBehaviour
     private const string HORIZONTAL = "HorizontalVal";
     private const string VERTICAL = "VerticalVal";
     private const string SPEED = "Speed";
+    private const string FORWARD = "Forward";
+    private const string LEFT = "Left";
+    private const string RIGHT = "Right";
 
     // Start is called before the first frame update
     void Start()
@@ -85,8 +91,33 @@ public class NPCController : MonoBehaviour
             animator.SetFloat(HORIZONTAL, 0);
             animator.SetFloat(VERTICAL, 0);
             animator.SetFloat(SPEED, 0f);
+            animator.SetBool(SittingDirection(), true);
         }
     }
+
+    private string SittingDirection()
+    {
+        //determines sitting direction
+        SeatController seatController = seat.GetComponent<SeatController>();
+        SeatController.Direction direction = seatController.GetDirection();
+
+        switch (direction)
+        {
+            case SeatController.Direction.Left:
+                //sittiing left
+                return "Sittingleft";
+            case SeatController.Direction.Right:
+                //sitting right
+                return "Sittingright";
+            case SeatController.Direction.Forward:
+                //sitting forward
+                return "Sittingforward";
+            default: 
+                break;
+        }
+        return "";
+    }
+
     private void HandleIntoxication()
     {
         if (navAgent.velocity.magnitude > 0) // Do not sober up while moving
@@ -113,11 +144,12 @@ public class NPCController : MonoBehaviour
         destination = seat.transform.position;
     }
 
+
     public void Leave()
     {
         if (seat != null)
         {
-            seat.GetComponent<NPCObjects>().SetOccupied(false);
+            seat.GetComponent<SeatController>().SetOccupied(false);
             seat = leavePoint;
             destination = seat.transform.position;
         }

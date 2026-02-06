@@ -50,7 +50,7 @@ public class NPCSpawner : MonoBehaviour
             foreach (GameObject seat in GameObject.FindGameObjectsWithTag("Seat")) // TODO: This could be a function bool isSeatAvaliable()
             {
                 // Check if the seat is occupied
-                if (!seat.GetComponent<NPCObjects>().GetOccupied())
+                if (!seat.GetComponent<SeatController>().GetOccupied())
                 {
                     // TODO: This should be a function
                     Vector2 spawnPosition = spawnPoint.transform.position; // Get the spawn position from the spawn point
@@ -60,7 +60,7 @@ public class NPCSpawner : MonoBehaviour
 
                     controller.SetSeat(seat); // Give NPC seat property
                     NPC.SetActive(true); // Show NPC
-                    seat.GetComponent<NPCObjects>().SetOccupied(true); // Set seat as occupied
+                    seat.GetComponent<SeatController>().SetOccupied(true); // Set seat as occupied
 
                     break;
                 }
