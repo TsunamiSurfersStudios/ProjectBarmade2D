@@ -7,7 +7,11 @@ using UnityEngine;
 
 public class NPCOrdering : MonoBehaviour
 {
+    public static event System.Action<string, string> OnOrderCreated;
+    public static event System.Action<string> OnOrderCompleted;
+
     private Recipe order;
+    private string customerName;
     bool orderActive = false;
     private Recipe GetRandomRecipe()
     {
@@ -20,10 +24,20 @@ public class NPCOrdering : MonoBehaviour
         return allRecipes[index];
     }
 
-    public void CreateOrder()
+    public void CreateOrder(string customerName)
     {
+        this.customerName = customerName;
         order = GetRandomRecipe();
         orderActive = true;
+        OnOrderCreated?.Invoke(customerName, order.GetDrinkName());
+    }
+
+    public void CompleteOrder()
+    {
+        if (!orderActive) return;
+        orderActive = false;
+        OnOrderCompleted?.Invoke(customerName);
+        order = null;
     }
 
     public float GetRecipeAccuracy(Recipe recipe, DrinkController drink)

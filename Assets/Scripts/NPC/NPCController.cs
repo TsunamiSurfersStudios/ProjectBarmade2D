@@ -148,6 +148,12 @@ public class NPCController : MonoBehaviour
         DrinkController drinkController = drink.GetComponent<DrinkController>();
         if (drinkController)
         {
+            NPCOrdering ordering = GetComponent<NPCOrdering>();
+            if (ordering != null && ordering.OrderActive())
+            {
+                ordering.CompleteOrder();
+            }
+
             float alcoholPercentage = drinkController.GetAlcoholPercentage();
             float initalIntoxication = UnityEngine.Random.Range(5, alcoholPercentage);
             float reducedIntoxication = initalIntoxication * NPCTolerance; 

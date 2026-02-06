@@ -126,7 +126,7 @@ public class NPCDialogue : MonoBehaviour
 
     void CreateOrder()
     {
-        orderingSystem.CreateOrder();
+        orderingSystem.CreateOrder(dialogueData.GetName());
         Recipe recipe = orderingSystem.GetOrder();
         OrderNode orderNode = new OrderNode(recipe.GetDrinkName());
         dialogueData.AddNode(orderNode);

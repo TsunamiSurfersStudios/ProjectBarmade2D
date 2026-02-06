@@ -263,7 +263,8 @@ public class NPCOrderingTests
     [Test]
     public void GetRandomRecipes_ReturnsValue()
     {
-        npcOrdering.CreateOrder();
+        string customerName = "TestCustomer";
+        npcOrdering.CreateOrder(customerName);
         Recipe order = npcOrdering.GetOrder();
         Assert.IsNotNull(order);
     }
