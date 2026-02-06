@@ -69360,11 +69360,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &985794264 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2582471914067119877, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
-  m_PrefabInstance: {fileID: 1985157058}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &987239364
 GameObject:
   m_ObjectHideFlags: 0
@@ -142120,7 +142115,7 @@ PrefabInstance:
     - target: {fileID: 4278861082973672604, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
       propertyPath: starterDrink
       value: 
-      objectReference: {fileID: 985794264}
+      objectReference: {fileID: 0}
     - target: {fileID: 5469631246116780604, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
       propertyPath: m_SortingLayer
       value: 6

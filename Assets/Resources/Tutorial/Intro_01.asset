@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Intro_01
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialSequence
+  steps:
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Oh gods, I don't even get a second to really process the old man\u2019s
+      death because he shoveled a pile of debt on me! I don\u2019t know a lick about
+      running a bar let alone a business!\r\nI guess now is a good time more than
+      ever\u2026I prefer to keep my antennas on my head.\r\n"
+    targetObject: {fileID: 0}
+    progressionType: 0
+    eventToContinue: 0
+    autoProgressDelay: 0
+    executeOnComplete: 1
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Oh gods, I don't even get a second to really process the old man\u2019s
+      death because he shoveled a pile of debt on me! I don\u2019t know a lick about
+      running a bar let alone a business!\r\nI guess now is a good time more than
+      ever\u2026I prefer to keep my antennas on my head.\r\n"
+    targetObject: {fileID: 0}
+    progressionType: 1
+    eventToContinue: 2
+    autoProgressDelay: 0
+    executeOnComplete: 1
+  canSkip: 1
+  pauseGame: 0

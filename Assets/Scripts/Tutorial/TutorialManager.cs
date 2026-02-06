@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using static GameEventManager;
+using System;
 
 [System.Serializable]
 public class TutorialStep
@@ -12,15 +13,14 @@ public class TutorialStep
     public GameEvent gameEvent; 
 
     [Header("Tooltip")]
-    public string tooltipText;
-    public Vector2 tooltipPosition;
-    public TooltipAnchor anchor = TooltipAnchor.Center;
+    [TextArea] public string tooltipText;
     public GameObject targetObject; 
 
     [Header("Progression")]
     public ProgressionType progressionType;
-    public GameEvent progressionEventName; 
-    public float autoProgressDelay = 0f; 
+    [Tooltip("Use with WaitForEvent")] public GameEvent eventToContinue; 
+    public float autoProgressDelay = 0f;
+    public Command executeOnComplete;
 }
 
 public enum TriggerType
@@ -35,14 +35,6 @@ public enum ProgressionType
     ClickToContinue,    // Click anywhere or on tooltip
     WaitForEvent,       // Wait for specific game event
     AutoProgress        // Time-based
-}
-
-public enum TooltipAnchor
-{
-    TopLeft, Top, TopRight,
-    Left, Center, Right,
-    BottomLeft, Bottom, BottomRight,
-    FollowTarget // Follow the targetObject
 }
 
 /*******************************************************************************************************/
@@ -113,10 +105,25 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TriggerType.WaitForEvent:
-                GameEventManager.Instance.Subscribe(step.gameEvent, () => {
-                    GameEventManager.Instance.Unsubscribe(step.gameEvent, null);
-                    ShowTooltip(step);
-                });
+                if (step.gameEvent == GameEventManager.GameEvent.NONE)
+                {
+                    GameEventManager.Instance.Subscribe(step.gameEvent, () =>
+                    {
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, null);
+                        ShowTooltip(step);
+                    });
+                }
+                else
+                {
+                    Action<GameObject> callback = null;
+                    callback = (GameObject obj) =>
+                    {
+                        step.targetObject = obj; // Set target object from event  
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, callback);
+                        ShowTooltip(step);
+                    };
+                    GameEventManager.Instance.Subscribe(step.gameEvent, callback);
+                }
                 break;
 
             case TriggerType.Manual:
@@ -141,7 +148,7 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ProgressionType.WaitForEvent:
-                GameEventManager.Instance.Subscribe(step.progressionEventName, OnStepComplete);
+                GameEventManager.Instance.Subscribe(step.eventToContinue, OnStepComplete);
                 break;
 
             case ProgressionType.AutoProgress:
@@ -165,6 +172,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (!waitingForProgression) return;
         waitingForProgression = false;
+        GameEventManager.Instance.TriggerEvent(currentStep.executeOnComplete);
 
         AdvanceToNextStep();
     }
@@ -174,7 +182,7 @@ public class TutorialManager : MonoBehaviour
         tooltipUI.Hide();
 
         if (currentStep != null && currentStep.progressionType == ProgressionType.WaitForEvent)
-            GameEventManager.Instance.Unsubscribe(currentStep.progressionEventName, OnStepComplete);
+            GameEventManager.Instance.Unsubscribe(currentStep.eventToContinue, OnStepComplete);
     }
 
     void EndTutorial()
