@@ -60,6 +60,8 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = -1;
     private TutorialStep currentStep;
     private bool waitingForProgression = false;
+    private System.Action currentTriggerHandler;
+    private System.Action currentProgressionHandler;
 
     void Start()
     {
