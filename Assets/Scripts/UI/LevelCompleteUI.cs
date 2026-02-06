@@ -17,7 +17,6 @@ public class LevelCompleteUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI MoneyMadeText;
 
     [Header("Dependencies")]
-    [SerializeField] GameEvent EventDayComplete;
     [SerializeField] RecipeController recipeController;
 
     [Header("Spacing Tweaks")]
@@ -28,7 +27,7 @@ public class LevelCompleteUI : MonoBehaviour
 
     void Awake()
     {
-        EventDayComplete.OnRaised += Show;
+        GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, Show);
         ScreenDayComplete.SetActive(false);
     }
 

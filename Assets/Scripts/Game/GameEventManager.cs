@@ -6,7 +6,7 @@ public class GameEventManager : MonoBehaviour
 {
     public enum GameEvent
     {
-        
+        LevelComplete
     }
 
     private static GameEventManager _instance;

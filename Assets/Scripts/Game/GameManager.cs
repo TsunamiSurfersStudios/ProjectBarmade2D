@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int currentTier { get; private set; }
-    public GameEvent EventDayComplete;
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
@@ -26,11 +25,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         currentTier = 0; // start at 0
-        if(EventDayComplete != null)
-        {
-            EventDayComplete.OnRaised += incrementTier;
-        }
-        else { Debug.Log("Day Complete event not set in Game State. "); }
+        GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, incrementTier);
     }
 
     public void incrementTier()
