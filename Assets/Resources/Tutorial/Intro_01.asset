@@ -24,16 +24,14 @@ MonoBehaviour:
     eventToContinue: 0
     autoProgressDelay: 0
     executeOnComplete: 1
-  - triggerType: 0
-    gameEvent: 0
-    tooltipText: "Oh gods, I don't even get a second to really process the old man\u2019s
-      death because he shoveled a pile of debt on me! I don\u2019t know a lick about
-      running a bar let alone a business!\r\nI guess now is a good time more than
-      ever\u2026I prefer to keep my antennas on my head.\r\n"
+  - triggerType: 1
+    gameEvent: 2
+    tooltipText: "Oh ok ok ok\u2026deep breaths. He is just some average joe, I can
+      do this."
     targetObject: {fileID: 0}
-    progressionType: 1
-    eventToContinue: 2
+    progressionType: 0
+    eventToContinue: 0
     autoProgressDelay: 0
-    executeOnComplete: 1
-  canSkip: 1
+    executeOnComplete: 0
+  canSkip: 0
   pauseGame: 0
