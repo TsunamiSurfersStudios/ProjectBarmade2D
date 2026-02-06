@@ -16,9 +16,17 @@ public class NPCDialogue : MonoBehaviour
     private NPCOrdering orderingSystem;
     private int currentNodeIndex = 0; // Current node in the dialogue tree
 
+    // TODO: Temporary random name assignment. Will be rewritten later.
+    private static readonly string[] randomNames = { //Will be deleted
+        "John Weak", "Mario Kart", "Ras Putin", "Joseph Stalin",
+        "John Doe", "Josh Sawyer", "Jane Doe", "Leon Kennedy", "Quentin Tarantino"
+    };
+    private string npcName;//Will be deleted
+
     private void Start()
     {
         orderingSystem = gameObject.GetComponent<NPCOrdering>();
+        npcName = randomNames[Random.Range(0, randomNames.Length)];//Will be deleted
     }
     public void StartConversation()
     {
@@ -43,7 +51,8 @@ public class NPCDialogue : MonoBehaviour
 
     void ShowDialogue(string NPCText)
     {
-        NPCNameDisplay.text = dialogueData.GetName();
+        //NPCNameDisplay.text = dialogueData.GetName(); //TODO: Refactor this to use the NPC's name from dialog data. This is just a patch to get the system working for playtesting
+        NPCNameDisplay.text = npcName;//Will be deleted
         NPCTextDisplay.text = NPCText;
     }
 
@@ -126,7 +135,7 @@ public class NPCDialogue : MonoBehaviour
 
     void CreateOrder()
     {
-        orderingSystem.CreateOrder(dialogueData.GetName());
+        orderingSystem.CreateOrder(npcName);
         Recipe recipe = orderingSystem.GetOrder();
         OrderNode orderNode = new OrderNode(recipe.GetDrinkName());
         dialogueData.AddNode(orderNode);

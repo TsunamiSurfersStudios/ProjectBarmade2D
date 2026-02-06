@@ -76203,7 +76203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8826139089107549771, guid: 23fbe82d1d57eaf459e5740014cdaecd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -150758,7 +150758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2094553545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154349,6 +154349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e0057bea3e8802f9171105eb8e6845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orderFramePrefab: {fileID: 0}
 --- !u!1 &8597878169411175797 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8139766964376146961, guid: ce2510dbeb31e7149b0caafe480bc749, type: 3}
