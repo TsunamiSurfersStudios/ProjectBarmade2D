@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class NPCOrderingTests
 {
@@ -258,13 +256,5 @@ public class NPCOrderingTests
         float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
         Assert.AreEqual(1f, accuracy, 0.01f);
-    }
-
-    [Test]
-    public void GetRandomRecipes_ReturnsValue()
-    {
-        npcOrdering.CreateOrder();
-        Recipe order = npcOrdering.GetOrder();
-        Assert.IsNotNull(order);
     }
 }

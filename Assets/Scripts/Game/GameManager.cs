@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int currentTier { get; private set; }
+    public int currentLevel { get; private set; }
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
@@ -24,13 +24,13 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        currentTier = 0; // start at 0
-        GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, incrementTier);
+        currentLevel = 0; // start at 0
+        GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, LevelUp);
     }
 
-    public void incrementTier()
+    public void LevelUp()
     {
-        currentTier += 1;
-        Debug.Log($"current tier: {currentTier}");
+        currentLevel += 1;
+        Debug.Log($"current level: {currentLevel}");
     }
 }

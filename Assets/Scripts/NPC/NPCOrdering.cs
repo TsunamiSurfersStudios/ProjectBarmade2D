@@ -1,23 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using UnityEditor;
 using UnityEngine;
 
 public class NPCOrdering : MonoBehaviour
 {
-    private Recipe order;
+    public Recipe order { get; private set; }
     bool orderActive = false;
     private Recipe GetRandomRecipe()
     {
-        // Get unlocked recipes
-        Recipe[] allRecipes = Resources.LoadAll("Bar/Recipes", typeof(Recipe)).Cast<Recipe>().ToArray();
-        // TODO: Get unlocked recipes from RecipeController
-
-        // Get random recipe
-        int index = Random.Range(0, allRecipes.Length);
-        return allRecipes[index];
+        int currentLevel = GameManager.Instance?.currentLevel ?? 0;
+        ;
+        var unlockedRecipes = RecipeController.Instance.GetAllUnlockedRecipes(currentLevel).ToList();
+        if (unlockedRecipes.Count > 0)
+        {
+            return unlockedRecipes[Random.Range(0, unlockedRecipes.Count)];
+        }
+        return null;
     }
 
     public void CreateOrder()
@@ -91,7 +89,5 @@ public class NPCOrdering : MonoBehaviour
         if (recipe.GetGlass() == drink.GetGlass()) { accuracy += 0.1f; }
         return accuracy;
     }
-
-    public Recipe GetOrder() { return order; }
     public bool OrderActive() { return orderActive; }
 }
