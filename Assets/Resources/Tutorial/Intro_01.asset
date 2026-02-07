@@ -62,5 +62,56 @@ MonoBehaviour:
     eventToContinue: 5
     autoProgressDelay: 0
     executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: "Ok, What in the world is a Cuba Libre?! I can\u2019t ask him how
+      to make it. Please I am praying the old man has something in that old ancient
+      book\r"
+    targetObject: {fileID: 0}
+    progressionType: 0
+    eventToContinue: 5
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: Walk over to the drink mixing station.
+    targetObject: {fileID: 1723329078031560401, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+    progressionType: 2
+    eventToContinue: 5
+    autoProgressDelay: 1
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: Walk over to the drink mixing station.
+    targetObject: {fileID: 0}
+    progressionType: 1
+    eventToContinue: 6
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: Open the station
+    targetObject: {fileID: 0}
+    progressionType: 1
+    eventToContinue: 7
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: "Phew! Looks like the words are still legible. Let\u2019s see Cuba
+      Libre\u2026\r\n"
+    targetObject: {fileID: 0}
+    progressionType: 2
+    eventToContinue: 7
+    autoProgressDelay: 3
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: Let's whip up a Cuba Libre.
+    targetObject: {fileID: 0}
+    progressionType: 1
+    eventToContinue: 7
+    autoProgressDelay: 5
+    executeOnComplete: 0
   canSkip: 0
   pauseGame: 0

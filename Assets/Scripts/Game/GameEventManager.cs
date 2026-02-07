@@ -11,7 +11,9 @@ public class GameEventManager : MonoBehaviour
         NPCSpawned, 
         CustomerCollided,
         CustomerInteracted,
-        CustomerOrdered
+        CustomerOrdered,
+        DrinkMixingStationCollided,
+        DrinkMixingStationInteracted,
     }
 
     public enum Command

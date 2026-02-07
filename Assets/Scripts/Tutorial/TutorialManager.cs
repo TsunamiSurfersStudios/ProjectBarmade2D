@@ -54,6 +54,9 @@ public class TutorialManager : MonoBehaviour
 
     void ExecuteStep(TutorialStep step)
     {
+        // Resolve prefab to instance if needed
+        ResolvePrefabToInstance(step);
+
         switch (step.triggerType)
         {
             case TriggerType.Immediate:
@@ -85,6 +88,49 @@ public class TutorialManager : MonoBehaviour
             case TriggerType.Manual:
                 break;
         }
+    }
+
+    void ResolvePrefabToInstance(TutorialStep step)
+    {
+        if (step.targetObject == null)
+            return;
+
+        // Check if the target object is a prefab (not in scene)
+        if (!step.targetObject.scene.IsValid())
+        {
+            // It's a prefab, find an instance in the scene
+            GameObject instance = FindInstanceOfPrefab(step.targetObject);
+
+            if (instance != null)
+            {
+                step.targetObject = instance;
+                Debug.Log($"Tutorial: Resolved prefab to scene instance: {instance.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Tutorial: Could not find instance of prefab '{step.targetObject.name}' in scene");
+            }
+        }
+    }
+
+    GameObject FindInstanceOfPrefab(GameObject prefab)
+    {
+        // Get the prefab's name
+        string prefabName = prefab.name;
+
+        // Find all objects with the same name
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in allObjects)
+        {
+            // Check if this object's name matches (Unity removes "(Clone)" suffix automatically in obj.name comparison)
+            if (obj.name.Replace("(Clone)", "").Trim() == prefabName)
+            {
+                return obj;
+            }
+        }
+
+        return null;
     }
 
     void ShowTooltip(TutorialStep step)

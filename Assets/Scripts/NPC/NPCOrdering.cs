@@ -22,6 +22,8 @@ public class NPCOrdering : MonoBehaviour
     {
         order = GetRandomRecipe();
         orderActive = true;
+        if (GameEventManager.Instance)
+            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerOrdered);
     }
 
     public float GetRecipeAccuracy(Recipe recipe, DrinkController drink)

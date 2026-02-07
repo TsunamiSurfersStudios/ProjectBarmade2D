@@ -40,6 +40,7 @@ public class TutorialTooltipUI : MonoBehaviour
     {
         tooltipPanel.SetActive(false);
 
+        ResetCamera();
         if (highlightOverlay != null)
             highlightOverlay.gameObject.SetActive(false);
 
@@ -64,9 +65,6 @@ public class TutorialTooltipUI : MonoBehaviour
 
     void OnContinueClicked()
     {
-        ResetCamera();
-        
-        
         onClickCallback?.Invoke();
     }
 
