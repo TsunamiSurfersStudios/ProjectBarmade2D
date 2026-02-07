@@ -3,7 +3,6 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using Unity.Plastic.Newtonsoft.Json.Bson;
 
 public enum UIElementType
 {
@@ -79,6 +78,9 @@ public class DrinkMixingUIController : MonoBehaviour
         { UIElementType.Mixer, "Mixers" },
         { UIElementType.Garnish, "Garnishes" }
     };
+
+    Transform parentCanvas;
+    GameObject parentObject;
     void Start()
     {
         //Draw ice and lime tray sprites
@@ -136,6 +138,9 @@ public class DrinkMixingUIController : MonoBehaviour
         UpdatePage(glassArrows, glassButtons);  
 
         GameEventManager.Instance.Subscribe(GameEventManager.Command.HideUI, ClosePanel);
+
+        parentCanvas = transform.parent;
+        parentObject = transform.parent.gameObject;
     }
 
     #region UI Bottle Elements
@@ -227,7 +232,7 @@ public class DrinkMixingUIController : MonoBehaviour
 
     void ClosePanel()
     {
-        gameObject.SetActive(false);
+        parentObject.SetActive(false);
     }
 
     void ProcessClick(Ingredient ingredient, int amount)
