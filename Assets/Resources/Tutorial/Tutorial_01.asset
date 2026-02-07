@@ -143,7 +143,7 @@ MonoBehaviour:
   - triggerType: 0
     gameEvent: 0
     tooltipText: Walk over to the drink mixing station
-    targetObject: {fileID: 0}
+    targetObject: {fileID: 1723329078031560401, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
     progressionType: 2
     progressionCondition:
       conditionType: 0
@@ -230,14 +230,14 @@ MonoBehaviour:
       expectedGameObject: {fileID: 0}
     eventToContinue: 9
     autoProgressDelay: 0
-    executeOnComplete: 0
+    executeOnComplete: 3
   - triggerType: 0
     gameEvent: 0
     tooltipText: "Ice, Ice, Ice\u2026Of course there is no ice already stocked! Azelio
       didn\u2019t even let me clean up before saying he needs XXX this week! I think
       that the rusty ice machine in the back works ... .not the worst thing people
       have consumed.\r\n"
-    targetObject: {fileID: 0}
+    targetObject: {fileID: 6850894631726771810, guid: 9f09d979829b69b4fb1e2b4f9691b194, type: 3}
     progressionType: 2
     progressionCondition:
       conditionType: 3
