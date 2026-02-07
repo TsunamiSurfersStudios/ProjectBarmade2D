@@ -5988,6 +5988,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5077934456570206987, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+      propertyPath: OnItemDisable.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077934456570206987, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
       propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
       objectReference: {fileID: 0}
@@ -6058,6 +6062,10 @@ PrefabInstance:
     - target: {fileID: 5077934456570206987, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
       propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077934456570206987, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+      propertyPath: OnBoxExit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5077934456570206987, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
       propertyPath: OnBoxCollide.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
