@@ -27,53 +27,8 @@ MonoBehaviour:
     - choiceText: Okay
       branchPath: -1
       beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
+  - NPCText: I'd like a Cubre Libre, please
     playerChoices:
     - choiceText: 
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Arnold Palmer, please.
-    playerChoices:
-    - choiceText: 
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
-    playerChoices:
-    - choiceText: 
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
-    playerChoices:
-    - choiceText: Okay.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
-    playerChoices:
-    - choiceText: Okay.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Arnold Palmer, please.
-    playerChoices:
-    - choiceText: Okay.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Espresso Martini, please.
-    playerChoices:
-    - choiceText: Coming right up.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Arnold Palmer, please.
-    playerChoices:
-    - choiceText: Coming right up.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
-    playerChoices:
-    - choiceText: Coming right .
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Pina Colada, please.
-    playerChoices:
-    - choiceText: Coming right .
-      branchPath: -1
+      branchPath: 0
       beginsOrder: 0

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class NPCOrdering : MonoBehaviour
 {
-    public static event System.Action<string, string> OnOrderCreated;
-    public static event System.Action<string> OnOrderCompleted;
+    public static event System.Action<GameObject, string, string> OnOrderCreated;
+    public static event System.Action<GameObject> OnOrderCompleted;
     private string customerName;
     public Recipe order { get; private set; }
     bool orderActive = false;
@@ -38,9 +38,14 @@ public class NPCOrdering : MonoBehaviour
     {
         this.customerName = customerName;
         order = GetRandomRecipe();
+        if (order == null)
+        {
+            Debug.LogError("No recipes available to order!");
+            return;
+        }
         orderActive = true;
         wantsToOrderAgain = false;
-        OnOrderCreated?.Invoke(customerName, order.GetDrinkName());
+        OnOrderCreated?.Invoke(gameObject, customerName, order.GetDrinkName());
         if (GameEventManager.Instance)
             GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerOrdered);
     }
@@ -51,7 +56,7 @@ public class NPCOrdering : MonoBehaviour
         orderActive = false;
         drinksServed++;
         tab += order.GetPrice();
-        OnOrderCompleted?.Invoke(customerName);
+        OnOrderCompleted?.Invoke(gameObject);
         //Make NPC order another drink
         if (drinksServed < drinkLimit)
         {

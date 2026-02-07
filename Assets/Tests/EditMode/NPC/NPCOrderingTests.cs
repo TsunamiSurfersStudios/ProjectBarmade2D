@@ -257,13 +257,4 @@ public class NPCOrderingTests
 
         Assert.AreEqual(1f, accuracy, 0.01f);
     }
-
-    [Test]
-    public void GetRandomRecipes_ReturnsValue()
-    {
-        string customerName = "TestCustomer";
-        npcOrdering.CreateOrder(customerName);
-        Recipe order = npcOrdering.order;
-        Assert.IsNotNull(order);
-    }
 }

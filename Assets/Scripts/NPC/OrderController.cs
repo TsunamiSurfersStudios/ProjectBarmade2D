@@ -21,7 +21,7 @@ public class OrderController : MonoBehaviour
     [SerializeField] private GameObject orderFramePrefab;
     private Transform orderListContent;
 
-    private List<Order> activeOrders = new List<Order>();
+    private Dictionary<GameObject, Order> activeOrders = new Dictionary<GameObject, Order>();
     private List<Order> completedOrders = new List<Order>();
 
     void Start()
@@ -57,7 +57,7 @@ public class OrderController : MonoBehaviour
         NPCOrdering.OnOrderCompleted -= CompleteOrder;
     }
 
-    public void AddOrder(string customerName, string drinkName)
+    public void AddOrder(GameObject customer, string customerName, string drinkName)
     {
         if (orderFramePrefab == null || orderListContent == null)
         {
@@ -78,26 +78,26 @@ public class OrderController : MonoBehaviour
             customerOrderText.text = drinkName;
 
         Order order = new Order(customerName, drinkName, newOrderUI);
-        activeOrders.Add(order);
+        activeOrders[customer] = order;
     }
 
-    public void CompleteOrder(string customerName)
+    public void CompleteOrder(GameObject customer)
     {
-        Order order = activeOrders.Find(o => o.CustomerName == customerName);
+        Order order = activeOrders[customer];
         if (order == null)
         {
-            Debug.LogWarning("No active order found for customer: " + customerName);
+            Debug.LogWarning("No active order found for customer: " + customer);
             return;
         }
 
-        activeOrders.Remove(order);
+        activeOrders.Remove(customer);
         completedOrders.Add(order);
 
         if (order.UIElement != null)
             Destroy(order.UIElement);
     }
 
-    public List<Order> GetActiveOrders() { return activeOrders; }
+    public Dictionary<GameObject, Order> GetActiveOrders() { return activeOrders; }
     public List<Order> GetCompletedOrders() { return completedOrders; }
     public List<Order> GetCompletedOrdersByCustomer(string customerName)
     {
