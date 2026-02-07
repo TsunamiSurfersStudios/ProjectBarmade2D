@@ -85,14 +85,20 @@ public class NPCController : MonoBehaviour
                 animator.SetFloat(HORIZONTAL, 0);
                 animator.SetFloat(VERTICAL, direction.y);
             }
-            animator.SetBool(SittingDirection(), false);
+            animator.SetBool(FORWARD, false);
+            animator.SetBool(LEFT, false);
+            animator.SetBool(RIGHT, false);
         }
         else
         {
             animator.SetFloat(HORIZONTAL, 0);
             animator.SetFloat(VERTICAL, 0);
             animator.SetFloat(SPEED, 0f);
-            animator.SetBool(SittingDirection(), true);
+            
+            if (!navAgent.pathPending && navAgent.remainingDistance <= 0)
+            {
+                animator.SetBool(SittingDirection(), true);
+            }
         }
     }
 
