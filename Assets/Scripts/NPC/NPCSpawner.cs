@@ -49,7 +49,7 @@ public class NPCSpawner : MonoBehaviour
             return;
         }
 
-        if (Mathf.RoundToInt(Time.time) == executeTime && !Spawn())
+        if (Mathf.RoundToInt(Time.time) == executeTime && Spawn())
         {
             executeTime = executeTime + Random.Range(minSpawnWait, maxSpawnWait);
         }
