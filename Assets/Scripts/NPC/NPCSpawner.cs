@@ -33,14 +33,17 @@ public class NPCSpawner : MonoBehaviour
 
     public void StopSpawning()
     {
-        isSpawning = false;
-        foreach(NPCController controller in controllerList)
+        isSpawning = false; 
+    }
+
+    public void EndDay()
+    {
+        foreach (NPCController controller in controllerList)
         {
-            controller.Leave(); 
+            controller.Leave();
         }
         controllerList.Clear();
     }
-
 
     void Update()
     {

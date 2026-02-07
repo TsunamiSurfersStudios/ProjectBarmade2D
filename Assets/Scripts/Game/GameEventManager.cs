@@ -18,8 +18,9 @@ public class GameEventManager : MonoBehaviour
 
     public enum Command
     {
-        NONE, // Use this for uninitialized commands
-        SpawnNPC
+        NONE, 
+        SpawnNPC,
+        StartSpawning
     }
 
     private static GameEventManager _instance;

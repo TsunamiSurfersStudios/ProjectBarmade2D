@@ -25,7 +25,7 @@ public class SpawnSchedule
     [SerializeField] int defaultMinWait = 10;
     [SerializeField] int defaultMaxWait = 20;
     [SerializeField] List<SpawnRate> spawnRates;
-
+    [SerializeField] public bool spawnOnStart { get; private set; } = true ;
     public List<SpawnRate> GetSpawnRates()
     {
         return spawnRates;
@@ -93,20 +93,22 @@ public class SpawnSchedule
         TimeController.Instance.StartTime(startHour);
         TimeController.Instance.OnHourChanged += UpdateForHour;
         UpdateSpawnWaitTimes();
-        npcSpawner.StartSpawning();
+        if (currLevel < spawnSchedules.Count)
+        {
+            SpawnSchedule currSchedule = spawnSchedules[currLevel];
+            if (currSchedule.spawnOnStart)
+                npcSpawner.StartSpawning();
+        }
+            
     }
 
     private void EndLevel()
     {
         TimeController.Instance.OnHourChanged -= UpdateForHour;
         TimeController.Instance.StopTime();
+        npcSpawner.EndDay();
         currLevel++;
         GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.LevelComplete);
-    }
-
-    public int GetCurrentLevel()
-    {
-        return currLevel;
     }
 }
 

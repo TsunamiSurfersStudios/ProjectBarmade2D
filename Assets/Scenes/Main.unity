@@ -17897,6 +17897,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6108885420953523870, guid: f98e5814c55e35241a74b660d3f6009d, type: 3}
+      propertyPath: activeSequence
+      value: 
+      objectReference: {fileID: 11400000, guid: 4449c41bace2e4047bca2562899264be, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
