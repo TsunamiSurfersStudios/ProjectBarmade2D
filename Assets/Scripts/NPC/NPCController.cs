@@ -24,6 +24,7 @@ public class NPCController : MonoBehaviour
     private float soberTimer = 0f;
     [SerializeField] private float currentDrunkness = 0f;
     [SerializeField] private float maxDrunk = 100f;
+    [SerializeField] private Vector2 offset;
     private GameObject drunkMeter;
     private ToxicBar toxicBar;
     private NPCDialogue dialogue;
@@ -112,12 +113,15 @@ public class NPCController : MonoBehaviour
         {
             case SeatController.Direction.Left:
                 //sittiing left
+                //offset?
                 return LEFT;
             case SeatController.Direction.Right:
                 //sitting right
+                //offset?
                 return RIGHT;
             case SeatController.Direction.Forward:
                 //sitting forward
+                //offset?
                 return FORWARD;
             default: 
                 break;
