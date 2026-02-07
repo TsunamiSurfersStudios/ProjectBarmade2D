@@ -49218,6 +49218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 2
 --- !u!1 &695280560
 GameObject:
   m_ObjectHideFlags: 0
@@ -51422,6 +51423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 1
 --- !u!1 &735210525
 GameObject:
   m_ObjectHideFlags: 0
@@ -86322,6 +86324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 2
 --- !u!1 &1235846776
 GameObject:
   m_ObjectHideFlags: 0
@@ -89540,6 +89543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 0
 --- !u!1 &1278052674
 GameObject:
   m_ObjectHideFlags: 0
@@ -95656,7 +95660,8 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 254690081
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2717863087108529286, guid: 2d77b80048122c34883190d861aaed9d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -98022,6 +98027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 2
 --- !u!1 &1402455802
 GameObject:
   m_ObjectHideFlags: 0
@@ -99931,6 +99937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 1
 --- !u!1001 &1436816037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102523,7 +102530,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 2.93
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -107788,6 +107795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 2
 --- !u!1 &1549494078
 GameObject:
   m_ObjectHideFlags: 0
@@ -129664,6 +129672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 0
 --- !u!1 &1833878405
 GameObject:
   m_ObjectHideFlags: 0
@@ -130722,6 +130731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 0
 --- !u!1 &1845964140
 GameObject:
   m_ObjectHideFlags: 0
@@ -132684,6 +132694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 1
 --- !u!1 &1858184377
 GameObject:
   m_ObjectHideFlags: 0
@@ -140242,6 +140253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 0
 --- !u!1 &1947411676
 GameObject:
   m_ObjectHideFlags: 0
@@ -144830,19 +144842,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2979825781494325767, guid: c596bafa9b5eb9d419d8d6d0e0da8b7d, type: 3}
   m_PrefabInstance: {fileID: 1066138213842826720}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2024663632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2024663629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 440dc6acc994b2a4598e758f5b805d05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  occupied: 0
 --- !u!114 &2024663633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144856,6 +144855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 2
 --- !u!1 &2024815713
 GameObject:
   m_ObjectHideFlags: 0
@@ -147778,6 +147778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupied: 0
+  direction: 0
 --- !u!1 &2059267163
 GameObject:
   m_ObjectHideFlags: 0
@@ -154296,9 +154297,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2979825781494325767, guid: c596bafa9b5eb9d419d8d6d0e0da8b7d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2024663633}
-    - targetCorrespondingSourceObject: {fileID: 2979825781494325767, guid: c596bafa9b5eb9d419d8d6d0e0da8b7d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2024663632}
   m_SourcePrefab: {fileID: 100100000, guid: c596bafa9b5eb9d419d8d6d0e0da8b7d, type: 3}
 --- !u!1 &4492187327070480903 stripped
 GameObject:

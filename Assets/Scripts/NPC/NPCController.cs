@@ -31,9 +31,9 @@ public class NPCController : MonoBehaviour
     private const string HORIZONTAL = "HorizontalVal";
     private const string VERTICAL = "VerticalVal";
     private const string SPEED = "Speed";
-    private const string FORWARD = "Forward";
-    private const string LEFT = "Left";
-    private const string RIGHT = "Right";
+    private const string FORWARD = "IsSittingForward";
+    private const string LEFT = "IsSittingLeft";
+    private const string RIGHT = "IsSittingRight";
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +85,7 @@ public class NPCController : MonoBehaviour
                 animator.SetFloat(HORIZONTAL, 0);
                 animator.SetFloat(VERTICAL, direction.y);
             }
+            animator.SetBool(SittingDirection(), false);
         }
         else
         {
@@ -105,13 +106,13 @@ public class NPCController : MonoBehaviour
         {
             case SeatController.Direction.Left:
                 //sittiing left
-                return "Sittingleft";
+                return LEFT;
             case SeatController.Direction.Right:
                 //sitting right
-                return "Sittingright";
+                return RIGHT;
             case SeatController.Direction.Forward:
                 //sitting forward
-                return "Sittingforward";
+                return FORWARD;
             default: 
                 break;
         }

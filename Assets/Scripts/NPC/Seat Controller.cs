@@ -11,7 +11,6 @@ public class SeatController : MonoBehaviour
     public enum Direction
     {
         Forward,
-        Down,
         Left,
         Right
     };                                                                                                              
