@@ -16,12 +16,28 @@ public class NPCDialogue : MonoBehaviour
     private NPCOrdering orderingSystem;
     private int currentNodeIndex = 0; // Current node in the dialogue tree
 
+    // TODO: Temporary random name assignment. Will be rewritten later.
+    private static readonly string[] randomNames = { //Will be deleted
+        "John Weak", "Mario Kart", "Ras Putin", "Joseph Stalin",
+        "John Doe", "Josh Sawyer", "Jane Doe", "Leon Kennedy", "Quentin Tarantino"
+    };
+    private string npcName;//Will be deleted
+
     private void Start()
     {
         orderingSystem = gameObject.GetComponent<NPCOrdering>();
+        npcName = randomNames[Random.Range(0, randomNames.Length)];//Will be deleted
     }
     public void StartConversation()
     {
+        //Create a new order when player starts conversation with NPC
+        //TODO: Change it to make player ask "What can I get you first?" We want player to be able to talk to NPCs without ordering right away.
+        if (orderingSystem.WantsToOrderAgain())
+        {
+            dialogueCanvas.SetActive(true);
+            CreateOrder();
+            return;
+        }
         currentNodeIndex = 0;
         dialogueCanvas.SetActive(true);
         ShowCurrentNode(); 
@@ -43,7 +59,8 @@ public class NPCDialogue : MonoBehaviour
 
     void ShowDialogue(string NPCText)
     {
-        NPCNameDisplay.text = dialogueData.GetName();
+        //NPCNameDisplay.text = dialogueData.GetName(); //TODO: Refactor this to use the NPC's name from dialog data. This is just a patch to get the system working for playtesting
+        NPCNameDisplay.text = npcName;//Will be deleted
         NPCTextDisplay.text = NPCText;
     }
 
@@ -126,7 +143,7 @@ public class NPCDialogue : MonoBehaviour
 
     void CreateOrder()
     {
-        orderingSystem.CreateOrder();
+        orderingSystem.CreateOrder(npcName);
         Recipe recipe = orderingSystem.order;
         OrderNode orderNode = new OrderNode(recipe.GetDrinkName());
         dialogueData.AddNode(orderNode);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610597f1bde4e0d45b2bf7752f43a474, type: 3}
   m_Name: SampleDialogue
   m_EditorClassIdentifier: 
-  NPCName: Your Mom
+  NPCName: John Doe
   dialogueNodes:
   - NPCText: 'Hello. '
     playerChoices:
@@ -27,43 +27,8 @@ MonoBehaviour:
     - choiceText: Okay
       branchPath: -1
       beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
+  - NPCText: I'd like a Cubre Libre, please
     playerChoices:
     - choiceText: 
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Arnold Palmer, please.
-    playerChoices:
-    - choiceText: 
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
-    playerChoices:
-    - choiceText: 
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
-    playerChoices:
-    - choiceText: Okay.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Cuba Libre, please.
-    playerChoices:
-    - choiceText: Okay.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Arnold Palmer, please.
-    playerChoices:
-    - choiceText: Okay.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Espresso Martini, please.
-    playerChoices:
-    - choiceText: Coming right up.
-      branchPath: -1
-      beginsOrder: 0
-  - NPCText: I'd like a Arnold Palmer, please.
-    playerChoices:
-    - choiceText: Coming right up.
-      branchPath: -1
+      branchPath: 0
       beginsOrder: 0

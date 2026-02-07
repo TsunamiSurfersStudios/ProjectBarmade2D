@@ -147,6 +147,22 @@ public class NPCController : MonoBehaviour
         DrinkController drinkController = drink.GetComponent<DrinkController>();
         if (drinkController)
         {
+            NPCOrdering ordering = GetComponent<NPCOrdering>();
+            if (ordering != null && ordering.OrderActive())
+            {
+                ordering.CompleteOrder();
+
+                //Pay up the tab after finishing all drinks
+                if (ordering.HasFinishedAllDrinks())
+                {
+                    PlayerStats playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+                    if (playerStats != null)
+                    {
+                        playerStats.AddMoney(ordering.GetTab());
+                    }
+                }
+            }
+
             float alcoholPercentage = drinkController.GetAlcoholPercentage();
             float initalIntoxication = UnityEngine.Random.Range(5, alcoholPercentage);
             float reducedIntoxication = initalIntoxication * NPCTolerance; 
@@ -155,6 +171,12 @@ public class NPCController : MonoBehaviour
             currentDrunkness = Mathf.Clamp(currentDrunkness + finalIntoxication, 0, maxDrunk);
             toxicBar.SetDrunkness(currentDrunkness);
             Destroy(drink);
+
+            //Leave the bar when done drinking
+            if (ordering != null && ordering.HasFinishedAllDrinks())
+            {
+                Leave();
+            }
         }
         else
         {
