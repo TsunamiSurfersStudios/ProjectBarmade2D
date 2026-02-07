@@ -17893,6 +17893,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4213285315764447954, guid: f98e5814c55e35241a74b660d3f6009d, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1478290366}
     - target: {fileID: 4871752029929969621, guid: f98e5814c55e35241a74b660d3f6009d, type: 3}
       propertyPath: m_Name
       value: TutorialManager
@@ -17900,7 +17904,7 @@ PrefabInstance:
     - target: {fileID: 6108885420953523870, guid: f98e5814c55e35241a74b660d3f6009d, type: 3}
       propertyPath: activeSequence
       value: 
-      objectReference: {fileID: 11400000, guid: 4449c41bace2e4047bca2562899264be, type: 2}
+      objectReference: {fileID: 11400000, guid: cba339c13a9264c4d919928ae69243ea, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -29,6 +29,7 @@ public class TutorialManager : MonoBehaviour
         currentStepIndex = -1;
 
         if (sequence.pauseGame)
+            TimeController.Instance.StopTime();
             Time.timeScale = 0f;
 
         AdvanceToNextStep();
@@ -54,7 +55,6 @@ public class TutorialManager : MonoBehaviour
 
     void ExecuteStep(TutorialStep step)
     {
-        // Resolve prefab to instance if needed
         ResolvePrefabToInstance(step);
 
         switch (step.triggerType)

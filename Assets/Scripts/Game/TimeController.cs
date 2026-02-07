@@ -49,6 +49,7 @@ public class TimeController : MonoBehaviour
 
     public void StartTime(int startHour)
     {
+        Time.timeScale = 1f;
         isRunning = true;
         elapsedTime = startHour * 60f;
         UpdateDisplayTime();
@@ -56,6 +57,7 @@ public class TimeController : MonoBehaviour
 
     public void StopTime()
     {
+        Time.timeScale = 0f;
         isRunning = false;
     }
 
