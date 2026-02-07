@@ -263,7 +263,7 @@ public class NPCOrderingTests
     {
         string customerName = "TestCustomer";
         npcOrdering.CreateOrder(customerName);
-        Recipe order = npcOrdering.GetOrder();
+        Recipe order = npcOrdering.order;
         Assert.IsNotNull(order);
     }
 }
