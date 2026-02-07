@@ -55,6 +55,13 @@ public class TimeController : MonoBehaviour
         UpdateDisplayTime();
     }
 
+    public void StartTime()
+    {
+        Time.timeScale = 1f;
+        isRunning = true;
+        UpdateDisplayTime();
+    }
+
     public void StopTime()
     {
         Time.timeScale = 0f;
