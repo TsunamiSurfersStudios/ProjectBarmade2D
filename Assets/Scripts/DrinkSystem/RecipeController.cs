@@ -25,6 +25,27 @@ public class RecipeController : MonoBehaviour
 
     [SerializeField] string PATH = "Bar"; // For testing purposes only
 
+    private static RecipeController _instance;
+    public static RecipeController Instance { get { return _instance; } }
+    [SerializeField] bool disableSingleton = false;
+
+    private void Awake()
+    {
+        if (disableSingleton)
+        {
+            return;
+        }
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(this);
+    }
+
     public bool VerifyRecipeControllerSetup()
     {
         Ingredient[] allIngredients = Resources.LoadAll<Ingredient>(PATH + "/Ingredients");

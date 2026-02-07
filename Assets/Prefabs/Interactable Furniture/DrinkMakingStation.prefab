@@ -1247,7 +1247,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnBoxCollide:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameEventManager, Core
+        m_MethodName: TriggerEvent
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DrinkMixingStationCollided
+          m_BoolArgument: 0
+        m_CallState: 2
   OnBoxExit:
     m_PersistentCalls:
       m_Calls: []
@@ -1264,6 +1276,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameEventManager, Core
+        m_MethodName: TriggerEvent
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DrinkMixingStationInteracted
           m_BoolArgument: 1
         m_CallState: 2
   OnItemDisable:
@@ -4017,7 +4041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200c5d7d4b49f5c41ae3cfcf7c35c78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starterDrink: {fileID: 2582471914067119877}
+  starterDrink: {fileID: 0}
 --- !u!1 &5945400085666485326
 GameObject:
   m_ObjectHideFlags: 0
@@ -4669,7 +4693,6 @@ MonoBehaviour:
   - {fileID: 1742587783236085770}
   - {fileID: 5257201775249374619}
   defaultSpacing: -10
-  expansionBuffer: 0
   firstElementY: 200
 --- !u!1 &7063635326546616746
 GameObject:

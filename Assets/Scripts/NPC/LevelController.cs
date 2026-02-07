@@ -66,10 +66,7 @@ public class SpawnSchedule
         }
         if (hoursPassed >= hoursOpen) // Check Day Over
         {
-            TimeController.Instance.OnHourChanged -= UpdateForHour;
-            TimeController.Instance.StopTime();
-            currLevel++;
-            // Level up here
+            EndLevel();
             return;
         }
         UpdateSpawnWaitTimes();
@@ -97,6 +94,14 @@ public class SpawnSchedule
         TimeController.Instance.OnHourChanged += UpdateForHour;
         UpdateSpawnWaitTimes();
         npcSpawner.StartSpawning();
+    }
+
+    private void EndLevel()
+    {
+        TimeController.Instance.OnHourChanged -= UpdateForHour;
+        TimeController.Instance.StopTime();
+        currLevel++;
+        GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.LevelComplete);
     }
 
     public int GetCurrentLevel()

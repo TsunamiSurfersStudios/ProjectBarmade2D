@@ -1,60 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Events;
-using System.Collections.Generic;
-using static GameEventManager;
-
-[System.Serializable]
-public class TutorialStep
-{
-    [Header("Trigger Conditions")]
-    public TriggerType triggerType;
-    public GameEvent gameEvent; 
-
-    [Header("Tooltip")]
-    public string tooltipText;
-    public Vector2 tooltipPosition;
-    public TooltipAnchor anchor = TooltipAnchor.Center;
-    public GameObject targetObject; 
-
-    [Header("Progression")]
-    public ProgressionType progressionType;
-    public GameEvent progressionEventName; 
-    public float autoProgressDelay = 0f; 
-}
-
-public enum TriggerType
-{
-    Immediate,      // Starts right away
-    WaitForEvent,   // Waits for a game event
-    Manual          // Triggered by code
-}
-
-public enum ProgressionType
-{
-    ClickToContinue,    // Click anywhere or on tooltip
-    WaitForEvent,       // Wait for specific game event
-    AutoProgress        // Time-based
-}
-
-public enum TooltipAnchor
-{
-    TopLeft, Top, TopRight,
-    Left, Center, Right,
-    BottomLeft, Bottom, BottomRight,
-    FollowTarget // Follow the targetObject
-}
-
-/*******************************************************************************************************/
-[CreateAssetMenu(fileName = "NewTutorialSequence", menuName = "Tutorial/Tutorial Sequence")]
-public class TutorialSequence : ScriptableObject
-{
-    public List<TutorialStep> steps;
-    public bool canSkip = true;
-    public bool pauseGame = false; // TODO: Remove this
-}
-
-/*******************************************************************************************************/
+using System;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -108,6 +54,9 @@ public class TutorialManager : MonoBehaviour
 
     void ExecuteStep(TutorialStep step)
     {
+        // Resolve prefab to instance if needed
+        ResolvePrefabToInstance(step);
+
         switch (step.triggerType)
         {
             case TriggerType.Immediate:
@@ -115,20 +64,73 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TriggerType.WaitForEvent:
-                if (step.gameEvent != null)
+                if (step.gameEvent == GameEventManager.GameEvent.NONE)
                 {
-                    currentTriggerHandler = () => {
-                        step.gameEvent.OnRaised -= currentTriggerHandler;
-                        currentTriggerHandler = null;
+                    GameEventManager.Instance.Subscribe(step.gameEvent, () =>
+                    {
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, null);
+                        ShowTooltip(step);
+                    });
+                }
+                else
+                {
+                    Action<GameObject> callback = null;
+                    callback = (GameObject obj) =>
+                    {
+                        step.targetObject = obj; // Set target object from event  
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, callback);
                         ShowTooltip(step);
                     };
-                    step.gameEvent.OnRaised += currentTriggerHandler;
+                    GameEventManager.Instance.Subscribe(step.gameEvent, callback);
                 }
                 break;
 
             case TriggerType.Manual:
                 break;
         }
+    }
+
+    void ResolvePrefabToInstance(TutorialStep step)
+    {
+        if (step.targetObject == null)
+            return;
+
+        // Check if the target object is a prefab (not in scene)
+        if (!step.targetObject.scene.IsValid())
+        {
+            // It's a prefab, find an instance in the scene
+            GameObject instance = FindInstanceOfPrefab(step.targetObject);
+
+            if (instance != null)
+            {
+                step.targetObject = instance;
+                Debug.Log($"Tutorial: Resolved prefab to scene instance: {instance.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Tutorial: Could not find instance of prefab '{step.targetObject.name}' in scene");
+            }
+        }
+    }
+
+    GameObject FindInstanceOfPrefab(GameObject prefab)
+    {
+        // Get the prefab's name
+        string prefabName = prefab.name;
+
+        // Find all objects with the same name
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in allObjects)
+        {
+            // Check if this object's name matches (Unity removes "(Clone)" suffix automatically in obj.name comparison)
+            if (obj.name.Replace("(Clone)", "").Trim() == prefabName)
+            {
+                return obj;
+            }
+        }
+
+        return null;
     }
 
     void ShowTooltip(TutorialStep step)
@@ -148,11 +150,7 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ProgressionType.WaitForEvent:
-                if (step.progressionEventName != null)
-                {
-                    currentProgressionHandler = OnStepComplete;
-                    step.progressionEventName.OnRaised += currentProgressionHandler;
-                }
+                GameEventManager.Instance.Subscribe(step.eventToContinue, OnStepComplete);
                 break;
 
             case ProgressionType.AutoProgress:
@@ -177,18 +175,17 @@ public class TutorialManager : MonoBehaviour
         if (!waitingForProgression) return;
         waitingForProgression = false;
 
+        GameEventManager.Command command = currentStep.executeOnComplete;
         AdvanceToNextStep();
+        GameEventManager.Instance.TriggerEvent(command);
     }
 
     void CleanupCurrentStep()
     {
         tooltipUI.Hide();
 
-        if (currentStep != null && currentStep.progressionType == ProgressionType.WaitForEvent && currentStep.progressionEventName != null)
-        {
-            currentStep.progressionEventName.OnRaised -= currentProgressionHandler;
-            currentProgressionHandler = null;
-        }
+        if (currentStep != null && currentStep.progressionType == ProgressionType.WaitForEvent)
+            GameEventManager.Instance.Unsubscribe(currentStep.eventToContinue, OnStepComplete);
     }
 
     void EndTutorial()

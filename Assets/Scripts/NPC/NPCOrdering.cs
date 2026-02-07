@@ -1,17 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using UnityEditor;
 using UnityEngine;
 
 public class NPCOrdering : MonoBehaviour
 {
     public static event System.Action<string, string> OnOrderCreated;
     public static event System.Action<string> OnOrderCompleted;
-
-    private Recipe order;
     private string customerName;
+    public Recipe order { get; private set; }
     bool orderActive = false;
 
     [SerializeField] private int minDrinks = 1;
@@ -28,13 +24,14 @@ public class NPCOrdering : MonoBehaviour
 
     private Recipe GetRandomRecipe()
     {
-        // Get unlocked recipes
-        Recipe[] allRecipes = Resources.LoadAll("Bar/Recipes", typeof(Recipe)).Cast<Recipe>().ToArray();
-        // TODO: Get unlocked recipes from RecipeController
-
-        // Get random recipe
-        int index = Random.Range(0, allRecipes.Length);
-        return allRecipes[index];
+        int currentLevel = GameManager.Instance?.currentLevel ?? 0;
+        ;
+        var unlockedRecipes = RecipeController.Instance.GetAllUnlockedRecipes(currentLevel).ToList();
+        if (unlockedRecipes.Count > 0)
+        {
+            return unlockedRecipes[Random.Range(0, unlockedRecipes.Count)];
+        }
+        return null;
     }
 
     public void CreateOrder(string customerName)
@@ -44,6 +41,8 @@ public class NPCOrdering : MonoBehaviour
         orderActive = true;
         wantsToOrderAgain = false;
         OnOrderCreated?.Invoke(customerName, order.GetDrinkName());
+        if (GameEventManager.Instance)
+            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerOrdered);
     }
 
     public void CompleteOrder()
@@ -125,8 +124,6 @@ public class NPCOrdering : MonoBehaviour
         if (recipe.GetGlass() == drink.GetGlass()) { accuracy += 0.1f; }
         return accuracy;
     }
-
-    public Recipe GetOrder() { return order; }
     public bool OrderActive() { return orderActive; }
     public bool WantsToOrderAgain() { return wantsToOrderAgain; }
     public bool HasFinishedAllDrinks() { return drinksServed >= drinkLimit; }

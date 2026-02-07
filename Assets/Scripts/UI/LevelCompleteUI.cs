@@ -17,7 +17,6 @@ public class LevelCompleteUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI MoneyMadeText;
 
     [Header("Dependencies")]
-    [SerializeField] GameEvent EventDayComplete;
     [SerializeField] RecipeController recipeController;
 
     [Header("Spacing Tweaks")]
@@ -28,14 +27,14 @@ public class LevelCompleteUI : MonoBehaviour
 
     void Awake()
     {
-        EventDayComplete.OnRaised += Show;
+        GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, Show);
         ScreenDayComplete.SetActive(false);
     }
 
     void Show()
     {
         ScreenDayComplete.SetActive(true);
-        int tier = GameManager.Instance.currentTier;
+        int tier = GameManager.Instance.currentLevel;
         List<Ingredient> unlockedIngredients = recipeController.GetIngredientsUnlockedAtLevel(tier);
         var unlockedRecipes = recipeController.GetNewlyUnlockedRecipes(tier).ToList<Recipe>();
 

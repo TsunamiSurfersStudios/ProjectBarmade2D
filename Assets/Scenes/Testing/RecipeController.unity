@@ -301,6 +301,7 @@ MonoBehaviour:
   - ingredients:
     - {fileID: 11400000, guid: 2541255d3b09bbc44bde14f0567f86b6, type: 2}
   PATH: TestBar
+  disableSingleton: 1
 --- !u!4 &367408361
 Transform:
   m_ObjectHideFlags: 0
@@ -348,6 +349,7 @@ MonoBehaviour:
   tiers:
   - ingredients: []
   PATH: TestBar
+  disableSingleton: 1
 --- !u!4 &1818079629
 Transform:
   m_ObjectHideFlags: 0
@@ -406,6 +408,7 @@ MonoBehaviour:
   - ingredients:
     - {fileID: 11400000, guid: 2541255d3b09bbc44bde14f0567f86b6, type: 2}
   PATH: TestBar
+  disableSingleton: 1
 --- !u!4 &1924994233
 Transform:
   m_ObjectHideFlags: 0
