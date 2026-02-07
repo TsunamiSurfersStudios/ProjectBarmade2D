@@ -41,7 +41,7 @@ public class OrderNode : DialogueNode
     public OrderNode(string name)
     {
         NPCText = "I'd like a " + name + ", please.";
-        playerChoices = new PlayerNode[] { new PlayerNode("Coming right .", -1)};
+        playerChoices = new PlayerNode[] { new PlayerNode("Coming right up.", -1)};
     }
 }
 
