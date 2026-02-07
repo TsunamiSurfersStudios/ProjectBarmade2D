@@ -73,11 +73,13 @@ public class TutorialManager : MonoBehaviour
                 }
                 else
                 {
-                    GameEventManager.Instance.Subscribe(step.gameEvent, () =>
+                    Action callback = null;
+                    callback = () =>
                     {
-                        GameEventManager.Instance.Unsubscribe(step.gameEvent, null);
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, callback);
                         ShowTooltip(step);
-                    });
+                    };
+                    GameEventManager.Instance.Subscribe(step.gameEvent, callback);
                 }
                 break;
 
@@ -196,10 +198,12 @@ public class TutorialManager : MonoBehaviour
 
     void SubscribeWithConditionGeneric<T>(TutorialStep step)
     {
-        Action<T> conditionalHandler = (value) =>
+        Action<T> conditionalHandler = null;
+        conditionalHandler = (value) =>
         {
             if (step.progressionCondition.Evaluate(value))
             {
+                //GameEventManager.Instance.Unsubscribe(step.eventToContinue, conditionalHandler);
                 OnStepComplete();
             }
         };
@@ -219,6 +223,8 @@ public class TutorialManager : MonoBehaviour
 
     void OnStepComplete()
     {
+        GameEventManager.Instance.Unsubscribe(currentStep.eventToContinue, OnStepComplete);
+
         if (!waitingForProgression) return;
         waitingForProgression = false;
 
