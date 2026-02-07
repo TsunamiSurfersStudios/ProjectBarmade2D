@@ -14,6 +14,8 @@ public class TutorialStep
 
     [Header("Progression")]
     public ProgressionType progressionType;
+    public EventCondition progressionCondition;
+
     [Tooltip("Use with WaitForEvent")] public GameEvent eventToContinue;
     public float autoProgressDelay = 0f;
     public Command executeOnComplete;

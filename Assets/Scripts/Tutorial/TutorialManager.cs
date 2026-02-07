@@ -28,10 +28,6 @@ public class TutorialManager : MonoBehaviour
         activeSequence = sequence;
         currentStepIndex = -1;
 
-        if (sequence.pauseGame)
-            TimeController.Instance.StopTime();
-            Time.timeScale = 0f;
-
         AdvanceToNextStep();
     }
 
@@ -64,24 +60,24 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TriggerType.WaitForEvent:
-                if (step.gameEvent == GameEventManager.GameEvent.NONE)
+                if (step.gameEvent == GameEventManager.GameEvent.NPCSpawned)
+                {
+                    Action<GameObject> callback = null;
+                    callback = (GameObject obj) =>
+                    {
+                        step.targetObject = obj;
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, callback);
+                        ShowTooltip(step);
+                    };
+                    GameEventManager.Instance.Subscribe(step.gameEvent, callback);
+                }
+                else
                 {
                     GameEventManager.Instance.Subscribe(step.gameEvent, () =>
                     {
                         GameEventManager.Instance.Unsubscribe(step.gameEvent, null);
                         ShowTooltip(step);
                     });
-                }
-                else
-                {
-                    Action<GameObject> callback = null;
-                    callback = (GameObject obj) =>
-                    {
-                        step.targetObject = obj; // Set target object from event  
-                        GameEventManager.Instance.Unsubscribe(step.gameEvent, callback);
-                        ShowTooltip(step);
-                    };
-                    GameEventManager.Instance.Subscribe(step.gameEvent, callback);
                 }
                 break;
 
@@ -150,7 +146,14 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ProgressionType.WaitForEvent:
-                GameEventManager.Instance.Subscribe(step.eventToContinue, OnStepComplete);
+                if (step.progressionCondition != null && step.progressionCondition.conditionType != EventCondition.ConditionType.None)
+                {
+                    SubscribeWithCondition(step);
+                }
+                else
+                {
+                    GameEventManager.Instance.Subscribe(step.eventToContinue, OnStepComplete);
+                }
                 break;
 
             case ProgressionType.AutoProgress:
@@ -158,6 +161,50 @@ public class TutorialManager : MonoBehaviour
                     StartCoroutine(AutoProgressCoroutine(step.autoProgressDelay));
                 break;
         }
+    }
+
+    void SubscribeWithCondition(TutorialStep step)
+    {
+        switch (step.progressionCondition.conditionType)
+        {
+            case EventCondition.ConditionType.IntEquals:
+                SubscribeWithConditionGeneric<int>(step);
+                break;
+
+            case EventCondition.ConditionType.FloatEquals:
+                SubscribeWithConditionGeneric<float>(step);
+                break;
+
+            case EventCondition.ConditionType.StringEquals:
+                SubscribeWithConditionGeneric<string>(step);
+                break;
+
+            case EventCondition.ConditionType.BoolEquals:
+                SubscribeWithConditionGeneric<bool>(step);
+                break;
+
+            case EventCondition.ConditionType.GameObjectEquals:
+                SubscribeWithConditionGeneric<GameObject>(step);
+                break;
+
+            default:
+                // Fallback to no condition
+                GameEventManager.Instance.Subscribe(step.eventToContinue, OnStepComplete);
+                break;
+        }
+    }
+
+    void SubscribeWithConditionGeneric<T>(TutorialStep step)
+    {
+        Action<T> conditionalHandler = (value) =>
+        {
+            if (step.progressionCondition.Evaluate(value))
+            {
+                OnStepComplete();
+            }
+        };
+
+        GameEventManager.Instance.Subscribe(step.eventToContinue, conditionalHandler);
     }
 
     IEnumerator AutoProgressCoroutine(float delay)

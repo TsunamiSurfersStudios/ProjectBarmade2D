@@ -14,13 +14,20 @@ public class GameEventManager : MonoBehaviour
         CustomerOrdered,
         DrinkMixingStationCollided,
         DrinkMixingStationInteracted,
+        ElementExpanded,
+        IngredientAdded,
+        IceMachineInteracted,
+        IceTrayRefilled,
+        DrinkCreated,
+        CustomerServed,
     }
 
     public enum Command
     {
         NONE, 
         SpawnNPC,
-        StartSpawning
+        StartDay,
+        HideUI
     }
 
     private static GameEventManager _instance;

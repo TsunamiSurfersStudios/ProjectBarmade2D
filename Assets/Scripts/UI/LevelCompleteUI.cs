@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class LevelCompleteUI : MonoBehaviour
 {
     [Header("UI")]
+    [SerializeField] GameObject enableMe;
     [SerializeField] GameObject ScreenDayComplete;
     [SerializeField] RectTransform unlockedIngredientsSection;
     [SerializeField] RectTransform unlockedRecipesSection;
@@ -28,11 +29,11 @@ public class LevelCompleteUI : MonoBehaviour
     void Awake()
     {
         GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, Show);
-        ScreenDayComplete.SetActive(false);
     }
 
     void Show()
     {
+        enableMe.SetActive(true);
         ScreenDayComplete.SetActive(true);
         int tier = GameManager.Instance.currentLevel;
         List<Ingredient> unlockedIngredients = recipeController.GetIngredientsUnlockedAtLevel(tier);

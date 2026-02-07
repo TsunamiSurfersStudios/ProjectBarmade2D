@@ -170,6 +170,7 @@ public class NPCController : MonoBehaviour
 
             currentDrunkness = Mathf.Clamp(currentDrunkness + finalIntoxication, 0, maxDrunk);
             toxicBar.SetDrunkness(currentDrunkness);
+            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerServed);
             Destroy(drink);
 
             //Leave the bar when done drinking

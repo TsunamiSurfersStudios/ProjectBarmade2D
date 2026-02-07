@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Unity.Plastic.Newtonsoft.Json.Bson;
 
 public enum UIElementType
 {
@@ -133,6 +134,8 @@ public class DrinkMixingUIController : MonoBehaviour
         UpdatePage(spiritArrows, spiritsButtons);
         UpdatePage(mixerArrows, mixerButtons);
         UpdatePage(glassArrows, glassButtons);  
+
+        GameEventManager.Instance.Subscribe(GameEventManager.Command.HideUI, ClosePanel);
     }
 
     #region UI Bottle Elements
@@ -208,9 +211,12 @@ public class DrinkMixingUIController : MonoBehaviour
         {
             case UIElementType.Ice:
                 drinkMixingService.AddIce();
+                GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IngredientAdded, "Ice");
                 break;
             case UIElementType.Create:
                 drinkMixingService.FinishDrink();
+                ClosePanel();
+                GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.DrinkCreated);
                 break;
             case UIElementType.Reset:
                 drinkMixingService.ResetDrink();
@@ -218,9 +224,16 @@ public class DrinkMixingUIController : MonoBehaviour
         }
         RefreshIngredientsText();
     }
+
+    void ClosePanel()
+    {
+        gameObject.SetActive(false);
+    }
+
     void ProcessClick(Ingredient ingredient, int amount)
     {
         drinkMixingService.AddIngredient(ingredient, amount);
+        GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IngredientAdded, ingredient.name);
         RefreshIngredientsText();
     }
                

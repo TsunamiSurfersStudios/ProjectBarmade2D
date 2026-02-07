@@ -74,6 +74,9 @@ public class ExpandableElement : MonoBehaviour, IPointerClickHandler, IPointerEn
             isExpanded ? expandedHeight : collapsedHeight
         ));
 
+        if (isExpanded)
+            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.ElementExpanded, gameObject.name);
+
         StartCoroutine(SwitchText());
     }
 

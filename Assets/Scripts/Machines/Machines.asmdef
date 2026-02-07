@@ -2,7 +2,8 @@
     "name": "Machines",
     "rootNamespace": "",
     "references": [
-        "GUID:ce2b47b625091bf49b1c89ae88c5f5fa"
+        "GUID:ce2b47b625091bf49b1c89ae88c5f5fa",
+        "GUID:18ced52487148a049b4ff34cbd36d265"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

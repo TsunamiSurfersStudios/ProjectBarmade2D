@@ -54,7 +54,7 @@ public class SpawnSchedule
 
     private void Start()
     {
-        StartLevel();
+        GameEventManager.Instance.Subscribe(GameEventManager.Command.StartDay, StartLevel);
     }
     void UpdateForHour(int hour)
     {
