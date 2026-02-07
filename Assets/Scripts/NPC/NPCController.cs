@@ -116,7 +116,9 @@ public class NPCController : MonoBehaviour
     {
         if (seat != null)
         {
-            seat.GetComponent<NPCObjects>().SetOccupied(false);
+            NPCObjects seatController = seat.GetComponent<NPCObjects>();
+            if (seatController != null)
+                seatController.SetOccupied(false);
             seat = leavePoint;
             destination = seat.transform.position;
         }

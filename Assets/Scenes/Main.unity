@@ -787,6 +787,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4871752029929969621, guid: f98e5814c55e35241a74b660d3f6009d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6108885420953523870, guid: f98e5814c55e35241a74b660d3f6009d, type: 3}
       propertyPath: activeSequence
       value: 
@@ -3847,7 +3851,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4946828254981162176, guid: 1adc703c19387c842bf46fefa7db0b24, type: 3}
       propertyPath: hoursOpen
-      value: 12
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4946828254981162176, guid: 1adc703c19387c842bf46fefa7db0b24, type: 3}
       propertyPath: startHour
@@ -3857,6 +3861,10 @@ PrefabInstance:
       propertyPath: npcSpawner
       value: 
       objectReference: {fileID: 215989708}
+    - target: {fileID: 4946828254981162176, guid: 1adc703c19387c842bf46fefa7db0b24, type: 3}
+      propertyPath: startOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4946828254981162176, guid: 1adc703c19387c842bf46fefa7db0b24, type: 3}
       propertyPath: bufferToStopSpawning
       value: 2

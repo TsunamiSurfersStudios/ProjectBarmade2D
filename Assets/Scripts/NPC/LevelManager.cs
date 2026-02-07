@@ -37,11 +37,12 @@ public class SpawnSchedule
     }
 }
 
-    public class LevelController : MonoBehaviour
+    public class LevelManager : MonoBehaviour
 {
     [Header("General")]
     [SerializeField][Range(0,23)] int startHour;
     [SerializeField][Range(1, 25)] int hoursOpen;
+    [SerializeField] bool startOnAwake;
     [Tooltip("Number of hours before closing to stop spawning NPCs")]
     [SerializeField] int bufferToStopSpawning = 1;
     [Header("Individual Level Controls")]
@@ -49,12 +50,24 @@ public class SpawnSchedule
 
     [SerializeField] NPCSpawner npcSpawner;
 
-    private int currLevel = 0;
+    public int currLevel { get; private set; } = 0;
     private int hoursPassed = 0;
 
+    private static LevelManager _instance;
+    public static LevelManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+                _instance = FindObjectOfType<LevelManager>();
+            return _instance;
+        }
+    }
     private void Start()
     {
         GameEventManager.Instance.Subscribe(GameEventManager.Command.StartDay, StartLevel);
+        if (startOnAwake)
+            StartLevel();
     }
     void UpdateForHour(int hour)
     {

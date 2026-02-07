@@ -14,8 +14,6 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = -1;
     private TutorialStep currentStep;
     private bool waitingForProgression = false;
-    private System.Action currentTriggerHandler;
-    private System.Action currentProgressionHandler;
 
     void Start()
     {
@@ -154,7 +152,13 @@ public class TutorialManager : MonoBehaviour
                 }
                 else
                 {
-                    GameEventManager.Instance.Subscribe(step.eventToContinue, OnStepComplete);
+                    Action callback = null;
+                    callback = () =>
+                    {
+                        GameEventManager.Instance.Unsubscribe(step.eventToContinue, callback);
+                        OnStepComplete();
+                    };
+                    GameEventManager.Instance.Subscribe(step.eventToContinue, callback);
                 }
                 break;
 
@@ -203,7 +207,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (step.progressionCondition.Evaluate(value))
             {
-                //GameEventManager.Instance.Unsubscribe(step.eventToContinue, conditionalHandler);
+                GameEventManager.Instance.Unsubscribe(step.eventToContinue, conditionalHandler);
                 OnStepComplete();
             }
         };
@@ -223,14 +227,15 @@ public class TutorialManager : MonoBehaviour
 
     void OnStepComplete()
     {
-        GameEventManager.Instance.Unsubscribe(currentStep.eventToContinue, OnStepComplete);
-
         if (!waitingForProgression) return;
         waitingForProgression = false;
 
         GameEventManager.Command command = currentStep.executeOnComplete;
         AdvanceToNextStep();
-        GameEventManager.Instance.TriggerEvent(command);
+        if (command != GameEventManager.Command.NONE)
+        {
+            GameEventManager.Instance.TriggerEvent(command);
+        }
     }
 
     void CleanupCurrentStep()

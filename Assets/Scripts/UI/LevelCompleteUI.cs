@@ -35,7 +35,7 @@ public class LevelCompleteUI : MonoBehaviour
     {
         enableMe.SetActive(true);
         ScreenDayComplete.SetActive(true);
-        int tier = GameManager.Instance.currentLevel;
+        int tier = LevelManager.Instance.currLevel;
         List<Ingredient> unlockedIngredients = recipeController.GetIngredientsUnlockedAtLevel(tier);
         var unlockedRecipes = recipeController.GetNewlyUnlockedRecipes(tier).ToList<Recipe>();
 
