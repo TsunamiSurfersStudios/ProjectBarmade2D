@@ -30,6 +30,14 @@ public class NPCDialogue : MonoBehaviour
     }
     public void StartConversation()
     {
+        //Create a new order when player starts conversation with NPC
+        //TODO: Change it to make player ask "What can I get you first?" We want player to be able to talk to NPCs without ordering right away.
+        if (orderingSystem.WantsToOrderAgain())
+        {
+            dialogueCanvas.SetActive(true);
+            CreateOrder();
+            return;
+        }
         currentNodeIndex = 0;
         dialogueCanvas.SetActive(true);
         ShowCurrentNode(); 

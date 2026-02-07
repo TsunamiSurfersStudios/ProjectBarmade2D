@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1302508302440665138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.43, y: 0.27, z: 0}
+  m_LocalPosition: {x: 0.15, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 3451729276040701891}
   - component: {fileID: 1999667677574172935}
   - component: {fileID: 7050554847071207232}
+  - component: {fileID: 4159433112007664525}
   - component: {fileID: 5651147102646050334}
   m_Layer: 3
   m_Name: PlayerBartender
@@ -218,6 +219,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+--- !u!114 &4159433112007664525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2517165572418356126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45476ee746b5e9c40a308ebecb4a99ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyText: {fileID: 0}
 --- !u!95 &5651147102646050334
 Animator:
   serializedVersion: 5

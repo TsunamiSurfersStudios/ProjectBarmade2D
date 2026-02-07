@@ -13,6 +13,19 @@ public class NPCOrdering : MonoBehaviour
     private Recipe order;
     private string customerName;
     bool orderActive = false;
+
+    [SerializeField] private int minDrinks = 1;
+    [SerializeField] private int maxDrinks = 3;
+    private int drinkLimit;
+    private int drinksServed = 0;
+    private float tab = 0f;
+    private bool wantsToOrderAgain = false;
+
+    void Awake()
+    {
+        drinkLimit = Random.Range(minDrinks, maxDrinks + 1);
+    }
+
     private Recipe GetRandomRecipe()
     {
         // Get unlocked recipes
@@ -29,6 +42,7 @@ public class NPCOrdering : MonoBehaviour
         this.customerName = customerName;
         order = GetRandomRecipe();
         orderActive = true;
+        wantsToOrderAgain = false;
         OnOrderCreated?.Invoke(customerName, order.GetDrinkName());
     }
 
@@ -36,8 +50,14 @@ public class NPCOrdering : MonoBehaviour
     {
         if (!orderActive) return;
         orderActive = false;
+        drinksServed++;
+        tab += order.GetPrice();
         OnOrderCompleted?.Invoke(customerName);
-        order = null;
+        //Make NPC order another drink
+        if (drinksServed < drinkLimit)
+        {
+            wantsToOrderAgain = true;
+        }
     }
 
     public float GetRecipeAccuracy(Recipe recipe, DrinkController drink)
@@ -108,4 +128,7 @@ public class NPCOrdering : MonoBehaviour
 
     public Recipe GetOrder() { return order; }
     public bool OrderActive() { return orderActive; }
+    public bool WantsToOrderAgain() { return wantsToOrderAgain; }
+    public bool HasFinishedAllDrinks() { return drinksServed >= drinkLimit; }
+    public float GetTab() { return tab; }
 }
