@@ -8,7 +8,10 @@ public class GameEventManager : MonoBehaviour
     {
         NONE, // Use this for uninitialized events
         LevelComplete,
-        NPCSpawned
+        NPCSpawned, 
+        CustomerCollided,
+        CustomerInteracted,
+        CustomerOrdered
     }
 
     public enum Command
@@ -61,6 +64,18 @@ public class GameEventManager : MonoBehaviour
     {
         if (events.ContainsKey(eventName) && events[eventName] is Action action)
             action?.Invoke();
+    }
+
+    public void TriggerEvent(string eventName)
+    {
+        if (Enum.TryParse(eventName, out GameEvent gameEvent))
+        {
+            TriggerEvent(gameEvent);
+        }
+        else
+        {
+            Debug.LogWarning($"GameEventManager: No GameEvent found with name {eventName}");
+        }
     }
 
     public void TriggerEvent<T>(GameEvent eventName, T arg)

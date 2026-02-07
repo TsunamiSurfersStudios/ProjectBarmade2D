@@ -12,7 +12,9 @@ public class TutorialTooltipUI : MonoBehaviour
     [SerializeField] Image highlightOverlay;
 
     private Action onClickCallback;
-    private GameObject currentTarget; // Store current target reference
+    private GameObject currentTarget;
+    private string originalSortingLayer;
+    private int originalSortingPosition;
 
     void Awake()
     {
@@ -41,13 +43,13 @@ public class TutorialTooltipUI : MonoBehaviour
         if (highlightOverlay != null)
             highlightOverlay.gameObject.SetActive(false);
 
-        // Clean up Canvas component from target
         if (currentTarget != null)
         {
-            Canvas targetCanvas = currentTarget.GetComponent<Canvas>();
-            if (targetCanvas != null)
+            SpriteRenderer targetSprite = currentTarget.GetComponent<SpriteRenderer>();
+            if (targetSprite)
             {
-                Destroy(targetCanvas);
+                targetSprite.sortingLayerName = originalSortingLayer;
+                targetSprite.sortingOrder = originalSortingPosition;
             }
         }
 
@@ -64,15 +66,7 @@ public class TutorialTooltipUI : MonoBehaviour
     {
         ResetCamera();
         
-        // Clean up Canvas from current target
-        if (currentTarget != null)
-        {
-            Canvas targetCanvas = currentTarget.GetComponent<Canvas>();
-            if (targetCanvas != null)
-            {
-                Destroy(targetCanvas);
-            }
-        }
+        
         onClickCallback?.Invoke();
     }
 
@@ -81,16 +75,15 @@ public class TutorialTooltipUI : MonoBehaviour
         FollowTarget(target);
         if (highlightOverlay != null)
         {
-
-            //Canvas targetCanvas = target.GetComponent<Canvas>();
-            //if (targetCanvas == null)
-            //{
-            //    targetCanvas = target.AddComponent<Canvas>();
-            //    targetCanvas.overrideSorting = true;
-            //}
-
-            //Canvas overlayCanvas = highlightOverlay.GetComponentInParent<Canvas>();
-            //targetCanvas.sortingOrder = (overlayCanvas?.sortingOrder ?? 0) + 1;
+            highlightOverlay.gameObject.SetActive(true);
+            SpriteRenderer targetSprite = target.GetComponent<SpriteRenderer>();
+            if (targetSprite)
+            {
+                originalSortingLayer = targetSprite.sortingLayerName;
+                originalSortingPosition = targetSprite.sortingOrder;
+                targetSprite.sortingLayerName = "UI";
+                targetSprite.sortingOrder = 100;
+            }
         }
     }
 

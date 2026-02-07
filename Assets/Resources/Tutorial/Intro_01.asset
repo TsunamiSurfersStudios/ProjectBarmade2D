@@ -33,5 +33,34 @@ MonoBehaviour:
     eventToContinue: 0
     autoProgressDelay: 0
     executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: Let's walk over to him.
+    targetObject: {fileID: 0}
+    progressionType: 1
+    eventToContinue: 3
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: 'Press E on the customer in order to interact
+
+'
+    targetObject: {fileID: 0}
+    progressionType: 1
+    eventToContinue: 4
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 3
+    tooltipText: 'Ok this is the part where I ask him what he wants. Ok brain you
+      got this!
+
+'
+    targetObject: {fileID: 0}
+    progressionType: 1
+    eventToContinue: 5
+    autoProgressDelay: 0
+    executeOnComplete: 0
   canSkip: 0
   pauseGame: 0
