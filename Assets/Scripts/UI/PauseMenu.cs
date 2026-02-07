@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     private GameObject pauseMenu;
-   
+    PlayerInteractions interactions;
+
+    [SerializeField] KeyCode KEYBIND = KeyCode.Escape;
 
     private bool isPaused;
 
@@ -21,7 +23,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KEYBIND)) {
 
             if (isPaused)
             {

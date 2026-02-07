@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour
 
     public void Settings()
     {
+        Debug.Log("Implement settings here");
         SceneManager.LoadScene("Settings");
     }
 }
