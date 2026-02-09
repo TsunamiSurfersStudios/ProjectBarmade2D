@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: Mojito
   m_EditorClassIdentifier: 
   drinkName: Mojito
-  spirits: []
+  spirits:
+  - ingredient: {fileID: 11400000, guid: afe37e77966fa144d86f2e9cbc4e10c6, type: 2}
+    milliliters: 0
   mixers:
   - ingredient: {fileID: 11400000, guid: 758647f218993534088ac2f3173b1963, type: 2}
     milliliters: 20
   - ingredient: {fileID: 11400000, guid: c3d7056f2cb09be45bea20826d1f6c4e, type: 2}
+    milliliters: 60
+  - ingredient: {fileID: 11400000, guid: 27b6ee80d72872747baabbe4694aee4a, type: 2}
+    milliliters: 60
+  - ingredient: {fileID: 11400000, guid: 0b3022ce5087f21488a553070d47160c, type: 2}
     milliliters: 60
   garnishes:
   - {fileID: 11400000, guid: c3d7056f2cb09be45bea20826d1f6c4e, type: 2}
@@ -25,4 +31,4 @@ MonoBehaviour:
   hasIce: 1
   isBlended: 0
   price: 0
-  isUnlocked: 0
+  sprite: {fileID: 0}
