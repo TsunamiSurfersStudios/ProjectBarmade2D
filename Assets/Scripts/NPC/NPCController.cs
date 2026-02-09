@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent (typeof(SpriteRenderer))]
+[RequireComponent(typeof(NPCDialogue))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPCController : MonoBehaviour
 {
     // Movement variables
@@ -27,6 +31,8 @@ public class NPCController : MonoBehaviour
     private const string HORIZONTAL = "HorizontalVal";
     private const string VERTICAL = "VerticalVal";
     private const string SPEED = "Speed";
+
+    [SerializeField] AudioClip rejectionClip; //TODO: Implement this through Sammy's audio system 
 
     // Start is called before the first frame update
     void Start()
@@ -124,23 +130,24 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        if (Input.GetMouseButton(0)) {
-            Leave();
-        }
-    }
-
     public void Interact()
     {
-        ItemHolder holder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        ItemHolder holder = ItemHolder.Instance;
+        NPCOrdering ordering = GetComponent<NPCOrdering>();
+        GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerInteracted);
         if (holder.IsEmpty())
         {
             dialogue.StartConversation();
         }
-        else
+        else if (ordering != null && ordering.OrderActive())
         {
             GiveDrink(holder.TakeObject());
+        }
+        else
+        {
+            // Reject drink
+            AudioSource audioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
+            audioSource.PlayOneShot(rejectionClip, 1.0f); // TODO: Do this through audio system
         }
     }
 
