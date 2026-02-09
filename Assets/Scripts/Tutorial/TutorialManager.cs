@@ -14,7 +14,6 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = -1;
     private TutorialStep currentStep;
     private bool waitingForProgression = false;
-    private bool hasSkipped = false;
 
     void Start()
     {
@@ -27,18 +26,16 @@ public class TutorialManager : MonoBehaviour
         activeSequence = sequence;
         currentStepIndex = -1;
 
-        tooltipUI.EnableSkip(SkipTutorial);
-
-        AdvanceToNextStep(currentStepIndex + 1);
+        AdvanceToNextStep();
     }
 
-    void AdvanceToNextStep(int nextStepIndex)
+    void AdvanceToNextStep()
     {
         // Clean up current step
         if (currentStep != null)
             CleanupCurrentStep();
 
-        currentStepIndex = nextStepIndex;
+        currentStepIndex++;
 
         if (currentStepIndex >= activeSequence.steps.Count)
         {
@@ -134,7 +131,7 @@ public class TutorialManager : MonoBehaviour
 
     void ShowTooltip(TutorialStep step)
     {
-        tooltipUI.Show(step, !hasSkipped);
+        tooltipUI.Show(step);
         SetupProgression(step);
     }
 
@@ -220,7 +217,10 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator AutoProgressCoroutine(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        if (activeSequence.pauseGame)
+            yield return new WaitForSecondsRealtime(delay);
+        else
+            yield return new WaitForSeconds(delay);
 
         OnStepComplete();
     }
@@ -231,7 +231,7 @@ public class TutorialManager : MonoBehaviour
         waitingForProgression = false;
 
         GameEventManager.Command command = currentStep.executeOnComplete;
-        AdvanceToNextStep(currentStepIndex + 1);
+        AdvanceToNextStep();
         if (command != GameEventManager.Command.NONE)
         {
             GameEventManager.Instance.TriggerEvent(command);
@@ -250,6 +250,9 @@ public class TutorialManager : MonoBehaviour
     {
         tooltipUI.Hide();
 
+        if (activeSequence.pauseGame)
+            Time.timeScale = 1f;
+
         currentStep = null;
         currentStepIndex = -1;
     }
@@ -257,9 +260,6 @@ public class TutorialManager : MonoBehaviour
     public void SkipTutorial()
     {
         if (activeSequence != null && activeSequence.canSkip)
-        {
-            hasSkipped = true;
-            AdvanceToNextStep(activeSequence.stepToSkipTo);
-        }
+            EndTutorial();
     }
 }

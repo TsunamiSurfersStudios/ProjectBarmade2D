@@ -6,5 +6,5 @@ public class TutorialSequence : ScriptableObject
 {
     public List<TutorialStep> steps;
     public bool canSkip = true;
-    public int stepToSkipTo;
+    public bool pauseGame = false; // TODO: Remove this
 }
