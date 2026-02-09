@@ -127,7 +127,7 @@ MonoBehaviour:
   - triggerType: 0
     gameEvent: 0
     tooltipText: Walk over to the drink mixing station
-    targetObject: {fileID: 0}
+    targetObject: {fileID: 1723329078031560401, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
     progressionType: 2
     progressionCondition:
       conditionType: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
       didn\u2019t even let me clean up before saying he needs XXX this week! I think
       that the rusty ice machine in the back works ... .not the worst thing people
       have consumed.\r\n"
-    targetObject: {fileID: 0}
+    targetObject: {fileID: 6850894631726771810, guid: 9f09d979829b69b4fb1e2b4f9691b194, type: 3}
     progressionType: 2
     progressionCondition:
       conditionType: 3
@@ -251,7 +251,7 @@ MonoBehaviour:
   - triggerType: 0
     gameEvent: 0
     tooltipText: Go and refill the ice tray
-    targetObject: {fileID: 0}
+    targetObject: {fileID: 5886516896920566922, guid: 3f9378a72bff95d4190f07d7d928e8eb, type: 3}
     progressionType: 2
     progressionCondition:
       conditionType: 3
@@ -312,9 +312,10 @@ MonoBehaviour:
     executeOnComplete: 0
   - triggerType: 0
     gameEvent: 0
-    tooltipText: "Ok this looks right\u2026I hope. Let's create the drink.\r\n"
+    tooltipText: "Ok this looks right\u2026I hope. Let's create the drink. Click
+      the button."
     targetObject: {fileID: 0}
-    progressionType: 0
+    progressionType: 1
     progressionCondition:
       conditionType: 0
       expectedInt: 0
@@ -322,7 +323,7 @@ MonoBehaviour:
       expectedString: Coke
       expectedBool: 0
       expectedGameObject: {fileID: 0}
-    eventToContinue: 0
+    eventToContinue: 12
     autoProgressDelay: 0
     executeOnComplete: 0
   - triggerType: 0

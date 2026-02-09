@@ -3851,7 +3851,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4946828254981162176, guid: 1adc703c19387c842bf46fefa7db0b24, type: 3}
       propertyPath: hoursOpen
-      value: 1
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4946828254981162176, guid: 1adc703c19387c842bf46fefa7db0b24, type: 3}
       propertyPath: startHour
