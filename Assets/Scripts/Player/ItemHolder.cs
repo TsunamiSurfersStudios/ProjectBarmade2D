@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ItemHolder : MonoBehaviour
 {
@@ -44,7 +45,6 @@ public class ItemHolder : MonoBehaviour
             heldObject = obj;
             obj.transform.position = transform.position;
             obj.transform.parent = transform;
-            obj.transform.localScale = Vector3.one; // fix weirdness with instantiating
 
             Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -126,5 +126,14 @@ public class ItemHolder : MonoBehaviour
         GameObject clone = Instantiate(itemPrefab);
         clone.SetActive(true);
         GiveObject(clone);
+    }
+
+    public void SwitchPosition(bool isForward = true)
+    {
+        if (heldObject != null)
+        {
+            SpriteRenderer renderer = heldObject.GetComponent<SpriteRenderer>();
+            renderer.sortingLayerName = isForward ? "ObjectInFront" : "Object";
+        }
     }
 }

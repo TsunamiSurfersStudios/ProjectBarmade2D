@@ -52,7 +52,7 @@ public class DrinkMixingService : MonoBehaviour
 
     public void ResetDrink()
     {
-        DestroyImmediate(drinkController);
+        DestroyImmediate(drinkController, true);
         StartNewDrink();
     }
 }
