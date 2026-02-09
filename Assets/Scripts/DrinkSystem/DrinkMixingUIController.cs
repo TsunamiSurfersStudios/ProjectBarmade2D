@@ -78,6 +78,9 @@ public class DrinkMixingUIController : MonoBehaviour
         { UIElementType.Mixer, "Mixers" },
         { UIElementType.Garnish, "Garnishes" }
     };
+
+    Transform parentCanvas;
+    GameObject parentObject;
     void Start()
     {
         //Draw ice and lime tray sprites
@@ -133,6 +136,11 @@ public class DrinkMixingUIController : MonoBehaviour
         UpdatePage(spiritArrows, spiritsButtons);
         UpdatePage(mixerArrows, mixerButtons);
         UpdatePage(glassArrows, glassButtons);  
+
+        GameEventManager.Instance.Subscribe(GameEventManager.Command.HideUI, ClosePanel);
+
+        parentCanvas = transform.parent;
+        parentObject = transform.parent.gameObject;
     }
 
     #region UI Bottle Elements
@@ -208,9 +216,12 @@ public class DrinkMixingUIController : MonoBehaviour
         {
             case UIElementType.Ice:
                 drinkMixingService.AddIce();
+                GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IngredientAdded, "Ice");
                 break;
             case UIElementType.Create:
                 drinkMixingService.FinishDrink();
+                ClosePanel();
+                GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.DrinkCreated);
                 break;
             case UIElementType.Reset:
                 drinkMixingService.ResetDrink();
@@ -218,9 +229,16 @@ public class DrinkMixingUIController : MonoBehaviour
         }
         RefreshIngredientsText();
     }
+
+    void ClosePanel()
+    {
+        parentObject.SetActive(false);
+    }
+
     void ProcessClick(Ingredient ingredient, int amount)
     {
         drinkMixingService.AddIngredient(ingredient, amount);
+        GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IngredientAdded, ingredient.name);
         RefreshIngredientsText();
     }
                

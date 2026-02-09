@@ -116,7 +116,9 @@ public class NPCController : MonoBehaviour
     {
         if (seat != null)
         {
-            seat.GetComponent<NPCObjects>().SetOccupied(false);
+            NPCObjects seatController = seat.GetComponent<NPCObjects>();
+            if (seatController != null)
+                seatController.SetOccupied(false);
             seat = leavePoint;
             destination = seat.transform.position;
         }
@@ -170,6 +172,7 @@ public class NPCController : MonoBehaviour
 
             currentDrunkness = Mathf.Clamp(currentDrunkness + finalIntoxication, 0, maxDrunk);
             toxicBar.SetDrunkness(currentDrunkness);
+            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerServed);
             Destroy(drink);
 
             //Leave the bar when done drinking

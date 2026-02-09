@@ -5,20 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    private GameObject pauseMenu;
+    [SerializeField] GameObject pauseMenu;
    
-
     private bool isPaused;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        pauseMenu = GameObject.Find("PauseMenu");
-        pauseMenu.SetActive(false);
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -39,7 +30,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
 
-        Time.timeScale = 1f;
+        TimeController.Instance.StartTime();
         isPaused = false;
     }
 
@@ -47,7 +38,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
 
-        Time.timeScale = 0f;
+        TimeController.Instance.StopTime();
         isPaused = true;
     }
 

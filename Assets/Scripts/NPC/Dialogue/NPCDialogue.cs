@@ -19,7 +19,7 @@ public class NPCDialogue : MonoBehaviour
     // TODO: Temporary random name assignment. Will be rewritten later.
     private static readonly string[] randomNames = { //Will be deleted
         "John Weak", "Mario Kart", "Ras Putin", "Joseph Stalin",
-        "John Doe", "Josh Sawyer", "Jane Doe", "Leon Kennedy", "Quentin Tarantino"
+        "John Doe", "Josh Sawyer", "Jane Doe", "Leon Kennedy", "Quentin Tarantino", "Your Mom"
     };
     private string npcName;//Will be deleted
 
@@ -72,7 +72,7 @@ public class NPCDialogue : MonoBehaviour
     }
     void ShowChoices(PlayerNode[] choices)
     {
-        Button[] choiceButtons = choicesPanel.GetComponentsInChildren<Button>();
+        Button[] choiceButtons = choicesPanel.GetComponentsInChildren<Button>(true);
         choicesPanel.SetActive(true);
 
         for (int i = 0; i < choiceButtons.Length; i++)

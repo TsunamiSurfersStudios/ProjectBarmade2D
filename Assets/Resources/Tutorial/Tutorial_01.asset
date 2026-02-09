@@ -1,0 +1,381 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e169b85992dcb5468deb4191c39d9d8, type: 3}
+  m_Name: Tutorial_01
+  m_EditorClassIdentifier: 
+  steps:
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Oh gods, I don't even get a second to really process the old man\u2019s
+      death because he shoveled a pile of debt on me! I don\u2019t know a lick about
+      running a bar let alone a business!"
+    targetObject: {fileID: 0}
+    progressionType: 0
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "I guess now is a good time more than ever\u2026I prefer to keep
+      my antennas on my head."
+    targetObject: {fileID: 0}
+    progressionType: 2
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 3
+    executeOnComplete: 1
+  - triggerType: 1
+    gameEvent: 2
+    tooltipText: 
+    targetObject: {fileID: 0}
+    progressionType: 2
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 3
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Oh ok ok ok\u2026deep breaths. He is just some average joe, I can
+      do this."
+    targetObject: {fileID: 0}
+    progressionType: 0
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Walk over to the customer.
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 3
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Press 'E' to Interact
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 4
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 1
+    gameEvent: 5
+    tooltipText: "Ok, What in the world is a Cuba Libre?! I can\u2019t ask him how
+      to make it. Please I am praying the old man has something in that old ancient
+      book"
+    targetObject: {fileID: 0}
+    progressionType: 0
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Walk over to the drink mixing station
+    targetObject: {fileID: 1723329078031560401, guid: 3a1d0976b9b354339aae2b036d7797f7, type: 3}
+    progressionType: 2
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 3
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Walk over to the drink mixing station
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 6
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Press E to interact with the mixing station
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: 
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 7
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Phew! Looks like the words are still legible. Let\u2019s see Cuba
+      Libre\u2026"
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 3
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: CubaLibre
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 8
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Let's add some rum
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 3
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: DarkRum
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 9
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Now some coke
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 3
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 9
+    autoProgressDelay: 0
+    executeOnComplete: 3
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Ice, Ice, Ice\u2026Of course there is no ice already stocked! Azelio
+      didn\u2019t even let me clean up before saying he needs XXX this week! I think
+      that the rusty ice machine in the back works ... .not the worst thing people
+      have consumed.\r\n"
+    targetObject: {fileID: 6850894631726771810, guid: 9f09d979829b69b4fb1e2b4f9691b194, type: 3}
+    progressionType: 2
+    progressionCondition:
+      conditionType: 3
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 3
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Walk to the ice machine and press 'E' to grab a bucket of ice
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 10
+    autoProgressDelay: 3
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Go and refill the ice tray
+    targetObject: {fileID: 5886516896920566922, guid: 3f9378a72bff95d4190f07d7d928e8eb, type: 3}
+    progressionType: 2
+    progressionCondition:
+      conditionType: 3
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 0
+    autoProgressDelay: 2
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Go and refill the ice tray
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 11
+    autoProgressDelay: 2
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Ok, I don\u2019t know how long that water has been sitting in there
+      but i will clean it out tomorrow. I am just glad it works! Let's finish making
+      this drink. Reopen the drink mixing panel."
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 7
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: Add ice
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 3
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Ice
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 9
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: "Ok this looks right\u2026I hope. Let's create the drink. Click
+      the button."
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 12
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: 'Walk over to the customer and press E to give them the drink
+
+'
+    targetObject: {fileID: 0}
+    progressionType: 1
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 13
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: 'Oh wow, that was kinda easy, but I only got XXX. I NEED XXX BY
+      THE END OF THE WEEK! THAT MEANS MORE PEOPLE! I AM SO SCREWED!
+
+'
+    targetObject: {fileID: 0}
+    progressionType: 0
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 13
+    autoProgressDelay: 0
+    executeOnComplete: 0
+  - triggerType: 0
+    gameEvent: 0
+    tooltipText: 'By now, you''ve learned the basics. Keep serving customers to make
+      as much money as you can before the day is over. '
+    targetObject: {fileID: 0}
+    progressionType: 0
+    progressionCondition:
+      conditionType: 0
+      expectedInt: 0
+      expectedFloat: 0
+      expectedString: Coke
+      expectedBool: 0
+      expectedGameObject: {fileID: 0}
+    eventToContinue: 13
+    autoProgressDelay: 0
+    executeOnComplete: 2
+  canSkip: 0
+  pauseGame: 0

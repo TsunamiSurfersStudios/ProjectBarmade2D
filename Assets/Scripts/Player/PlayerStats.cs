@@ -11,12 +11,6 @@ public class PlayerStats : MonoBehaviour
         UpdateMoneyText();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AddMoney(float amount)
     {
         money += amount;

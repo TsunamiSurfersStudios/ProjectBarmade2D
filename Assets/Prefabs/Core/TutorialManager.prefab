@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipUI: {fileID: 2494178300249078144}
-  activeSequence: {fileID: 11400000, guid: 4449c41bace2e4047bca2562899264be, type: 2}
+  activeSequence: {fileID: 11400000, guid: cba339c13a9264c4d919928ae69243ea, type: 2}
   startOnAwake: 1
 --- !u!1 &6894331301237912164
 GameObject:
