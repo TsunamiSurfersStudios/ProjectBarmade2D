@@ -10,8 +10,10 @@ public class TutorialTooltipUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI tooltipText;
     [SerializeField] Button continueButton;
     [SerializeField] Image highlightOverlay;
+    [SerializeField] Button skipButton;
 
     private Action onClickCallback;
+    private Action onSkipCallback;
     private GameObject currentTarget;
     private string originalSortingLayer;
     private int originalSortingPosition;
@@ -20,9 +22,10 @@ public class TutorialTooltipUI : MonoBehaviour
     {
         tooltipPanel.SetActive(false);
         continueButton.onClick.AddListener(OnContinueClicked);
+        skipButton.onClick.AddListener(OnSkipClicked);
     }
 
-    public void Show(TutorialStep step)
+    public void Show(TutorialStep step, bool showSkip = true)
     {
         tooltipPanel.SetActive(true);
         tooltipText.text = step.tooltipText;
@@ -34,6 +37,8 @@ public class TutorialTooltipUI : MonoBehaviour
         }
 
         continueButton.gameObject.SetActive(step.progressionType == ProgressionType.ClickToContinue);
+
+        skipButton.gameObject.SetActive(showSkip);
     }
 
     public void Hide()
@@ -63,9 +68,19 @@ public class TutorialTooltipUI : MonoBehaviour
         onClickCallback = callback;
     }
 
+    public void EnableSkip(Action callback)
+    {
+        onSkipCallback = callback;
+    }
+
     void OnContinueClicked()
     {
         onClickCallback?.Invoke();
+    }
+
+    void OnSkipClicked()
+    {
+        onSkipCallback?.Invoke();
     }
 
     void HighlightTarget(GameObject target)
