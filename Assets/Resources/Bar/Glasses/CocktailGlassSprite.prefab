@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 9220837803158217748}
   - component: {fileID: 3820473556280206576}
   - component: {fileID: 5461621226974851472}
-  - component: {fileID: 602246055258995016}
   - component: {fileID: -5241088018894657990}
   - component: {fileID: -2939474554072549054}
   - component: {fileID: 5087123041288314272}
+  - component: {fileID: 7181103285298722997}
+  - component: {fileID: 172770427401546522}
   m_Layer: 0
   m_Name: CocktailGlassSprite
   m_TagString: Untagged
@@ -162,19 +163,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15364777, y: 0.16553019}
   m_EdgeRadius: 0
---- !u!114 &602246055258995016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8318265293359288683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 0}
 --- !u!114 &-5241088018894657990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +190,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 0}
 --- !u!114 &5087123041288314272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318265293359288683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+--- !u!114 &7181103285298722997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318265293359288683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+--- !u!114 &172770427401546522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
