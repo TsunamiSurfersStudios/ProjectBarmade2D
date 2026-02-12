@@ -17,11 +17,21 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+
+        if (Application.isPlaying)
+        {
+            Application.Quit();
+        } else
+        {
+            Debug.Log("Quiting Game");
+            UnityEditor.EditorApplication.isPlaying = false;
+
+        }
+        
     }
     public void LoadGame()
     {
-        SceneManager.LoadScene("PlayTests"); // TODO: make this an actual loadgame logic 
+        SceneManager.LoadScene("PlayTests"); 
     }
     public void NewGame()
     {
