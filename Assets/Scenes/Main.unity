@@ -5587,7 +5587,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6464307623638496622, guid: 1a97960cb6c322a448369ad3e479b11d, type: 3}
       propertyPath: m_Name
-      value: PlayTest_Tilemap
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349818705794032072, guid: 1a97960cb6c322a448369ad3e479b11d, type: 3}
+      propertyPath: m_CellGap.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969530136765271875, guid: 1a97960cb6c322a448369ad3e479b11d, type: 3}
       propertyPath: m_LocalScale.x
@@ -5821,6 +5825,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7781793053896849774, guid: ff67d6e4391f6614daa8fd6208c4bf70, type: 3}
       propertyPath: NPCObject
+      value: 
+      objectReference: {fileID: 8597878169411175797}
+    - target: {fileID: 7781793053896849774, guid: ff67d6e4391f6614daa8fd6208c4bf70, type: 3}
+      propertyPath: npcObject
       value: 
       objectReference: {fileID: 8597878169411175797}
     - target: {fileID: 7781793053896849774, guid: ff67d6e4391f6614daa8fd6208c4bf70, type: 3}

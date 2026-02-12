@@ -42,6 +42,10 @@ namespace Tutorial
                 CleanupCurrentStep();
 
             currentStepIndex = nextStepIndex;
+            if (!hasSkipped && currentStepIndex >= activeSequence.stepToSkipTo)
+            {
+                hasSkipped = true;
+            }
 
             if (currentStepIndex >= activeSequence.steps.Count)
             {
