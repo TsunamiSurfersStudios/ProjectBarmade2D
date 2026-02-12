@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UIItem : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private bool isPersistable = true; // Can only edit value in Unity Editor
-
-    // Update is called once per frame
-    public void Toggle()
+    public class UIItem : MonoBehaviour
     {
-        gameObject.SetActive(!gameObject.activeSelf);
-    }
+        [SerializeField] private bool isPersistable = true; // Can only edit value in Unity Editor
 
-    public bool GetPersistableState()
-    { return isPersistable; }   
+        // Update is called once per frame
+        public void Toggle()
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
+
+        public bool GetPersistableState()
+        { return isPersistable; }   
+    }
 }

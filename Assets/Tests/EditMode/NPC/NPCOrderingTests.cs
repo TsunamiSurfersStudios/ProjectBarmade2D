@@ -1,260 +1,265 @@
 using System.Collections.Generic;
+using DrinkSystem;
+using NPC;
 using NUnit.Framework;
 using UnityEngine;
 
-public class NPCOrderingTests
+namespace Tests.EditMode.NPC
 {
-    private NPCOrdering npcOrdering;
-    private List<GameObject> testObjects;
-
-    [SetUp]
-    public void Setup()
+    public class NPCOrderingTests
     {
-        testObjects = new List<GameObject>();
-        GameObject testObject = new GameObject("TestNPCOrdering");
-        testObjects.Add(testObject);
-        npcOrdering = testObject.AddComponent<NPCOrdering>();
-    }
+        private NPCOrdering npcOrdering;
+        private List<GameObject> testObjects;
 
-    [TearDown]
-    public void TearDown()
-    {
-        foreach (GameObject obj in testObjects)
+        [SetUp]
+        public void Setup()
         {
-            if (obj != null)
+            testObjects = new List<GameObject>();
+            GameObject testObject = new GameObject("TestNPCOrdering");
+            testObjects.Add(testObject);
+            npcOrdering = testObject.AddComponent<NPCOrdering>();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            foreach (GameObject obj in testObjects)
             {
-                Object.DestroyImmediate(obj);
+                if (obj != null)
+                {
+                    Object.DestroyImmediate(obj);
+                }
             }
-        }
-        testObjects.Clear();
-    }
-
-    private List<Ingredient> CreateTestIngredients()
-    {
-        var ingredients = new List<Ingredient>();
-        ingredients.Add(Ingredient.Create("Rum", IngredientType.SPIRIT, 0.4f));
-        ingredients.Add(Ingredient.Create("Coke", IngredientType.MIXER, 0));
-        ingredients.Add(Ingredient.Create("Lime", IngredientType.GARNISH, 0));
-        ingredients.Add(Ingredient.Create("Cherry", IngredientType.GARNISH, 0));
-        return ingredients;
-    }
-
-    private Recipe CreateTestRecipe(bool hasIce = true)
-    {
-        var ingredients = CreateTestIngredients();
-        var rum = ingredients[0];
-        var coke = ingredients[1];
-        var lime = ingredients[2];
-        var cherry = ingredients[3];
-
-        List<DrinkComponent> spirits = new List<DrinkComponent> { DrinkComponent.Create(rum, 10) };
-        List<DrinkComponent> mixers = new List<DrinkComponent> { DrinkComponent.Create(coke, 10) };
-        List<Ingredient> garnishes = new List<Ingredient> {lime, cherry };
-
-        return Recipe.Create("Vodka and Coke", spirits, mixers, garnishes,
-            Glass.ROCKS, hasIce, false);
-    }
-
-    private DrinkController CreateEmptyDrink()
-    {
-        GameObject drinkObject = new GameObject("TestDrink");
-        testObjects.Add(drinkObject);
-        return drinkObject.AddComponent<DrinkController>();
-    }
-
-    private DrinkController CreateDrinkFromRecipe(Recipe recipe, int multiplier = 1)
-    {
-        DrinkController drink = CreateEmptyDrink();
-
-        // Add spirits
-        foreach (DrinkComponent spirit in recipe.GetSpirits())
-        {
-            drink.AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters() * multiplier);
+            testObjects.Clear();
         }
 
-        // Add mixers
-        foreach (DrinkComponent mixer in recipe.GetMixers())
+        private List<Ingredient> CreateTestIngredients()
         {
-            drink.AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters() * multiplier);
+            var ingredients = new List<Ingredient>();
+            ingredients.Add(Ingredient.Create("Rum", IngredientType.SPIRIT, 0.4f));
+            ingredients.Add(Ingredient.Create("Coke", IngredientType.MIXER, 0));
+            ingredients.Add(Ingredient.Create("Lime", IngredientType.GARNISH, 0));
+            ingredients.Add(Ingredient.Create("Cherry", IngredientType.GARNISH, 0));
+            return ingredients;
         }
 
-        // Add garnishes
-        foreach (Ingredient garnish in recipe.GetGarnishes())
+        private Recipe CreateTestRecipe(bool hasIce = true)
         {
-            drink.AddIngredient(garnish);
+            var ingredients = CreateTestIngredients();
+            var rum = ingredients[0];
+            var coke = ingredients[1];
+            var lime = ingredients[2];
+            var cherry = ingredients[3];
+
+            List<DrinkComponent> spirits = new List<DrinkComponent> { DrinkComponent.Create(rum, 10) };
+            List<DrinkComponent> mixers = new List<DrinkComponent> { DrinkComponent.Create(coke, 10) };
+            List<Ingredient> garnishes = new List<Ingredient> {lime, cherry };
+
+            return Recipe.Create("Vodka and Coke", spirits, mixers, garnishes,
+                Glass.ROCKS, hasIce, false);
         }
 
-        // Add ice if recipe requires it
-        if (recipe.HasIce())
+        private DrinkController CreateEmptyDrink()
         {
-            drink.AddIce();
+            GameObject drinkObject = new GameObject("TestDrink");
+            testObjects.Add(drinkObject);
+            return drinkObject.AddComponent<DrinkController>();
         }
 
-        drink.SetGlass(recipe.GetGlass());
-
-        return drink;
-    }
-
-    private DrinkController CreatePartialDrink(Recipe recipe, bool skipSpirits = false,
-        bool skipMixers = false, bool skipGarnishes = false, bool skipIce = false, bool wrongGlass = false)
-    {
-        DrinkController drink = CreateEmptyDrink();
-
-        if (!skipSpirits)
+        private DrinkController CreateDrinkFromRecipe(Recipe recipe, int multiplier = 1)
         {
+            DrinkController drink = CreateEmptyDrink();
+
+            // Add spirits
             foreach (DrinkComponent spirit in recipe.GetSpirits())
             {
-                drink.AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
+                drink.AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters() * multiplier);
             }
-        }
 
-        if (!skipMixers)
-        {
+            // Add mixers
             foreach (DrinkComponent mixer in recipe.GetMixers())
             {
-                drink.AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
+                drink.AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters() * multiplier);
             }
-        }
 
-        if (!skipGarnishes)
-        {
+            // Add garnishes
             foreach (Ingredient garnish in recipe.GetGarnishes())
             {
                 drink.AddIngredient(garnish);
             }
-        }
-        else
-        {
-            drink.AddIngredient(recipe.GetGarnishes()[0]);
-        }
 
-        if (!skipIce)
-        {
+            // Add ice if recipe requires it
             if (recipe.HasIce())
             {
                 drink.AddIce();
             }
+
+            drink.SetGlass(recipe.GetGlass());
+
+            return drink;
         }
 
-        Glass recipeGlass = recipe.GetGlass();
-        Glass glass = wrongGlass ? recipeGlass + 1 : recipeGlass;
-        drink.SetGlass(glass);
+        private DrinkController CreatePartialDrink(Recipe recipe, bool skipSpirits = false,
+            bool skipMixers = false, bool skipGarnishes = false, bool skipIce = false, bool wrongGlass = false)
+        {
+            DrinkController drink = CreateEmptyDrink();
 
-        return drink;
-    }
+            if (!skipSpirits)
+            {
+                foreach (DrinkComponent spirit in recipe.GetSpirits())
+                {
+                    drink.AddIngredient(spirit.GetIngredient(), spirit.GetMilliliters());
+                }
+            }
 
-    [Test]
-    public void GetRecipeAccuracy_EmptyDrink_ReturnsZero()
-    {
-        Recipe recipe = CreateTestRecipe();
-        DrinkController emptyDrink = CreateEmptyDrink();
+            if (!skipMixers)
+            {
+                foreach (DrinkComponent mixer in recipe.GetMixers())
+                {
+                    drink.AddIngredient(mixer.GetIngredient(), mixer.GetMilliliters());
+                }
+            }
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(recipe, emptyDrink);
+            if (!skipGarnishes)
+            {
+                foreach (Ingredient garnish in recipe.GetGarnishes())
+                {
+                    drink.AddIngredient(garnish);
+                }
+            }
+            else
+            {
+                drink.AddIngredient(recipe.GetGarnishes()[0]);
+            }
 
-        Assert.AreEqual(0, accuracy);
-    }
+            if (!skipIce)
+            {
+                if (recipe.HasIce())
+                {
+                    drink.AddIce();
+                }
+            }
 
-    [Test]
-    public void GetRecipeAccuracy_MissingIngredient()
-    {
-        Recipe testRecipe = CreateTestRecipe();
-        DrinkController drink = CreatePartialDrink(testRecipe, skipSpirits: true);
+            Glass recipeGlass = recipe.GetGlass();
+            Glass glass = wrongGlass ? recipeGlass + 1 : recipeGlass;
+            drink.SetGlass(glass);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            return drink;
+        }
 
-        Assert.AreEqual(0.65f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_EmptyDrink_ReturnsZero()
+        {
+            Recipe recipe = CreateTestRecipe();
+            DrinkController emptyDrink = CreateEmptyDrink();
 
-    [Test]
-    public void GetRecipeAccuracy_WrongIngredient() 
-    {
-        Recipe testRecipe = CreateTestRecipe();
-        DrinkController drink = CreateDrinkFromRecipe(testRecipe);
-        Ingredient vodka = Ingredient.Create("Vodka", IngredientType.SPIRIT, 0.4f);
-        drink.AddIngredient(vodka);
+            float accuracy = npcOrdering.GetRecipeAccuracy(recipe, emptyDrink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0, accuracy);
+        }
 
-        Assert.AreEqual(0.85f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_MissingIngredient()
+        {
+            Recipe testRecipe = CreateTestRecipe();
+            DrinkController drink = CreatePartialDrink(testRecipe, skipSpirits: true);
 
-    [Test]
-    public void GetRecipeAccuracy_WrongAmount() 
-    {
-        Recipe testRecipe = CreateTestRecipe();
-        DrinkController drink = CreateDrinkFromRecipe(testRecipe, 2);
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0.65f, accuracy, 0.01f);
+        }
 
-        Assert.AreEqual(0.7f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_WrongIngredient() 
+        {
+            Recipe testRecipe = CreateTestRecipe();
+            DrinkController drink = CreateDrinkFromRecipe(testRecipe);
+            Ingredient vodka = Ingredient.Create("Vodka", IngredientType.SPIRIT, 0.4f);
+            drink.AddIngredient(vodka);
 
-    [Test]
-    public void GetRecipeAccuracy_MissingGarnish() 
-    {
-        Recipe testRecipe = CreateTestRecipe();
-        DrinkController drink = CreatePartialDrink(testRecipe, skipGarnishes: true);
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0.85f, accuracy, 0.01f);
+        }
 
-        Assert.AreEqual(0.95f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_WrongAmount() 
+        {
+            Recipe testRecipe = CreateTestRecipe();
+            DrinkController drink = CreateDrinkFromRecipe(testRecipe, 2);
 
-    [Test]
-    public void GetRecipeAccuracy_IncorrectGarnish() 
-    {
-        Recipe testRecipe = CreateTestRecipe();
-        DrinkController drink = CreateDrinkFromRecipe(testRecipe);
-        Ingredient gumdrop = Ingredient.Create("Gumdrop", IngredientType.GARNISH, 0);
-        drink.AddIngredient(gumdrop);
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0.7f, accuracy, 0.01f);
+        }
 
-        Assert.AreEqual(0.95f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_MissingGarnish() 
+        {
+            Recipe testRecipe = CreateTestRecipe();
+            DrinkController drink = CreatePartialDrink(testRecipe, skipGarnishes: true);
 
-    [Test]
-    public void GetRecipeAccuracy_MissingIce() 
-    {
-        Recipe testRecipe = CreateTestRecipe();
-        DrinkController drink = CreatePartialDrink(testRecipe, skipIce: true);
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0.95f, accuracy, 0.01f);
+        }
 
-        Assert.AreEqual(0.9f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_IncorrectGarnish() 
+        {
+            Recipe testRecipe = CreateTestRecipe();
+            DrinkController drink = CreateDrinkFromRecipe(testRecipe);
+            Ingredient gumdrop = Ingredient.Create("Gumdrop", IngredientType.GARNISH, 0);
+            drink.AddIngredient(gumdrop);
 
-    [Test]
-    public void GetRecipeAccuracy_ExtraIce()
-    {
-        Recipe testRecipe = CreateTestRecipe(hasIce: false);
-        DrinkController drink = CreatePartialDrink(testRecipe);
-        drink.AddIce();
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0.95f, accuracy, 0.01f);
+        }
 
-        Assert.AreEqual(0.9f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_MissingIce() 
+        {
+            Recipe testRecipe = CreateTestRecipe();
+            DrinkController drink = CreatePartialDrink(testRecipe, skipIce: true);
 
-    [Test]
-    public void GetRecipeAccuracy_WrongGlass()
-    {
-        Recipe testRecipe = CreateTestRecipe(hasIce: false);
-        DrinkController drink = CreatePartialDrink(testRecipe, wrongGlass: true);
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0.9f, accuracy, 0.01f);
+        }
 
-        Assert.AreEqual(0.9f, accuracy, 0.01f);
-    }
+        [Test]
+        public void GetRecipeAccuracy_ExtraIce()
+        {
+            Recipe testRecipe = CreateTestRecipe(hasIce: false);
+            DrinkController drink = CreatePartialDrink(testRecipe);
+            drink.AddIce();
 
-    [Test]
-    public void GetRecipeAccuracy_PerfectDrink_ReturnsOne() 
-    {
-        Recipe testRecipe = CreateTestRecipe();
-        DrinkController drink = CreateDrinkFromRecipe(testRecipe);
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
 
-        float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+            Assert.AreEqual(0.9f, accuracy, 0.01f);
+        }
 
-        Assert.AreEqual(1f, accuracy, 0.01f);
+        [Test]
+        public void GetRecipeAccuracy_WrongGlass()
+        {
+            Recipe testRecipe = CreateTestRecipe(hasIce: false);
+            DrinkController drink = CreatePartialDrink(testRecipe, wrongGlass: true);
+
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+
+            Assert.AreEqual(0.9f, accuracy, 0.01f);
+        }
+
+        [Test]
+        public void GetRecipeAccuracy_PerfectDrink_ReturnsOne() 
+        {
+            Recipe testRecipe = CreateTestRecipe();
+            DrinkController drink = CreateDrinkFromRecipe(testRecipe);
+
+            float accuracy = npcOrdering.GetRecipeAccuracy(testRecipe, drink);
+
+            Assert.AreEqual(1f, accuracy, 0.01f);
+        }
     }
 }

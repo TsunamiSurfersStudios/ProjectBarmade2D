@@ -1,122 +1,122 @@
-using System.Collections;
-using System.Collections.Generic;
+using DrinkSystem;
 using TMPro;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NPCDialogue : MonoBehaviour
+namespace NPC.Dialogue
 {
-    [SerializeField] DialogueData dialogueData;
-    [SerializeField] GameObject dialogueCanvas;
-    [SerializeField] GameObject choicesPanel;
-    [SerializeField] TextMeshProUGUI NPCNameDisplay;
-    [SerializeField] TextMeshProUGUI NPCTextDisplay;
-
-    private NPCOrdering orderingSystem;
-    private int currentNodeIndex = 0; // Current node in the dialogue tree
-
-    // TODO: Temporary random name assignment. Will be rewritten later.
-    private static readonly string[] randomNames = { //Will be deleted
-        "John Weak", "Mario Kart", "Ras Putin", "Joseph Stalin",
-        "John Doe", "Josh Sawyer", "Jane Doe", "Leon Kennedy", "Quentin Tarantino", "Your Mom"
-    };
-    private string npcName;//Will be deleted
-
-    private void Start()
+    public class NPCDialogue : MonoBehaviour
     {
-        orderingSystem = gameObject.GetComponent<NPCOrdering>();
-        npcName = randomNames[Random.Range(0, randomNames.Length)];//Will be deleted
-    }
-    public void StartConversation()
-    {
-        //Create a new order when player starts conversation with NPC
-        //TODO: Change it to make player ask "What can I get you first?" We want player to be able to talk to NPCs without ordering right away.
-        if (orderingSystem.WantsToOrderAgain())
+        [SerializeField] DialogueData dialogueData;
+        [SerializeField] GameObject dialogueCanvas;
+        [SerializeField] GameObject choicesPanel;
+        [SerializeField] TextMeshProUGUI NPCNameDisplay;
+        [SerializeField] TextMeshProUGUI NPCTextDisplay;
+
+        private NPCOrdering orderingSystem;
+        private int currentNodeIndex = 0; // Current node in the dialogue tree
+
+        // TODO: Temporary random name assignment. Will be rewritten later.
+        private static readonly string[] randomNames = { //Will be deleted
+            "John Weak", "Mario Kart", "Ras Putin", "Joseph Stalin",
+            "John Doe", "Josh Sawyer", "Jane Doe", "Leon Kennedy", "Quentin Tarantino", "Your Mom"
+        };
+        private string npcName;//Will be deleted
+
+        private void Start()
         {
-            dialogueCanvas.SetActive(true);
-            CreateOrder();
-            return;
+            orderingSystem = gameObject.GetComponent<NPCOrdering>();
+            npcName = randomNames[Random.Range(0, randomNames.Length)];//Will be deleted
         }
-        currentNodeIndex = 0;
-        dialogueCanvas.SetActive(true);
-        ShowCurrentNode(); 
-    }
-
-    void ShowCurrentNode()
-    {
-        if (currentNodeIndex <= dialogueData.GetNodeAmount())
+        public void StartConversation()
         {
-            DialogueNode node = dialogueData.GetNode(currentNodeIndex);
-            ShowDialogue(node.GetText());
-            ShowChoices(node.getPlayerChoices());
-        }
-        else
-        {
-            HideDialogue();
-        }
-    }
-
-    void ShowDialogue(string NPCText)
-    {
-        //NPCNameDisplay.text = dialogueData.GetName(); //TODO: Refactor this to use the NPC's name from dialog data. This is just a patch to get the system working for playtesting
-        NPCNameDisplay.text = npcName;//Will be deleted
-        NPCTextDisplay.text = NPCText;
-    }
-
-    void HideDialogue()
-    {
-        dialogueCanvas.SetActive(false);  // Hides the whole dialogue panel
-        choicesPanel.SetActive(false);   // Hides the choices if they�re visible
-        //TODO: Need to make player's movement be properly enabled again after they are done talking
-    }
-    void ShowChoices(PlayerNode[] choices)
-    {
-        Button[] choiceButtons = choicesPanel.GetComponentsInChildren<Button>(true);
-        choicesPanel.SetActive(true);
-
-        for (int i = 0; i < choiceButtons.Length; i++)
-        {
-            if (i < choices.Length)
+            //Create a new order when player starts conversation with NPC
+            //TODO: Change it to make player ask "What can I get you first?" We want player to be able to talk to NPCs without ordering right away.
+            if (orderingSystem.WantsToOrderAgain())
             {
-                Button currButton = choiceButtons[i];
-                PlayerNode currChoice = choices[i];
+                dialogueCanvas.SetActive(true);
+                CreateOrder();
+                return;
+            }
+            currentNodeIndex = 0;
+            dialogueCanvas.SetActive(true);
+            ShowCurrentNode(); 
+        }
 
-                if (currChoice.BeginsOrder() && orderingSystem.OrderActive())
-                {
-                    currButton.gameObject.SetActive(false);
-                }
-                else
-                {
-                    ColorBlock colors = currButton.colors;
-                    colors.normalColor = currChoice.BeginsOrder() ? Color.yellow : Color.white;
-                    currButton.colors = colors;
-
-                    currButton.gameObject.SetActive(true);
-                    currButton.GetComponentInChildren<TextMeshProUGUI>().text = currChoice.GetChoiceText();
-                    currButton.onClick.RemoveAllListeners();
-
-
-                    int index = i;
-                    choiceButtons[i].onClick.AddListener(() => OnPlayerChoice(index));
-                }
+        void ShowCurrentNode()
+        {
+            if (currentNodeIndex <= dialogueData.GetNodeAmount())
+            {
+                DialogueNode node = dialogueData.GetNode(currentNodeIndex);
+                ShowDialogue(node.GetText());
+                ShowChoices(node.getPlayerChoices());
             }
             else
             {
-                choiceButtons[i].gameObject.SetActive(false);
+                HideDialogue();
             }
         }
-    }
 
-    void OnPlayerChoice(int nextIndex)
-    {
-        choicesPanel.SetActive(false);
-        DialogueNode currentNode = dialogueData.GetNode(currentNodeIndex) ;
-
-        if (currentNode.ChoicesNotNull() && nextIndex < currentNode.GetChoiceLength())
+        void ShowDialogue(string NPCText)
         {
+            //NPCNameDisplay.text = dialogueData.GetName(); //TODO: Refactor this to use the NPC's name from dialog data. This is just a patch to get the system working for playtesting
+            NPCNameDisplay.text = npcName;//Will be deleted
+            NPCTextDisplay.text = NPCText;
+        }
+
+        void HideDialogue()
+        {
+            dialogueCanvas.SetActive(false);  // Hides the whole dialogue panel
+            choicesPanel.SetActive(false);   // Hides the choices if they�re visible
+            //TODO: Need to make player's movement be properly enabled again after they are done talking
+        }
+        void ShowChoices(PlayerNode[] choices)
+        {
+            Button[] choiceButtons = choicesPanel.GetComponentsInChildren<Button>(true);
+            choicesPanel.SetActive(true);
+
+            for (int i = 0; i < choiceButtons.Length; i++)
+            {
+                if (i < choices.Length)
+                {
+                    Button currButton = choiceButtons[i];
+                    PlayerNode currChoice = choices[i];
+
+                    if (currChoice.BeginsOrder() && orderingSystem.OrderActive())
+                    {
+                        currButton.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        ColorBlock colors = currButton.colors;
+                        colors.normalColor = currChoice.BeginsOrder() ? Color.yellow : Color.white;
+                        currButton.colors = colors;
+
+                        currButton.gameObject.SetActive(true);
+                        currButton.GetComponentInChildren<TextMeshProUGUI>().text = currChoice.GetChoiceText();
+                        currButton.onClick.RemoveAllListeners();
+
+
+                        int index = i;
+                        choiceButtons[i].onClick.AddListener(() => OnPlayerChoice(index));
+                    }
+                }
+                else
+                {
+                    choiceButtons[i].gameObject.SetActive(false);
+                }
+            }
+        }
+
+        void OnPlayerChoice(int nextIndex)
+        {
+            choicesPanel.SetActive(false);
+            DialogueNode currentNode = dialogueData.GetNode(currentNodeIndex) ;
+
+            if (currentNode.ChoicesNotNull() && nextIndex < currentNode.GetChoiceLength())
+            {
             
-            PlayerNode playerChoice = currentNode.GetChoice(nextIndex);
+                PlayerNode playerChoice = currentNode.GetChoice(nextIndex);
                 if (playerChoice.BeginsOrder())
                 {
                     CreateOrder();
@@ -134,20 +134,21 @@ public class NPCDialogue : MonoBehaviour
                         HideDialogue();
                     }
                 }
+            }
+            else
+            {
+                HideDialogue();
+            }
         }
-        else
-        {
-            HideDialogue();
-        }
-    }
 
-    void CreateOrder()
-    {
-        orderingSystem.CreateOrder(npcName);
-        Recipe recipe = orderingSystem.order;
-        OrderNode orderNode = new OrderNode(recipe.GetDrinkName());
-        dialogueData.AddNode(orderNode);
-        currentNodeIndex = dialogueData.GetNodeAmount();
-        ShowCurrentNode();
+        void CreateOrder()
+        {
+            orderingSystem.CreateOrder(npcName);
+            Recipe recipe = orderingSystem.order;
+            OrderNode orderNode = new OrderNode(recipe.GetDrinkName());
+            dialogueData.AddNode(orderNode);
+            currentNodeIndex = dialogueData.GetNodeAmount();
+            ShowCurrentNode();
+        }
     }
 }
