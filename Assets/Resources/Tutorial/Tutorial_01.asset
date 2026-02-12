@@ -377,5 +377,5 @@ MonoBehaviour:
     eventToContinue: 13
     autoProgressDelay: 0
     executeOnComplete: 2
-  canSkip: 0
-  pauseGame: 0
+  canSkip: 1
+  stepToSkipTo: 22
