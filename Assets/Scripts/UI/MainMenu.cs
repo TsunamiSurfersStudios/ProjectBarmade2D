@@ -24,14 +24,14 @@ public class MainMenu : MonoBehaviour
         } else
         {
             Debug.Log("Quiting Game");
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
 
         }
         
     }
     public void LoadGame()
     {
-        SceneManager.LoadScene("PlayTests"); 
+        SceneManager.LoadScene("Megan"); 
     }
     public void NewGame()
     {
