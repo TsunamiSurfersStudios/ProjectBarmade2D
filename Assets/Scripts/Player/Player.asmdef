@@ -1,3 +1,6 @@
 {
-	"name": "Player"
+	"name": "Player",
+	"references": [
+		"Unity.TextMeshPro"
+	]
 }

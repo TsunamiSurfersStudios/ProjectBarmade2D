@@ -15,8 +15,36 @@ public class Tier
 }
 public class RecipeController : MonoBehaviour
 {
-    [SerializeField] Tier[] tiers;
+    [SerializeField] Tier[] tiers; // tiers (or levels) can maybe be scriptable objects
+                                   // so we can persist and easily decouple
+                                   // their data from this script. We would just need 
+                                   // to pass the tier to the methods here
+                                   // And this script itself can be static / singleton
+                                   // or even a regular class so we don't need to always
+                                   // have one in the scene
+
     [SerializeField] string PATH = "Bar"; // For testing purposes only
+
+    private static RecipeController _instance;
+    public static RecipeController Instance { get { return _instance; } }
+    [SerializeField] bool disableSingleton = false;
+
+    private void Awake()
+    {
+        if (disableSingleton)
+        {
+            return;
+        }
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(this);
+    }
 
     public bool VerifyRecipeControllerSetup()
     {

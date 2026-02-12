@@ -186,6 +186,18 @@ MonoBehaviour:
           m_StringArgument: E
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameEventManager, Core
+        m_MethodName: TriggerEvent
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CustomerCollided
+          m_BoolArgument: 0
+        m_CallState: 2
   OnBoxExit:
     m_PersistentCalls:
       m_Calls:
@@ -240,6 +252,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameEventManager, Core
+        m_MethodName: TriggerEvent
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CustomerInteracted
+          m_BoolArgument: 1
+        m_CallState: 2
   OnItemDisable:
     m_PersistentCalls:
       m_Calls:
@@ -285,6 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64abeb43c67133e478972e1cad520e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDrinks: 1
+  maxDrinks: 3
 --- !u!114 &7655391263410662640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da6dbf81b664c249ae8d345fa28ff56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.005
   animator: {fileID: 8146966839435232178}
   sobering: 0.1
   NPCTolerance: 0
@@ -505,6 +530,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3654926630249364453}
     m_Modifications:
+    - target: {fileID: 435343924108149022, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 665.598
+      objectReference: {fileID: 0}
+    - target: {fileID: 435343924108149022, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 311.6526
+      objectReference: {fileID: 0}
+    - target: {fileID: 435343924108149022, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -148.20099
+      objectReference: {fileID: 0}
+    - target: {fileID: 435343924108149022, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40.409992
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105638133749141025, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 61.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153022477470009426, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153022477470009426, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_margin.w
+      value: -17.12384
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153022477470009426, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_margin.z
+      value: -80.35028
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153022477470009426, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4331906382466896046, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -195.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480198760115056946, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -32.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5518419081798620084, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -588,6 +657,18 @@ PrefabInstance:
     - target: {fileID: 6114494038321533038, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
       propertyPath: m_Name
       value: Dialogue Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080246824873010874, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_text
+      value: Leon Kennedy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080246824873010874, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_margin.y
+      value: -3.9516602
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080246824873010874, guid: ed8dc11f5ec65dc48aef4042aeb03fc8, type: 3}
+      propertyPath: m_margin.z
+      value: -105.37851
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

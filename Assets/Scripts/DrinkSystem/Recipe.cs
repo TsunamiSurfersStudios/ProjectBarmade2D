@@ -14,6 +14,7 @@ public class Recipe : ScriptableObject
     [SerializeField] bool isBlended; // Don't delete field. To be implemented
     [Header("Sale Info")]
     [SerializeField] float price = 0f;
+    [SerializeField] public Sprite sprite;
 
     bool isUnlocked = false; // TODO: may deprecate this field because of RecipeContoller 
     public bool getUnlocked()
@@ -37,6 +38,7 @@ public class Recipe : ScriptableObject
         return price * multiplier;
     }
 
+    public float GetPrice() { return price; }
     public string GetDrinkName() { return drinkName; }
     public List<DrinkComponent> GetSpirits() { return spirits; }
     public List<DrinkComponent> GetMixers() {  return mixers; }

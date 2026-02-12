@@ -43,9 +43,9 @@ public class IceTray : MonoBehaviour
 
     public void CheckForIce()
     {
-        ItemHolder holder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        ItemHolder holder = ItemHolder.Instance;
         GameObject ice = holder.TakeObject();
-        if (ice && ice.name == "Ice" )
+        if (ice != null && ice.CompareTag("IceBucket"))
         {
             Destroy(ice);
             RefillTray();
@@ -64,6 +64,7 @@ public class IceTray : MonoBehaviour
             trayVolume = trayCapacity;
         }
         Debug.Log("Ice Tray Refilled");
+        GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IceTrayRefilled);
     }
 
     public void EmptyTray(float amount = 100)

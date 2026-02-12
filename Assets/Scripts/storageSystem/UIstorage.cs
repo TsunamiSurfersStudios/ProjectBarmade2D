@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIstorage : MonoBehaviour
+public class StorageUI : MonoBehaviour
 {
     public ScrollRect scrollRect;
     public int totalPages = 3; // total number of pages
