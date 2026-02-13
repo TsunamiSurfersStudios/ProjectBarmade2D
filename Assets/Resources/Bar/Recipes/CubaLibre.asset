@@ -27,4 +27,4 @@ MonoBehaviour:
   hasIce: 1
   isBlended: 0
   price: 5.99
-  sprite: {fileID: 0}
+  sprite: {fileID: -1587729471679504477, guid: 2b2e3f489ee44634f952c43fdcf1ec0b, type: 3}
