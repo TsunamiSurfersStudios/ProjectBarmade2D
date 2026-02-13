@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class LevelCompleteUI : MonoBehaviour
 {
     [Header("UI")]
+    [SerializeField] GameObject enableMe;
     [SerializeField] GameObject ScreenDayComplete;
     [SerializeField] RectTransform unlockedIngredientsSection;
     [SerializeField] RectTransform unlockedRecipesSection;
@@ -17,7 +18,6 @@ public class LevelCompleteUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI MoneyMadeText;
 
     [Header("Dependencies")]
-    [SerializeField] GameEvent EventDayComplete;
     [SerializeField] RecipeController recipeController;
 
     [Header("Spacing Tweaks")]
@@ -28,14 +28,14 @@ public class LevelCompleteUI : MonoBehaviour
 
     void Awake()
     {
-        EventDayComplete.OnRaised += Show;
-        ScreenDayComplete.SetActive(false);
+        GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, Show);
     }
 
     void Show()
     {
+        enableMe.SetActive(true);
         ScreenDayComplete.SetActive(true);
-        int tier = GameManager.Instance.currentTier;
+        int tier = LevelManager.Instance.currLevel;
         List<Ingredient> unlockedIngredients = recipeController.GetIngredientsUnlockedAtLevel(tier);
         var unlockedRecipes = recipeController.GetNewlyUnlockedRecipes(tier).ToList<Recipe>();
 

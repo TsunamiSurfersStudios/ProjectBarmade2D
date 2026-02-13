@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Freezer : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] GameObject bucket;
     public void GetIce()
     {
-        ItemHolder holder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
-        Debug.Log("Refilling from ice machine");
-        GameObject ice = new GameObject("Ice"); // TODO: we should not be using name to check if it is ice or not
-        holder.GiveObject(ice);
+        ItemHolder holder = ItemHolder.Instance;
+
+        if (holder && holder.IsEmpty())
+        {
+            holder.Spawn(bucket);
+            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IceMachineInteracted);
+        }
     }
 }

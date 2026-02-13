@@ -1,60 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Events;
-using System.Collections.Generic;
-using static GameEventManager;
-
-[System.Serializable]
-public class TutorialStep
-{
-    [Header("Trigger Conditions")]
-    public TriggerType triggerType;
-    public GameEvent gameEvent; 
-
-    [Header("Tooltip")]
-    public string tooltipText;
-    public Vector2 tooltipPosition;
-    public TooltipAnchor anchor = TooltipAnchor.Center;
-    public GameObject targetObject; 
-
-    [Header("Progression")]
-    public ProgressionType progressionType;
-    public GameEvent progressionEventName; 
-    public float autoProgressDelay = 0f; 
-}
-
-public enum TriggerType
-{
-    Immediate,      // Starts right away
-    WaitForEvent,   // Waits for a game event
-    Manual          // Triggered by code
-}
-
-public enum ProgressionType
-{
-    ClickToContinue,    // Click anywhere or on tooltip
-    WaitForEvent,       // Wait for specific game event
-    AutoProgress        // Time-based
-}
-
-public enum TooltipAnchor
-{
-    TopLeft, Top, TopRight,
-    Left, Center, Right,
-    BottomLeft, Bottom, BottomRight,
-    FollowTarget // Follow the targetObject
-}
-
-/*******************************************************************************************************/
-[CreateAssetMenu(fileName = "NewTutorialSequence", menuName = "Tutorial/Tutorial Sequence")]
-public class TutorialSequence : ScriptableObject
-{
-    public List<TutorialStep> steps;
-    public bool canSkip = true;
-    public bool pauseGame = false; // TODO: Remove this
-}
-
-/*******************************************************************************************************/
+using System;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -68,8 +14,6 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = -1;
     private TutorialStep currentStep;
     private bool waitingForProgression = false;
-    private System.Action currentTriggerHandler;
-    private System.Action currentProgressionHandler;
 
     void Start()
     {
@@ -81,9 +25,6 @@ public class TutorialManager : MonoBehaviour
     {
         activeSequence = sequence;
         currentStepIndex = -1;
-
-        if (sequence.pauseGame)
-            Time.timeScale = 0f;
 
         AdvanceToNextStep();
     }
@@ -108,6 +49,8 @@ public class TutorialManager : MonoBehaviour
 
     void ExecuteStep(TutorialStep step)
     {
+        ResolvePrefabToInstance(step);
+
         switch (step.triggerType)
         {
             case TriggerType.Immediate:
@@ -115,20 +58,75 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TriggerType.WaitForEvent:
-                if (step.gameEvent != null)
+                if (step.gameEvent == GameEventManager.GameEvent.NPCSpawned)
                 {
-                    currentTriggerHandler = () => {
-                        step.gameEvent.OnRaised -= currentTriggerHandler;
-                        currentTriggerHandler = null;
+                    Action<GameObject> callback = null;
+                    callback = (GameObject obj) =>
+                    {
+                        step.targetObject = obj;
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, callback);
                         ShowTooltip(step);
                     };
-                    step.gameEvent.OnRaised += currentTriggerHandler;
+                    GameEventManager.Instance.Subscribe(step.gameEvent, callback);
+                }
+                else
+                {
+                    Action callback = null;
+                    callback = () =>
+                    {
+                        GameEventManager.Instance.Unsubscribe(step.gameEvent, callback);
+                        ShowTooltip(step);
+                    };
+                    GameEventManager.Instance.Subscribe(step.gameEvent, callback);
                 }
                 break;
 
             case TriggerType.Manual:
                 break;
         }
+    }
+
+    void ResolvePrefabToInstance(TutorialStep step)
+    {
+        if (step.targetObject == null)
+            return;
+
+        // Check if the target object is a prefab (not in scene)
+        if (!step.targetObject.scene.IsValid())
+        {
+            // It's a prefab, find an instance in the scene
+            GameObject instance = FindInstanceOfPrefab(step.targetObject);
+
+            if (instance != null)
+            {
+                step.targetObject = instance;
+                Debug.Log($"Tutorial: Resolved prefab to scene instance: {instance.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Tutorial: Could not find instance of prefab '{step.targetObject.name}' in scene");
+            }
+        }
+    }
+
+    GameObject FindInstanceOfPrefab(GameObject prefab)
+    {
+        // Get the prefab's name
+        string prefabName = prefab.name;
+
+        // Find all objects with the same name
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in allObjects)
+        {
+            // Check if this object's name matches (Unity removes "(Clone)" suffix automatically in obj.name comparison)
+            if (obj.name.Replace("(Clone)", "").Trim() == prefabName)
+            {
+                return obj;
+            }
+        }
+
+        return null;
     }
 
     void ShowTooltip(TutorialStep step)
@@ -148,10 +146,19 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case ProgressionType.WaitForEvent:
-                if (step.progressionEventName != null)
+                if (step.progressionCondition != null && step.progressionCondition.conditionType != EventCondition.ConditionType.None)
                 {
-                    currentProgressionHandler = OnStepComplete;
-                    step.progressionEventName.OnRaised += currentProgressionHandler;
+                    SubscribeWithCondition(step);
+                }
+                else
+                {
+                    Action callback = null;
+                    callback = () =>
+                    {
+                        GameEventManager.Instance.Unsubscribe(step.eventToContinue, callback);
+                        OnStepComplete();
+                    };
+                    GameEventManager.Instance.Subscribe(step.eventToContinue, callback);
                 }
                 break;
 
@@ -160,6 +167,52 @@ public class TutorialManager : MonoBehaviour
                     StartCoroutine(AutoProgressCoroutine(step.autoProgressDelay));
                 break;
         }
+    }
+
+    void SubscribeWithCondition(TutorialStep step)
+    {
+        switch (step.progressionCondition.conditionType)
+        {
+            case EventCondition.ConditionType.IntEquals:
+                SubscribeWithConditionGeneric<int>(step);
+                break;
+
+            case EventCondition.ConditionType.FloatEquals:
+                SubscribeWithConditionGeneric<float>(step);
+                break;
+
+            case EventCondition.ConditionType.StringEquals:
+                SubscribeWithConditionGeneric<string>(step);
+                break;
+
+            case EventCondition.ConditionType.BoolEquals:
+                SubscribeWithConditionGeneric<bool>(step);
+                break;
+
+            case EventCondition.ConditionType.GameObjectEquals:
+                SubscribeWithConditionGeneric<GameObject>(step);
+                break;
+
+            default:
+                // Fallback to no condition
+                GameEventManager.Instance.Subscribe(step.eventToContinue, OnStepComplete);
+                break;
+        }
+    }
+
+    void SubscribeWithConditionGeneric<T>(TutorialStep step)
+    {
+        Action<T> conditionalHandler = null;
+        conditionalHandler = (value) =>
+        {
+            if (step.progressionCondition.Evaluate(value))
+            {
+                GameEventManager.Instance.Unsubscribe(step.eventToContinue, conditionalHandler);
+                OnStepComplete();
+            }
+        };
+
+        GameEventManager.Instance.Subscribe(step.eventToContinue, conditionalHandler);
     }
 
     IEnumerator AutoProgressCoroutine(float delay)
@@ -177,18 +230,20 @@ public class TutorialManager : MonoBehaviour
         if (!waitingForProgression) return;
         waitingForProgression = false;
 
+        GameEventManager.Command command = currentStep.executeOnComplete;
         AdvanceToNextStep();
+        if (command != GameEventManager.Command.NONE)
+        {
+            GameEventManager.Instance.TriggerEvent(command);
+        }
     }
 
     void CleanupCurrentStep()
     {
         tooltipUI.Hide();
 
-        if (currentStep != null && currentStep.progressionType == ProgressionType.WaitForEvent && currentStep.progressionEventName != null)
-        {
-            currentStep.progressionEventName.OnRaised -= currentProgressionHandler;
-            currentProgressionHandler = null;
-        }
+        if (currentStep != null && currentStep.progressionType == ProgressionType.WaitForEvent)
+            GameEventManager.Instance.Unsubscribe(currentStep.eventToContinue, OnStepComplete);
     }
 
     void EndTutorial()

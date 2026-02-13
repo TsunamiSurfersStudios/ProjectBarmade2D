@@ -9,6 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb26a53d24ca38642a956305c95d62d9, type: 3}
-  m_Name: DayCompleteEvent
+  m_Script: {fileID: 11500000, guid: 51d94bb90aeb17e4d9729317423851e9, type: 3}
+  m_Name: ClubSoda
   m_EditorClassIdentifier: 
+  ingredientName: Club Soda
+  type: 1
+  alcoholPercentage: 0
+  sprite: {fileID: 0}
+  icon: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}

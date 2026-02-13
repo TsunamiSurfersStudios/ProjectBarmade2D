@@ -25,7 +25,7 @@ public class SpawnSchedule
     [SerializeField] int defaultMinWait = 10;
     [SerializeField] int defaultMaxWait = 20;
     [SerializeField] List<SpawnRate> spawnRates;
-
+    [SerializeField] public bool spawnOnStart { get; private set; } = true ;
     public List<SpawnRate> GetSpawnRates()
     {
         return spawnRates;
@@ -37,11 +37,12 @@ public class SpawnSchedule
     }
 }
 
-    public class LevelController : MonoBehaviour
+    public class LevelManager : MonoBehaviour
 {
     [Header("General")]
     [SerializeField][Range(0,23)] int startHour;
     [SerializeField][Range(1, 25)] int hoursOpen;
+    [SerializeField] bool startOnAwake;
     [Tooltip("Number of hours before closing to stop spawning NPCs")]
     [SerializeField] int bufferToStopSpawning = 1;
     [Header("Individual Level Controls")]
@@ -49,12 +50,24 @@ public class SpawnSchedule
 
     [SerializeField] NPCSpawner npcSpawner;
 
-    private int currLevel = 0;
+    public int currLevel { get; private set; } = 0;
     private int hoursPassed = 0;
 
+    private static LevelManager _instance;
+    public static LevelManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+                _instance = FindObjectOfType<LevelManager>();
+            return _instance;
+        }
+    }
     private void Start()
     {
-        StartLevel();
+        GameEventManager.Instance.Subscribe(GameEventManager.Command.StartDay, StartLevel);
+        if (startOnAwake)
+            StartLevel();
     }
     void UpdateForHour(int hour)
     {
@@ -66,10 +79,7 @@ public class SpawnSchedule
         }
         if (hoursPassed >= hoursOpen) // Check Day Over
         {
-            TimeController.Instance.OnHourChanged -= UpdateForHour;
-            TimeController.Instance.StopTime();
-            currLevel++;
-            // Level up here
+            EndLevel();
             return;
         }
         UpdateSpawnWaitTimes();
@@ -96,12 +106,22 @@ public class SpawnSchedule
         TimeController.Instance.StartTime(startHour);
         TimeController.Instance.OnHourChanged += UpdateForHour;
         UpdateSpawnWaitTimes();
-        npcSpawner.StartSpawning();
+        if (currLevel < spawnSchedules.Count)
+        {
+            SpawnSchedule currSchedule = spawnSchedules[currLevel];
+            if (currSchedule.spawnOnStart)
+                npcSpawner.StartSpawning();
+        }
+            
     }
 
-    public int GetCurrentLevel()
+    private void EndLevel()
     {
-        return currLevel;
+        TimeController.Instance.OnHourChanged -= UpdateForHour;
+        TimeController.Instance.StopTime();
+        npcSpawner.EndDay();
+        currLevel++;
+        GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.LevelComplete);
     }
 }
 

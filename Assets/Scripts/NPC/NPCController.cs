@@ -1,7 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent (typeof(SpriteRenderer))]
+[RequireComponent(typeof(NPCDialogue))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPCController : MonoBehaviour
 {
     // Movement variables
@@ -28,6 +31,8 @@ public class NPCController : MonoBehaviour
     private const string HORIZONTAL = "HorizontalVal";
     private const string VERTICAL = "VerticalVal";
     private const string SPEED = "Speed";
+
+    [SerializeField] AudioClip rejectionClip; //TODO: Implement this through Sammy's audio system 
 
     // Start is called before the first frame update
     void Start()
@@ -117,29 +122,32 @@ public class NPCController : MonoBehaviour
     {
         if (seat != null)
         {
-            seat.GetComponent<NPCObjects>().SetOccupied(false);
+            NPCObjects seatController = seat.GetComponent<NPCObjects>();
+            if (seatController != null)
+                seatController.SetOccupied(false);
             seat = leavePoint;
             destination = seat.transform.position;
         }
     }
 
-    private void OnMouseDown()
-    {
-        if (Input.GetMouseButton(0)) {
-            Leave();
-        }
-    }
-
     public void Interact()
     {
-        ItemHolder holder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        ItemHolder holder = ItemHolder.Instance;
+        NPCOrdering ordering = GetComponent<NPCOrdering>();
+        GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerInteracted);
         if (holder.IsEmpty())
         {
             dialogue.StartConversation();
         }
-        else
+        else if (ordering != null && ordering.OrderActive())
         {
             GiveDrink(holder.TakeObject());
+        }
+        else
+        {
+            // Reject drink
+            AudioSource audioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
+            audioSource.PlayOneShot(rejectionClip, 1.0f); // TODO: Do this through audio system
         }
     }
 
@@ -148,6 +156,22 @@ public class NPCController : MonoBehaviour
         DrinkController drinkController = drink.GetComponent<DrinkController>();
         if (drinkController)
         {
+            NPCOrdering ordering = GetComponent<NPCOrdering>();
+            if (ordering != null && ordering.OrderActive())
+            {
+                ordering.CompleteOrder();
+
+                //Pay up the tab after finishing all drinks
+                if (ordering.HasFinishedAllDrinks())
+                {
+                    PlayerStats playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+                    if (playerStats != null)
+                    {
+                        playerStats.AddMoney(ordering.GetTab());
+                    }
+                }
+            }
+
             float alcoholPercentage = drinkController.GetAlcoholPercentage();
             float initalIntoxication = UnityEngine.Random.Range(5, alcoholPercentage);
             float reducedIntoxication = initalIntoxication * NPCTolerance; 
@@ -155,7 +179,14 @@ public class NPCController : MonoBehaviour
 
             currentDrunkness = Mathf.Clamp(currentDrunkness + finalIntoxication, 0, maxDrunk);
             toxicBar.SetDrunkness(currentDrunkness);
+            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.CustomerServed);
             Destroy(drink);
+
+            //Leave the bar when done drinking
+            if (ordering != null && ordering.HasFinishedAllDrinks())
+            {
+                Leave();
+            }
         }
         else
         {
