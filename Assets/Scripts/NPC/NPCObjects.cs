@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCObjects : MonoBehaviour // TODO: Is there a better classname? I believe this is only being used on SeatObjects
+namespace NPC
 {
-    public bool occupied = false;
-
-    public void SetOccupied(bool isOccupied)
+    public class NPCObjects : MonoBehaviour // TODO: Is there a better classname? I believe this is only being used on SeatObjects
     {
-        occupied = isOccupied;
-    }
+        public bool occupied = false;
 
-    public bool GetOccupied()
-    {
-        return occupied;
+        public void SetOccupied(bool isOccupied)
+        {
+            occupied = isOccupied;
+        }
+
+        public bool GetOccupied()
+        {
+            return occupied;
+        }
     }
 }

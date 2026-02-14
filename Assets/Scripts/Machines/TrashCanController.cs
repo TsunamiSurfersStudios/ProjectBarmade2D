@@ -1,58 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
-public class TrashCanController : MonoBehaviour
+namespace Machines
 {
-    [SerializeField] int MAXFILL = 100;
-    [SerializeField] int TRASHPERINTERACTION = 10;
-    [SerializeField] GameObject trashBag;
-
-    int currentFill = 0;
-    Animator mAnimator;
-    ItemHolder itemHolder;
-    void Start()
+    public class TrashCanController : MonoBehaviour
     {
-        mAnimator = GetComponent<Animator>();
-        if (!mAnimator)
-        {
-            Debug.LogWarning("TrashCanController: No animator found on " + gameObject.name);
-        }
-        itemHolder = GameObject.FindFirstObjectByType<ItemHolder>();
-        if (!itemHolder)
-        {
-            Debug.LogWarning("TrashCanController: No ItemHolder found in scene.");
-        }
-    }
+        [SerializeField] int MAXFILL = 100;
+        [SerializeField] int TRASHPERINTERACTION = 10;
+        [SerializeField] GameObject trashBag;
 
-    public void UseTrash()
-    {
-        if (itemHolder && itemHolder.IsEmpty())
+        int currentFill = 0;
+        Animator mAnimator;
+        ItemHolder itemHolder;
+        void Start()
         {
-            EmptyTrash();
+            mAnimator = GetComponent<Animator>();
+            if (!mAnimator)
+            {
+                Debug.LogWarning("TrashCanController: No animator found on " + gameObject.name);
+            }
+            itemHolder = GameObject.FindFirstObjectByType<ItemHolder>();
+            if (!itemHolder)
+            {
+                Debug.LogWarning("TrashCanController: No ItemHolder found in scene.");
+            }
         }
-        else
-        {
-            AddTrash();
-        }
-        mAnimator.SetTrigger("Close");
-    }
 
-    void AddTrash()
-    {
-        itemHolder.DestroyObject();
-        currentFill += TRASHPERINTERACTION;
-        mAnimator.SetInteger("Garbage", currentFill);
-        if (currentFill >= MAXFILL)
+        public void UseTrash()
         {
-            Debug.Log("Trash can is full");
+            if (itemHolder && itemHolder.IsEmpty())
+            {
+                EmptyTrash();
+            }
+            else
+            {
+                AddTrash();
+            }
+            mAnimator.SetTrigger("Close");
         }
-    }
+
+        void AddTrash()
+        {
+            itemHolder.DestroyObject();
+            currentFill += TRASHPERINTERACTION;
+            mAnimator.SetInteger("Garbage", currentFill);
+            if (currentFill >= MAXFILL)
+            {
+                Debug.Log("Trash can is full");
+            }
+        }
     
-    void EmptyTrash()
-    {
-        itemHolder.Spawn(trashBag);
-        currentFill = 0;
-        mAnimator.SetInteger("Garbage", 0);
+        void EmptyTrash()
+        {
+            itemHolder.Spawn(trashBag);
+            currentFill = 0;
+            mAnimator.SetInteger("Garbage", 0);
+        }
     }
 }

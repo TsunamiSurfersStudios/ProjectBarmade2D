@@ -1,30 +1,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ToxicBar : MonoBehaviour
+namespace NPC
 {
-    public Slider slider;
-    public Image fill;
-    public Gradient gradient;
-    public Animator faceAnimator;
-    public float maxDrunkness = 100f;
-
-    private void Start()
+    public class ToxicBar : MonoBehaviour
     {
-        SetMaxDrunkness(maxDrunkness);
-    }
+        public Slider slider;
+        public Image fill;
+        public Gradient gradient;
+        public Animator faceAnimator;
+        public float maxDrunkness = 100f;
 
-    public void SetMaxDrunkness(float toxic)
-    {
-        slider.maxValue = toxic;
-        slider.value = 0;
-        fill.color = gradient.Evaluate(0f);
-    }
+        private void Start()
+        {
+            SetMaxDrunkness(maxDrunkness);
+        }
 
-    public void SetDrunkness(float toxic)
-    {
-        slider.value = toxic;
-        fill.color = gradient.Evaluate(slider.normalizedValue);
-        faceAnimator.SetFloat("drunkness", toxic);
+        public void SetMaxDrunkness(float toxic)
+        {
+            slider.maxValue = toxic;
+            slider.value = 0;
+            fill.color = gradient.Evaluate(0f);
+        }
+
+        public void SetDrunkness(float toxic)
+        {
+            slider.value = toxic;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+            faceAnimator.SetFloat("drunkness", toxic);
+        }
     }
 }

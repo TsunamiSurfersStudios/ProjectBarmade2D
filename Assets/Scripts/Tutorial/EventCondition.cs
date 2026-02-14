@@ -1,51 +1,54 @@
 using UnityEngine;
 
-[System.Serializable]
-public class EventCondition
+namespace Tutorial
 {
-    public enum ConditionType
+    [System.Serializable]
+    public class EventCondition
     {
-        None,           // No condition checking
-        IntEquals,
-        FloatEquals,
-        StringEquals,
-        BoolEquals,
-        GameObjectEquals
-    }
-
-    public ConditionType conditionType = ConditionType.None;
-
-    // Expected values (set in inspector)
-    public int expectedInt;
-    public float expectedFloat;
-    public string expectedString;
-    public bool expectedBool;
-    public GameObject expectedGameObject;
-
-    public bool Evaluate(object actualValue)
-    {
-        if (conditionType == ConditionType.None)
-            return true; // No condition = always pass
-
-        switch (conditionType)
+        public enum ConditionType
         {
-            case ConditionType.IntEquals:
-                return actualValue is int intVal && intVal == expectedInt;
+            None,           // No condition checking
+            IntEquals,
+            FloatEquals,
+            StringEquals,
+            BoolEquals,
+            GameObjectEquals
+        }
 
-            case ConditionType.FloatEquals:
-                return actualValue is float floatVal && Mathf.Approximately(floatVal, expectedFloat);
+        public ConditionType conditionType = ConditionType.None;
 
-            case ConditionType.StringEquals:
-                return actualValue is string strVal && strVal == expectedString;
+        // Expected values (set in inspector)
+        public int expectedInt;
+        public float expectedFloat;
+        public string expectedString;
+        public bool expectedBool;
+        public GameObject expectedGameObject;
 
-            case ConditionType.BoolEquals:
-                return actualValue is bool boolVal && boolVal == expectedBool;
+        public bool Evaluate(object actualValue)
+        {
+            if (conditionType == ConditionType.None)
+                return true; // No condition = always pass
 
-            case ConditionType.GameObjectEquals:
-                return actualValue is GameObject objVal && objVal == expectedGameObject;
+            switch (conditionType)
+            {
+                case ConditionType.IntEquals:
+                    return actualValue is int intVal && intVal == expectedInt;
 
-            default:
-                return true;
+                case ConditionType.FloatEquals:
+                    return actualValue is float floatVal && Mathf.Approximately(floatVal, expectedFloat);
+
+                case ConditionType.StringEquals:
+                    return actualValue is string strVal && strVal == expectedString;
+
+                case ConditionType.BoolEquals:
+                    return actualValue is bool boolVal && boolVal == expectedBool;
+
+                case ConditionType.GameObjectEquals:
+                    return actualValue is GameObject objVal && objVal == expectedGameObject;
+
+                default:
+                    return true;
+            }
         }
     }
 }

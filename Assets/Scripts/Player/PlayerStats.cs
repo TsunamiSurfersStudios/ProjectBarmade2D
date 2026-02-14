@@ -1,36 +1,39 @@
 using TMPro;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+namespace Player
 {
-    private float money = 0;
-    [SerializeField] TextMeshProUGUI moneyText;
-
-    void Start()
+    public class PlayerStats : MonoBehaviour
     {
-        UpdateMoneyText();
-    }
+        private float money = 0;
+        [SerializeField] TextMeshProUGUI moneyText;
 
-    public void AddMoney(float amount)
-    {
-        money += amount;
-        UpdateMoneyText();
-    }
+        void Start()
+        {
+            UpdateMoneyText();
+        }
 
-    public void RemoveMoney(float amount)
-    {
-        money -= amount;
-        UpdateMoneyText();
-    }
+        public void AddMoney(float amount)
+        {
+            money += amount;
+            UpdateMoneyText();
+        }
 
-    public float GetMoney()
-    {
-        return money;
-    }
+        public void RemoveMoney(float amount)
+        {
+            money -= amount;
+            UpdateMoneyText();
+        }
 
-    private void UpdateMoneyText()
-    {
-        if (moneyText != null)
-            moneyText.text = "$" + money.ToString("0.00");
+        public float GetMoney()
+        {
+            return money;
+        }
+
+        private void UpdateMoneyText()
+        {
+            if (moneyText != null)
+                moneyText.text = "$" + money.ToString("0.00");
+        }
     }
 }

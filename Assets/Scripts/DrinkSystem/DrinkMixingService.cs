@@ -1,58 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DrinkMixingService : MonoBehaviour
+namespace DrinkSystem
 {
-    private DrinkController drinkController;
-    [SerializeField] GameObject starterDrink; // TODO: Use different glass types instead
-    public void StartNewDrink()
+    public class DrinkMixingService : MonoBehaviour
     {
-        if (!starterDrink)
+        private DrinkController drinkController;
+        [SerializeField] GameObject starterDrink; // TODO: Use different glass types instead
+        public void StartNewDrink()
         {
-            Debug.LogError("No starter drink prefab assigned to DrinkMixingService.");
-            return;
-        }
+            if (!starterDrink)
+            {
+                Debug.LogError("No starter drink prefab assigned to DrinkMixingService.");
+                return;
+            }
         
-        starterDrink.AddComponent<DrinkController>();
-        drinkController = starterDrink.GetComponent<DrinkController>();
+            starterDrink.AddComponent<DrinkController>();
+            drinkController = starterDrink.GetComponent<DrinkController>();
 
-        if (drinkController == null)
-        {
-            Debug.LogError("Failed to add DrinkController to the new drink instance.");
+            if (drinkController == null)
+            {
+                Debug.LogError("Failed to add DrinkController to the new drink instance.");
+            }
         }
-    }
 
 
-    public void AddIngredient(Ingredient ingredient, int amount = 0)
-    {
-        drinkController.AddIngredient(ingredient, amount);
-    }
+        public void AddIngredient(Ingredient ingredient, int amount = 0)
+        {
+            drinkController.AddIngredient(ingredient, amount);
+        }
 
-    public void SelectGlass(Glass glass)
-    {
-        drinkController.SetGlass(glass);
-    }
+        public void SelectGlass(Glass glass)
+        {
+            drinkController.SetGlass(glass);
+        }
 
-    public DrinkController GetDrink()
-    {
-        return drinkController;
-    }
+        public DrinkController GetDrink()
+        {
+            return drinkController;
+        }
 
-    public void AddIce()
-    {
-        drinkController.AddIce();
-    }
+        public void AddIce()
+        {
+            drinkController.AddIce();
+        }
 
-    public void FinishDrink()
-    {
-        drinkController.Spawn();
-        ResetDrink();
-    }
+        public void FinishDrink()
+        {
+            drinkController.Spawn();
+            ResetDrink();
+        }
 
-    public void ResetDrink()
-    {
-        DestroyImmediate(drinkController, true);
-        StartNewDrink();
+        public void ResetDrink()
+        {
+            DestroyImmediate(drinkController, true);
+            StartNewDrink();
+        }
     }
 }

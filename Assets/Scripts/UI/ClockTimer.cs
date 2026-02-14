@@ -1,30 +1,34 @@
+using Game;
 using TMPro;
 using UnityEngine;
 
-public class ClockTimer : MonoBehaviour
+namespace UI
 {
-    [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] TextMeshProUGUI dayOfWeekText;
-
-    private void Start()
+    public class ClockTimer : MonoBehaviour
     {
-        TimeController.Instance.OnDayChanged += UpdateDayOfWeek;
-        UpdateDayOfWeek(TimeController.Instance.DayOfWeek());
-    }
+        [SerializeField] TextMeshProUGUI timerText;
+        [SerializeField] TextMeshProUGUI dayOfWeekText;
 
-    void Update()
-    {
-        if (TimeController.Instance != null && timerText != null)
+        private void Start()
         {
-            timerText.text = TimeController.Instance.GetTimeString();
+            TimeController.Instance.OnDayChanged += UpdateDayOfWeek;
+            UpdateDayOfWeek(TimeController.Instance.DayOfWeek());
         }
-    }
 
-    void UpdateDayOfWeek(TimeController.Day dayOfWeek)
-    {
-        if (TimeController.Instance != null && dayOfWeekText != null)
+        void Update()
         {
-            dayOfWeekText.text = dayOfWeek.ToString();
+            if (TimeController.Instance != null && timerText != null)
+            {
+                timerText.text = TimeController.Instance.GetTimeString();
+            }
+        }
+
+        void UpdateDayOfWeek(TimeController.Day dayOfWeek)
+        {
+            if (TimeController.Instance != null && dayOfWeekText != null)
+            {
+                dayOfWeekText.text = dayOfWeek.ToString();
+            }
         }
     }
 }

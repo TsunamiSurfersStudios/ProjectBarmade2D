@@ -1,32 +1,35 @@
-using System;
+using Player;
 using UnityEngine;
 
-public class HoldableObject : MonoBehaviour
+namespace Objects
 {
-    protected ItemHolder itemHolder;
-    public GameObject item;
-
-    protected void Start()
+    public class HoldableObject : MonoBehaviour
     {
-        if (itemHolder == null)
+        protected ItemHolder itemHolder;
+        public GameObject item;
+
+        protected void Start()
         {
-            itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+            if (itemHolder == null)
+            {
+                itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+            }
         }
-    }
 
-    public void GiveToPlayer()
-    {
-        itemHolder.GiveObject(gameObject);
-    }
-
-    public void Spawn()
-    {
-        GameObject clone = GameObject.Instantiate(item);
-        if (itemHolder == null)
+        public void GiveToPlayer()
         {
-            itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+            itemHolder.GiveObject(gameObject);
         }
-        itemHolder.GiveObject(clone);
-        clone.SetActive(true);
+
+        public void Spawn()
+        {
+            GameObject clone = GameObject.Instantiate(item);
+            if (itemHolder == null)
+            {
+                itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+            }
+            itemHolder.GiveObject(clone);
+            clone.SetActive(true);
+        }
     }
 }

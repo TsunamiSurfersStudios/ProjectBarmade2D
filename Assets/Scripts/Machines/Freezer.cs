@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using Game;
+using Player;
 using UnityEngine;
 
-public class Freezer : MonoBehaviour
+namespace Machines
 {
-    [SerializeField] GameObject bucket;
-    public void GetIce()
+    public class Freezer : MonoBehaviour
     {
-        ItemHolder holder = ItemHolder.Instance;
-
-        if (holder && holder.IsEmpty())
+        [SerializeField] GameObject bucket;
+        public void GetIce()
         {
-            holder.Spawn(bucket);
-            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IceMachineInteracted);
+            ItemHolder holder = ItemHolder.Instance;
+
+            if (holder && holder.IsEmpty())
+            {
+                holder.Spawn(bucket);
+                GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.IceMachineInteracted);
+            }
         }
     }
 }

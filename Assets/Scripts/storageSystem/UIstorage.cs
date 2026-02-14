@@ -1,30 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StorageUI : MonoBehaviour
+namespace storageSystem
 {
-    public ScrollRect scrollRect;
-    public int totalPages = 3; // total number of pages
-    private float[] pagePositions;
-
-    void Start()
+    public class StorageUI : MonoBehaviour
     {
-        pagePositions = new float[totalPages];
-        float step = 1f / (totalPages - 1);
+        public ScrollRect scrollRect;
+        public int totalPages = 3; // total number of pages
+        private float[] pagePositions;
 
-        for (int i = 0; i < totalPages; i++)
+        void Start()
         {
-            pagePositions[i] = i * step;
+            pagePositions = new float[totalPages];
+            float step = 1f / (totalPages - 1);
+
+            for (int i = 0; i < totalPages; i++)
+            {
+                pagePositions[i] = i * step;
+            }
         }
-    }
 
-    public void ScrollToPage(int pageIndex)
-    {
-        if (pageIndex >= 0 && pageIndex < totalPages)
+        public void ScrollToPage(int pageIndex)
         {
-            scrollRect.horizontalNormalizedPosition = pagePositions[pageIndex];
+            if (pageIndex >= 0 && pageIndex < totalPages)
+            {
+                scrollRect.horizontalNormalizedPosition = pagePositions[pageIndex];
+            }
         }
     }
 }

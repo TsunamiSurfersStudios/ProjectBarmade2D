@@ -1,23 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
-public class Dishwasher : MonoBehaviour
+namespace Machines
 {
-    private ItemHolder itemHolder;
-
-    private void Start()
+    public class Dishwasher : MonoBehaviour
     {
-        itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
-    }
+        private ItemHolder itemHolder;
 
-    public IEnumerator WashDishes()
-    { 
-        if (!itemHolder.IsEmpty()) { 
-            itemHolder.DestroyObject();
-            Debug.Log("Washing dishes...");
-            yield return new WaitForSeconds(5);
-            Debug.Log("Dishes are clean");
+        private void Start()
+        {
+            itemHolder = GameObject.FindWithTag("Player").GetComponentInChildren<ItemHolder>();
+        }
+
+        public IEnumerator WashDishes()
+        { 
+            if (!itemHolder.IsEmpty()) { 
+                itemHolder.DestroyObject();
+                Debug.Log("Washing dishes...");
+                yield return new WaitForSeconds(5);
+                Debug.Log("Dishes are clean");
+            }
         }
     }
 }

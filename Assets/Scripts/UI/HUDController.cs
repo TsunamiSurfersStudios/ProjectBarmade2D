@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HUDController : MonoBehaviour
+namespace UI
 {
-    [SerializeField] GameObject interactionText;
-
-    public void ShowInteractionText(string keybind = "E")
+    public class HUDController : MonoBehaviour
     {
-        TextMeshProUGUI textMeshPro = interactionText.GetComponent<TextMeshProUGUI>();
-        textMeshPro.text = "Press " + keybind + " to use station";
-        interactionText.SetActive(true);
-    }
+        [SerializeField] GameObject interactionText;
 
-    public void HideInteractionText()
-    {
-        interactionText.SetActive(false);
+        public void ShowInteractionText(string keybind = "E")
+        {
+            TextMeshProUGUI textMeshPro = interactionText.GetComponent<TextMeshProUGUI>();
+            textMeshPro.text = "Press " + keybind + " to use station";
+            interactionText.SetActive(true);
+        }
+
+        public void HideInteractionText()
+        {
+            interactionText.SetActive(false);
+        }
     }
 }

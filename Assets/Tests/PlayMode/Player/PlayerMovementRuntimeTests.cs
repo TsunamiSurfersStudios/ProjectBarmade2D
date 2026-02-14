@@ -1,85 +1,85 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
-using UnityEditor.SceneManagement;
+using Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-public class PlayerMovementRuntimeTests
+namespace Tests.PlayMode.Player
 {
-    GameObject player;
-    PlayerMovement playerMovement;
-
-    [SetUp]
-    public void SetUp()
+    public class PlayerMovementRuntimeTests
     {
-        player = GameObject.Find("PlayerBartender");
-        playerMovement = player.GetComponent<PlayerMovement>();
-        playerMovement.StartTesting();
-    }
+        GameObject player;
+        PlayerMovement playerMovement;
 
-    [Test]
-    public void VerifyApplicationPlaying()
-    {
-        Assert.That(Application.isPlaying, Is.True);
-    }
+        [SetUp]
+        public void SetUp()
+        {
+            player = GameObject.Find("PlayerBartender");
+            playerMovement = player.GetComponent<PlayerMovement>();
+            playerMovement.StartTesting();
+        }
 
-    [Test]
-    [LoadScene("Assets/Scenes/PlayTests.unity")]
-    public void VerifyPlayerMovementComponent()
-    {
-        PlayerMovement playerMovement = GameObject.FindObjectOfType<PlayerMovement>();
-        Assert.IsNotNull(playerMovement, "PlayerMovement component not found in the scene.");
-    }
+        [Test]
+        public void VerifyApplicationPlaying()
+        {
+            Assert.That(Application.isPlaying, Is.True);
+        }
 
-    [UnityTest]
-    [LoadScene("Assets/Scenes/PlayTests.unity")]
-    public IEnumerator HandleMovement_MoveUp()
-    {
-        Vector3 initialPosition = player.transform.position;
+        [Test]
+        [LoadScene("Assets/Scenes/PlayTests.unity")]
+        public void VerifyPlayerMovementComponent()
+        {
+            PlayerMovement playerMovement = GameObject.FindObjectOfType<PlayerMovement>();
+            Assert.IsNotNull(playerMovement, "PlayerMovement component not found in the scene.");
+        }
+
+        [UnityTest]
+        [LoadScene("Assets/Scenes/PlayTests.unity")]
+        public IEnumerator HandleMovement_MoveUp()
+        {
+            Vector3 initialPosition = player.transform.position;
      
-        playerMovement.SetMovement(0f, 1f);
-        yield return new WaitForFixedUpdate();
+            playerMovement.SetMovement(0f, 1f);
+            yield return new WaitForFixedUpdate();
 
-        Assert.Greater(player.transform.position.y, initialPosition.y);
-    }
+            Assert.Greater(player.transform.position.y, initialPosition.y);
+        }
 
-    [UnityTest]
-    [LoadScene("Assets/Scenes/PlayTests.unity")]
-    public IEnumerator HandleMovement_MoveDown()
-    {
-        Vector3 initialPosition = player.transform.position;
+        [UnityTest]
+        [LoadScene("Assets/Scenes/PlayTests.unity")]
+        public IEnumerator HandleMovement_MoveDown()
+        {
+            Vector3 initialPosition = player.transform.position;
 
-        playerMovement.SetMovement(0f, -1f);
-        yield return new WaitForFixedUpdate();
+            playerMovement.SetMovement(0f, -1f);
+            yield return new WaitForFixedUpdate();
 
-        Assert.Less(player.transform.position.y, initialPosition.y);
-    }
+            Assert.Less(player.transform.position.y, initialPosition.y);
+        }
 
-    [UnityTest]
-    [LoadScene("Assets/Scenes/PlayTests.unity")]
-    public IEnumerator HandleMovement_MoveLeft()
-    {
-        Vector3 initialPosition = player.transform.position;
+        [UnityTest]
+        [LoadScene("Assets/Scenes/PlayTests.unity")]
+        public IEnumerator HandleMovement_MoveLeft()
+        {
+            Vector3 initialPosition = player.transform.position;
 
-        playerMovement.SetMovement(-1f, 0f);
-        yield return new WaitForFixedUpdate();
+            playerMovement.SetMovement(-1f, 0f);
+            yield return new WaitForFixedUpdate();
 
-        Assert.Less(player.transform.position.x, initialPosition.x);
-    }
+            Assert.Less(player.transform.position.x, initialPosition.x);
+        }
 
 
-    [UnityTest]
-    [LoadScene("Assets/Scenes/PlayTests.unity")]
-    public IEnumerator HandleMovement_MoveRight()
-    {
-        Vector3 initialPosition = player.transform.position;
+        [UnityTest]
+        [LoadScene("Assets/Scenes/PlayTests.unity")]
+        public IEnumerator HandleMovement_MoveRight()
+        {
+            Vector3 initialPosition = player.transform.position;
 
-        playerMovement.SetMovement(1f, 0f);
-        yield return new WaitForFixedUpdate();
+            playerMovement.SetMovement(1f, 0f);
+            yield return new WaitForFixedUpdate();
 
-        Assert.Greater(player.transform.position.x, initialPosition.x);
+            Assert.Greater(player.transform.position.x, initialPosition.x);
+        }
     }
 }
