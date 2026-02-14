@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -35,11 +33,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (mAnimator) // TODO: Handle animations should be in a function
         {
-            mAnimator.SetBool("isBack", Input.GetKey(KeyCode.W));
-            mAnimator.SetBool("isRight", Input.GetKey(KeyCode.D));
-            mAnimator.SetBool("isForward", Input.GetKey(KeyCode.S));
-            mAnimator.SetBool("isLeft", Input.GetKey(KeyCode.A));
+            mAnimator.SetBool("isBack", Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow));
+            mAnimator.SetBool("isRight", Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow));
+            mAnimator.SetBool("isForward", Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow));
+            mAnimator.SetBool("isLeft", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow));
         }
+
+        // Adjust item holder positition
+        bool isBackwards = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+        ItemHolder.Instance.SwitchPosition(!isBackwards);
     }
 
     void FixedUpdate()

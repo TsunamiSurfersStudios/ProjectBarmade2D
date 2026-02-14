@@ -12,7 +12,11 @@ GameObject:
   - component: {fileID: 9220837803158217748}
   - component: {fileID: 3820473556280206576}
   - component: {fileID: 5461621226974851472}
-  - component: {fileID: 2178868066424671309}
+  - component: {fileID: -5241088018894657990}
+  - component: {fileID: -2939474554072549054}
+  - component: {fileID: 5087123041288314272}
+  - component: {fileID: 7181103285298722997}
+  - component: {fileID: 172770427401546522}
   m_Layer: 0
   m_Name: CocktailGlassSprite
   m_TagString: Untagged
@@ -73,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1484465501
-  m_SortingLayer: 3
+  m_SortingLayerID: -1504589739
+  m_SortingLayer: 6
   m_SortingOrder: 6
   m_Sprite: {fileID: -7373265051137909216, guid: 6244022cd75089d4baa4fbd590725846, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -159,7 +163,59 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15364777, y: 0.16553019}
   m_EdgeRadius: 0
---- !u!114 &2178868066424671309
+--- !u!114 &-5241088018894657990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318265293359288683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+--- !u!114 &-2939474554072549054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318265293359288683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+--- !u!114 &5087123041288314272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318265293359288683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+--- !u!114 &7181103285298722997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318265293359288683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7192e4f8578fd4a8d34cbbdab32754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+--- !u!114 &172770427401546522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
