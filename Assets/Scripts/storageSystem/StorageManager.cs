@@ -1,57 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
+using DrinkSystem;
 using UnityEngine;
 
-public class StorageManager : MonoBehaviour
+namespace storageSystem
 {
-    public StorageSystem backStorage;
-    public StorageSystem barStorage;
-
-    // Add drink to the back storage
-    public void AddDrinkToBack(Ingredient drink, float amount)
+    public class StorageManager : MonoBehaviour
     {
-        StorageSystem.Storage existing = backStorage.storageList
-             .Find(s => s.drink == drink);
+        public StorageSystem backStorage;
+        public StorageSystem barStorage;
 
-        if (existing != null)
+        // Add drink to the back storage
+        public void AddDrinkToBack(Ingredient drink, float amount)
         {
-            existing.quantity += amount;
-        }
-        else
-        {
-            backStorage.storageList.Add(new StorageSystem.Storage(drink, amount));
-        }
-    }
+            StorageSystem.Storage existing = backStorage.storageList
+                .Find(s => s.drink == drink);
 
-    // Move drink from one storage to another
-    public void MoveDrink(StorageSystem from, StorageSystem to, Ingredient drink, float amount)
-    {
-        // find the source entry
-        StorageSystem.Storage source = from.storageList.Find(s => s.drink == drink);
-
-        if (source == null || source.quantity < amount)
-        {
-            Debug.Log("Not enough drink in source storage");
-            return;
+            if (existing != null)
+            {
+                existing.quantity += amount;
+            }
+            else
+            {
+                backStorage.storageList.Add(new StorageSystem.Storage(drink, amount));
+            }
         }
 
-        // subtract from source
-        source.quantity -= amount;
-
-        // remove if empty
-        if (source.quantity <= 0f)
-            from.storageList.Remove(source);
-
-        // find destination entry
-        StorageSystem.Storage destination = to.storageList.Find(s => s.drink == drink);
-
-        if (destination != null)
+        // Move drink from one storage to another
+        public void MoveDrink(StorageSystem from, StorageSystem to, Ingredient drink, float amount)
         {
-            destination.quantity += amount;
-        }
-        else
-        {
-            to.storageList.Add(new StorageSystem.Storage(drink, amount));
+            // find the source entry
+            StorageSystem.Storage source = from.storageList.Find(s => s.drink == drink);
+
+            if (source == null || source.quantity < amount)
+            {
+                Debug.Log("Not enough drink in source storage");
+                return;
+            }
+
+            // subtract from source
+            source.quantity -= amount;
+
+            // remove if empty
+            if (source.quantity <= 0f)
+                from.storageList.Remove(source);
+
+            // find destination entry
+            StorageSystem.Storage destination = to.storageList.Find(s => s.drink == drink);
+
+            if (destination != null)
+            {
+                destination.quantity += amount;
+            }
+            else
+            {
+                to.storageList.Add(new StorageSystem.Storage(drink, amount));
+            }
         }
     }
 }

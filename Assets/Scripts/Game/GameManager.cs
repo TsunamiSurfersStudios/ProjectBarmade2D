@@ -1,36 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Game
 {
-    public int currentLevel { get; private set; }
-    private static GameManager _instance;
-    public static GameManager Instance { get { return _instance; } }
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (_instance != null && _instance != this)
+        public int currentLevel { get; private set; }
+        private static GameManager _instance;
+        public static GameManager Instance { get { return _instance; } }
+
+        private void Awake()
         {
-            Destroy(this);
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                _instance = this;
+            }
+            DontDestroyOnLoad(this);
         }
-        else
+
+        public void Start()
         {
-            _instance = this;
+            currentLevel = 0; // start at 0
+            GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, LevelUp);
         }
-        DontDestroyOnLoad(this);
-    }
 
-    public void Start()
-    {
-        currentLevel = 0; // start at 0
-        GameEventManager.Instance.Subscribe(GameEventManager.GameEvent.LevelComplete, LevelUp);
-    }
-
-    public void LevelUp()
-    {
-        currentLevel += 1;
-        Debug.Log($"current level: {currentLevel}");
+        public void LevelUp()
+        {
+            currentLevel += 1;
+            Debug.Log($"current level: {currentLevel}");
+        }
     }
 }

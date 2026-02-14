@@ -1,61 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private float moveSpeed;
-
-    Rigidbody2D rb;
-    private Vector2 movement;
-    private Animator mAnimator;
-    private bool inTestMode;
-
-    void Start()
+    public class PlayerMovement : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-        mAnimator = GetComponent<Animator>();
-    }
+        [SerializeField] private float moveSpeed;
 
-    void SetMovement()
-    {
-        if (!inTestMode)
+        Rigidbody2D rb;
+        private Vector2 movement;
+        private Animator mAnimator;
+        private bool inTestMode;
+
+        void Start()
         {
-            SetMovement(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            rb = GetComponent<Rigidbody2D>();
+            mAnimator = GetComponent<Animator>();
         }
-    }
-    public void SetMovement(float x, float y)
-    {
-        movement.x = x;
-        movement.y = y;
-        movement = movement.normalized;// Normalize movement to prevent faster diagonal movement
-    }
 
-    void HandleAnimations()
-    {
-        if (mAnimator) // TODO: Handle animations should be in a function
+        void SetMovement()
         {
-            mAnimator.SetBool("isBack", Input.GetKey(KeyCode.W));
-            mAnimator.SetBool("isRight", Input.GetKey(KeyCode.D));
-            mAnimator.SetBool("isForward", Input.GetKey(KeyCode.S));
-            mAnimator.SetBool("isLeft", Input.GetKey(KeyCode.A));
+            if (!inTestMode)
+            {
+                SetMovement(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            }
         }
-    }
+        public void SetMovement(float x, float y)
+        {
+            movement.x = x;
+            movement.y = y;
+            movement = movement.normalized;// Normalize movement to prevent faster diagonal movement
+        }
 
-    void FixedUpdate()
-    {
-        SetMovement();
+        void HandleAnimations()
+        {
+            if (mAnimator) // TODO: Handle animations should be in a function
+            {
+                mAnimator.SetBool("isBack", Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow));
+                mAnimator.SetBool("isRight", Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow));
+                mAnimator.SetBool("isForward", Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow));
+                mAnimator.SetBool("isLeft", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow));
+            }
 
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-    }
+            // Adjust item holder positition
+            bool isBackwards = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+            ItemHolder.Instance.SwitchPosition(!isBackwards);
+        }
 
-    void Update()
-    {
-        HandleAnimations();
-    }
-    public void StartTesting()
-    {
-        inTestMode = true;
+        void FixedUpdate()
+        {
+            SetMovement();
+
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+
+        void Update()
+        {
+            HandleAnimations();
+        }
+        public void StartTesting()
+        {
+            inTestMode = true;
+        }
     }
 }
 

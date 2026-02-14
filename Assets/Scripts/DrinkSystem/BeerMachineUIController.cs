@@ -1,55 +1,57 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-[Serializable]
-public class BeerInfo
+namespace DrinkSystem
 {
-    public GameObject image;
-    public Ingredient ingredient;
-}
-public class BeerMachineUIController : MonoBehaviour
-{
-    DrinkMixingService drinkMixingService;
-    [SerializeField] List<BeerInfo> beerInfos;
-    [SerializeField] UnityEvent OnClickComplete;
-    void Start()
+    [Serializable]
+    public class BeerInfo
     {
-        drinkMixingService = gameObject.GetComponent<DrinkMixingService>();
-        if (drinkMixingService == null)
-        {
-            Debug.LogError("DrinkMixingService component not found on BeerMachineUIController Gameobj.");
-        }
-
-        foreach (BeerInfo beerInfo in beerInfos)
-        {
-            AddClickTrigger(beerInfo.image, () => OnClick(beerInfo.ingredient));
-        }
+        public GameObject image;
+        public Ingredient ingredient;
     }
-
-    void OnClick(Ingredient ingredient)
+    public class BeerMachineUIController : MonoBehaviour
     {
-        drinkMixingService.StartNewDrink();
-        drinkMixingService.AddIngredient(ingredient);
-        drinkMixingService.FinishDrink();
-        OnClickComplete.Invoke();
-    }
-
-    void AddClickTrigger(GameObject obj, UnityAction callback)
-    {
-        EventTrigger trigger = obj.GetComponent<EventTrigger>();
-        if (trigger == null)
+        DrinkMixingService drinkMixingService;
+        [SerializeField] List<BeerInfo> beerInfos;
+        [SerializeField] UnityEvent OnClickComplete;
+        void Start()
         {
-            trigger = obj.AddComponent<EventTrigger>();
+            drinkMixingService = gameObject.GetComponent<DrinkMixingService>();
+            if (drinkMixingService == null)
+            {
+                Debug.LogError("DrinkMixingService component not found on BeerMachineUIController Gameobj.");
+            }
+
+            foreach (BeerInfo beerInfo in beerInfos)
+            {
+                AddClickTrigger(beerInfo.image, () => OnClick(beerInfo.ingredient));
+            }
         }
 
-        // Create a new PointerClick entry
-        EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerClick;
-        entry.callback.AddListener((data) => { callback.Invoke(); });
-        trigger.triggers.Add(entry);
+        void OnClick(Ingredient ingredient)
+        {
+            drinkMixingService.StartNewDrink();
+            drinkMixingService.AddIngredient(ingredient);
+            drinkMixingService.FinishDrink();
+            OnClickComplete.Invoke();
+        }
+
+        void AddClickTrigger(GameObject obj, UnityAction callback)
+        {
+            EventTrigger trigger = obj.GetComponent<EventTrigger>();
+            if (trigger == null)
+            {
+                trigger = obj.AddComponent<EventTrigger>();
+            }
+
+            // Create a new PointerClick entry
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            entry.callback.AddListener((data) => { callback.Invoke(); });
+            trigger.triggers.Add(entry);
+        }
     }
 }

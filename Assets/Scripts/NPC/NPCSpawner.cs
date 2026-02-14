@@ -1,97 +1,101 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class NPCSpawner : MonoBehaviour
+namespace NPC
 {
-    private int executeTime; // TODO: Unclear variable name
-
-    [SerializeField] int minSpawnWait;
-    [SerializeField] int maxSpawnWait;
-    [SerializeField] GameObject NPCObject;
-    [SerializeField] GameObject spawnPoint;
-
-    private bool isSpawning = false;
-    List<NPCController> controllerList = new List<NPCController>();
-
-    private void Start()
+    public class NPCSpawner : MonoBehaviour
     {
-        GameEventManager.Instance.Subscribe(GameEventManager.Command.SpawnNPC, SpawnOnCommand);
-    }
-    public void SetWaitTimes(int minWait, int maxWait)
-    {
-        minSpawnWait = minWait;
-        maxSpawnWait = maxWait;
-    }
+        private int executeTime; // TODO: Unclear variable name
 
-    public void StartSpawning()
-    {
-        executeTime = Mathf.RoundToInt(Time.time) + Random.Range(minSpawnWait, maxSpawnWait);
-        isSpawning = true;
-    }
+        [SerializeField] int minSpawnWait;
+        [SerializeField] int maxSpawnWait;
+        [FormerlySerializedAs("NPCObject")] [SerializeField] GameObject npcObject;
+        [SerializeField] GameObject spawnPoint;
 
-    public void StopSpawning()
-    {
-        isSpawning = false; 
-    }
+        private bool isSpawning = false;
+        List<NPCController> controllerList = new List<NPCController>();
 
-    public void EndDay()
-    {
-        foreach (NPCController controller in controllerList)
+        private void Start()
         {
-            controller.Leave();
+            GameEventManager.Instance.Subscribe(GameEventManager.Command.SpawnNPC, SpawnOnCommand);
+            GameEventManager.Instance.Subscribe(GameEventManager.Command.StartDay, SpawnOnCommand);
         }
-        controllerList.Clear();
-    }
-
-    void Update()
-    {
-        if (!isSpawning)
+        public void SetWaitTimes(int minWait, int maxWait)
         {
-            return;
+            minSpawnWait = minWait;
+            maxSpawnWait = maxWait;
         }
 
-        if (Mathf.RoundToInt(Time.time) == executeTime && Spawn())
+        public void StartSpawning()
         {
-            executeTime = executeTime + Random.Range(minSpawnWait, maxSpawnWait);
+            executeTime = Mathf.RoundToInt(Time.time) + Random.Range(minSpawnWait, maxSpawnWait);
+            isSpawning = true;
         }
-    }
 
-    private void SpawnOnCommand()
-    {
-        Spawn();
-    }
-    private bool Spawn()
-    {
-        GameObject seat = GetAvaliableSeat();
-        if (seat)
+        public void StopSpawning()
         {
-            Vector2 spawnPosition = spawnPoint.transform.position; // Get the spawn position from the spawn point
-            GameObject NPC = Instantiate(NPCObject, spawnPosition, Quaternion.identity);
-            NPCController controller = NPC.GetComponent<NPCController>();
-            controllerList.Add(controller);
-
-            controller.SetSeat(seat); // Give NPC seat property
-            NPC.SetActive(true); // Show NPC
-            seat.GetComponent<NPCObjects>().SetOccupied(true); // Set seat as occupied
-            GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.NPCSpawned, NPC);
-
-            return true;
+            isSpawning = false; 
         }
-        return false;
-    }
 
-    private GameObject GetAvaliableSeat()
-    {
-        foreach (GameObject seat in GameObject.FindGameObjectsWithTag("Seat")) // TODO: This could be a function bool isSeatAvaliable()
+        public void EndDay()
         {
-            // Check if the seat is occupied
-            if (!seat.GetComponent<NPCObjects>().GetOccupied())
+            foreach (NPCController controller in controllerList)
             {
-                return seat;
+                controller.Leave();
+            }
+            controllerList.Clear();
+        }
+
+        void Update()
+        {
+            if (!isSpawning)
+            {
+                return;
+            }
+
+            if (Mathf.RoundToInt(Time.time) == executeTime && Spawn())
+            {
+                executeTime = executeTime + Random.Range(minSpawnWait, maxSpawnWait);
             }
         }
-        return null;
+
+        private void SpawnOnCommand()
+        {
+            Spawn();
+        }
+        private bool Spawn()
+        {
+            GameObject seat = GetAvaliableSeat();
+            if (seat)
+            {
+                Vector2 spawnPosition = spawnPoint.transform.position; // Get the spawn position from the spawn point
+                GameObject NPC = Instantiate(npcObject, spawnPosition, Quaternion.identity);
+                NPCController controller = NPC.GetComponent<NPCController>();
+                controllerList.Add(controller);
+
+                controller.SetSeat(seat); // Give NPC seat property
+                NPC.SetActive(true); // Show NPC
+                seat.GetComponent<NPCObjects>().SetOccupied(true); // Set seat as occupied
+                GameEventManager.Instance.TriggerEvent(GameEventManager.GameEvent.NPCSpawned, NPC);
+
+                return true;
+            }
+            return false;
+        }
+
+        private GameObject GetAvaliableSeat()
+        {
+            foreach (GameObject seat in GameObject.FindGameObjectsWithTag("Seat")) // TODO: This could be a function bool isSeatAvaliable()
+            {
+                // Check if the seat is occupied
+                if (!seat.GetComponent<NPCObjects>().GetOccupied())
+                {
+                    return seat;
+                }
+            }
+            return null;
+        }
     }
 }

@@ -74,3 +74,6 @@ crashlytics-build.properties
 
 #Batch Files
 *.bat
+
+#JetBrains
+*.idea

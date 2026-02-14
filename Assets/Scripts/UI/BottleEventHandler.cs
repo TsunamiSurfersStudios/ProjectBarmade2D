@@ -1,32 +1,35 @@
 // Event handler component attached to each bottle
-using UnityEngine.EventSystems;
+
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class BottleEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace UI
 {
-    private Bottle bottle;
-    private BottleHoverEffect hoverEffect;
-
-    public void Initialize(Bottle bottle, BottleHoverEffect hoverEffect)
+    public class BottleEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        this.bottle = bottle;
-        this.hoverEffect = hoverEffect;
-    }
+        private Bottle bottle;
+        private BottleHoverEffect hoverEffect;
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (hoverEffect != null)
+        public void Initialize(Bottle bottle, BottleHoverEffect hoverEffect)
         {
-            hoverEffect.OnBottleHoverEnter(bottle);
+            this.bottle = bottle;
+            this.hoverEffect = hoverEffect;
         }
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (hoverEffect != null)
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            hoverEffect.OnBottleHoverExit(bottle);
+            if (hoverEffect != null)
+            {
+                hoverEffect.OnBottleHoverEnter(bottle);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (hoverEffect != null)
+            {
+                hoverEffect.OnBottleHoverExit(bottle);
+            }
         }
     }
 }

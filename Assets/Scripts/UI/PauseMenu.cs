@@ -1,75 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
+using Game;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+namespace UI
 {
-    private GameObject pauseMenu;
-    PlayerInteractions interactions;
-
-    [SerializeField] KeyCode KEYBIND = KeyCode.Escape;
-
-    private bool isPaused;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PauseMenu : MonoBehaviour
     {
-        pauseMenu = GameObject.Find("PauseMenu");
-        pauseMenu.SetActive(false);
+        [SerializeField] GameObject pauseMenu;
+        PlayerInteractions interactions;
 
-    }
+        [SerializeField] KeyCode KEYBIND = KeyCode.Escape;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KEYBIND)) {
+        private bool isPaused;
 
-            if (isPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
-   
-        }
-    }
-
-    public void ResumeGame()
-    {
-        pauseMenu.SetActive(false);
-
-        Time.timeScale = 1f; //TODO: Add this to TimeController
-        isPaused = false;
-    }
-
-    public void PauseGame()
-    {
-        pauseMenu.SetActive(true);
-
-        Time.timeScale = 0f;
-        isPaused = true;
-    }
-
-    public void QuitGame()
-    {
-        if (Application.isPlaying)
+        // Start is called before the first frame update
+        void Start()
         {
-            Application.Quit();
+            pauseMenu = GameObject.Find("PauseMenu");
+            pauseMenu.SetActive(false);
         }
-        else
+
+        void Update()
         {
-            Debug.Log("Quiting Game");
-            //UnityEditor.EditorApplication.isPlaying = false;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (isPaused) PauseGame();
+                else ResumeGame();
+            }
+        }
 
+        public void ResumeGame()
+        {
+            pauseMenu.SetActive(false);
+            TimeController.Instance.StartTime();
+            isPaused = false;
+        }
+
+        public void PauseGame()
+        {
+            pauseMenu.SetActive(true);
+            TimeController.Instance.StopTime();
+            isPaused = true;
+        }
+
+        public void QuitGame()
+        {
+            if (Application.isPlaying)
+                Application.Quit();
+            else Debug.Log("Quitting Game");
+        }
+
+        public void MainMenu()
+        {
+            SceneManager.LoadScene("MainMenu"); 
         }
     }
-
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("MainMenu"); 
-    }
-
 }
